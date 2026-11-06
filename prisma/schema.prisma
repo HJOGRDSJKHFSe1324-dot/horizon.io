@@ -1,0 +1,388 @@
+// HORIZON - Prisma schema
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  USER
+  ADMIN
+}
+
+enum PlanSlug {
+  FREE
+  PLUS
+  PRO
+  ULTRA
+}
+
+enum SubscriptionStatus {
+  ACTIVE
+  CANCELED
+  PAST_DUE
+  INCOMPLETE
+  TRIALING
+  EXPIRED
+}
+
+enum ModelTier {
+  FREE
+  PAID
+}
+
+enum PaymentStatus {
+  PENDING
+  SUCCEEDED
+  FAILED
+  REFUNDED
+  CHARGEBACK
+}
+
+enum ConversionStatus {
+  PENDING
+  PROCESSING
+  SUCCEEDED
+  FAILED
+  MANUAL_REQUIRED
+}
+
+enum WithdrawalStatus {
+  REQUESTED
+  APPROVED
+  SENT
+  CONFIRMED
+  FAILED
+  CANCELLED
+}
+
+enum BenchmarkRunStatus {
+  QUEUED
+  RUNNING
+  COMPLETED
+  FAILED
+  CANCELLED
+}
+
+model User {
+  id                 String    @id @default(cuid())
+  name               String?
+  email              String    @unique
+  emailVerified      DateTime?
+  image              String?
+  passwordHash       String?
+  role               UserRole  @default(USER)
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
+
+  // Token accounting (server authoritative)
+  tokenBalance       Int       @default(0)
+  freeAllowance      Int       @default(200000)
+  freeTokensUsed     Int       @default(0)
+  freeResetAt        DateTime?
+  cooldownUntil      DateTime?
+
+  // Profile
+  settings           Json?
+
+  accounts           Account[]
+  sessions           Session[]
+  conversations      Conversation[]
+  messages           Message[]
+  tokenTransactions  TokenTransaction[]
+  subscription       Subscription?
+  payments           Payment[]
+  bitcoinWithdrawals BitcoinWithdrawal[]
+  benchmarkResults   BenchmarkResult[]
+
+  @@index([email])
+  @@index([role])
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@index([userId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+model Model {
+  id             String   @id @default(cuid())
+  name           String   @unique
+  slug           String   @unique
+  description    String
+  tier           ModelTier @default(PAID)
+  enabled        Boolean  @default(true)
+  // Minimum plan slug required to use this model (FREE etc.)
+  minPlan        PlanSlug @default(FREE)
+  // Local inference integration
+  apiBaseUrl     String?  // e.g. http://tunnel/... (server side config)
+  apiModelId     String?  // model id sent to inference server
+  apiType        String   @default("openai-compatible")
+  badge          String?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  conversations  Conversation[]
+  messages       Message[]
+  transactions   TokenTransaction[]
+  benchmarkResults BenchmarkResult[]
+
+  @@index([slug])
+  @@index([enabled])
+}
+
+model Plan {
+  id               String   @id @default(cuid())
+  name             String
+  slug             PlanSlug @unique
+  priceGbp         Int      // pence
+  tokenAllowance   Int
+  billingInterval  String   @default("month") // month
+  priority         Int      @default(0)
+  description      String?
+  features         Json?
+  modelAccess      Json?    // array of model slugs
+  stripePriceId    String?
+  active           Boolean  @default(true)
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  subscriptions    Subscription[]
+  payments         Payment[]
+}
+
+model Subscription {
+  id                    String             @id @default(cuid())
+  userId                String             @unique
+  planId                String
+  stripeCustomerId      String?
+  stripeSubscriptionId  String?
+  status                SubscriptionStatus @default(INCOMPLETE)
+  currentPeriodStart    DateTime?
+  currentPeriodEnd      DateTime?
+  cancelAtPeriodEnd     Boolean            @default(false)
+  createdAt             DateTime           @default(now())
+  updatedAt             DateTime           @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  plan Plan @relation(fields: [planId], references: [id])
+
+  @@index([stripeSubscriptionId])
+  @@index([status])
+}
+
+model Conversation {
+  id        String   @id @default(cuid())
+  userId    String
+  modelId   String?
+  title     String   @default("New conversation")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user     User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  model    Model?    @relation(fields: [modelId], references: [id])
+  messages Message[]
+
+  @@index([userId])
+  @@index([updatedAt])
+}
+
+model Message {
+  id             String   @id @default(cuid())
+  conversationId String
+  userId         String?
+  role           String   // user | assistant | system
+  content        String
+  modelId        String?
+  inputTokens    Int      @default(0)
+  outputTokens   Int      @default(0)
+  totalTokens    Int      @default(0)
+  createdAt      DateTime @default(now())
+
+  conversation Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  user         User?        @relation(fields: [userId], references: [id])
+  model        Model?       @relation(fields: [modelId], references: [id])
+
+  @@index([conversationId])
+}
+
+model TokenTransaction {
+  id             String   @id @default(cuid())
+  userId         String
+  conversationId String?
+  messageId      String?
+  modelId        String?
+  type           String   // usage | grant | reset | refund | subscription
+  amount         Int      // positive grant, negative usage
+  inputTokens    Int      @default(0)
+  outputTokens   Int      @default(0)
+  balanceAfter   Int
+  createdAt      DateTime @default(now())
+
+  user  User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  model Model? @relation(fields: [modelId], references: [id])
+
+  @@index([userId])
+  @@index([createdAt])
+}
+
+model Payment {
+  id                    String        @id @default(cuid())
+  userId                String?
+  planId                String?
+  stripePaymentIntentId String?       @unique
+  stripeInvoiceId       String?
+  amountGbp             Int           // pence
+  currency              String        @default("GBP")
+  status                PaymentStatus @default(PENDING)
+  feesGbp               Int           @default(0)
+  description           String?
+  createdAt             DateTime      @default(now())
+  updatedAt             DateTime      @updatedAt
+
+  user   User?              @relation(fields: [userId], references: [id])
+  plan   Plan?              @relation(fields: [planId], references: [id])
+  conversions BitcoinConversion[]
+
+  @@index([userId])
+  @@index([status])
+}
+
+model BitcoinConversion {
+  id               String            @id @default(cuid())
+  paymentId        String?
+  gbpAmount        Int               // pence input
+  btcAmount        Decimal?          @db.Decimal(18, 8)
+  exchangeRate     Decimal?          @db.Decimal(18, 8)
+  conversionFeeGbp Int               @default(0)
+  networkFeeBtc    Decimal?          @db.Decimal(18, 8)
+  netBtcSent       Decimal?          @db.Decimal(18, 8)
+  targetAddress    String
+  provider         String?
+  externalRef      String?
+  txid             String?
+  status           ConversionStatus  @default(PENDING)
+  createdAt        DateTime          @default(now())
+  confirmedAt      DateTime?
+
+  payment Payment? @relation(fields: [paymentId], references: [id])
+
+  @@index([status])
+  @@index([paymentId])
+}
+
+model BitcoinWithdrawal {
+  id         String           @id @default(cuid())
+  userId     String?             // admin who initiated
+  gbpValue   Int?
+  btcAmount  Decimal?         @db.Decimal(18, 8)
+  address    String
+  txid       String?
+  status     WithdrawalStatus @default(REQUESTED)
+  notes      String?
+  createdAt  DateTime         @default(now())
+  updatedAt  DateTime         @updatedAt
+
+  user User? @relation(fields: [userId], references: [id])
+
+  @@index([status])
+}
+
+model BenchmarkTest {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  prompt      String
+  category    String   // reasoning | coding | math | knowledge | speed
+  expected    String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  results BenchmarkResult[]
+}
+
+model BenchmarkResult {
+  id              String              @id @default(cuid())
+  testId          String
+  modelId         String
+  runnerUserId    String?
+  status          BenchmarkRunStatus  @default(COMPLETED)
+  // Measured metrics
+  tokensPerSecond Decimal?            @db.Decimal(10, 3)
+  latencyMs       Int?
+  inputTokens     Int?
+  outputTokens    Int?
+  rawOutput       String?
+  // Category scores (0-100), nullable when not measured
+  reasoningScore  Decimal?            @db.Decimal(5, 2)
+  codingScore     Decimal?            @db.Decimal(5, 2)
+  mathScore       Decimal?            @db.Decimal(5, 2)
+  knowledgeScore  Decimal?            @db.Decimal(5, 2)
+  overallScore    Decimal?            @db.Decimal(5, 2)
+  manuallyEntered Boolean            @default(false)
+  published       Boolean            @default(false)
+  createdAt       DateTime           @default(now())
+
+  test   BenchmarkTest @relation(fields: [testId], references: [id], onDelete: Cascade)
+  model  Model         @relation(fields: [modelId], references: [id])
+  runner User?         @relation(fields: [runnerUserId], references: [id])
+
+  @@index([modelId])
+  @@index([published])
+}
+
+model AdminSetting {
+  id        String   @id @default(cuid())
+  key       String   @unique
+  value     Json
+  updatedAt DateTime @updatedAt
+}
+
+model ServerHealth {
+  id            String   @id @default(cuid())
+  status        String
+  latencyMs     Int?
+  cpuPercent    Float?
+  gpuPercent    Float?
+  gpuMemoryMb   Int?
+  uptimeSeconds Int?
+  modelsOnline  Json?
+  createdAt     DateTime @default(now())
+
+  @@index([createdAt])
+}
