@@ -66,7 +66,7 @@ async fn load_env() {
 
 fn models() -> Vec<String> {
     env::var("MODELS")
-        .unwrap_or_else(|_| "zenith-1.1,halo-1.5,halo-2.5".to_string())
+        .unwrap_or_else(|_| "Zenith-1.1:latest,Halo-1:latest,Halo2.5:latest,Nova5.2:latest,Nova5.4-Ultra:latest".to_string())
         .split(',')
         .map(|s| s.trim().trim_matches('"').trim_matches('\'').to_string())
         .filter(|s| !s.is_empty())
