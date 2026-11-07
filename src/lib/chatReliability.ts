@@ -231,7 +231,7 @@ export function classifyChatError(error: unknown, response?: Response | null): C
       };
     }
     if (!response.ok) {
-      let message = `Request failed (${response.status}).`;
+      const message = `Request failed (${response.status}).`;
       return {
         kind: "unknown",
         type: "unknown",
