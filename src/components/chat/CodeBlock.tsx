@@ -4,6 +4,7 @@ import { useState, useCallback } from "react";
 import { Copy, Check } from "lucide-react";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { oneDark } from "react-syntax-highlighter/dist/esm/styles/prism";
+import { copyToClipboard } from "@/lib/clipboard";
 
 export interface CodeBlockProps {
   code: string;
@@ -17,8 +18,8 @@ export default function CodeBlock({ code, language, className }: CodeBlockProps)
 
   const handleCopy = useCallback(async () => {
     try {
-      await navigator.clipboard.writeText(code);
-      setCopied(true);
+      const ok = await copyToClipboard(code);
+      if (ok) setCopied(true);
       window.setTimeout(() => setCopied(false), 1500);
     } catch {
       // Clipboard may be unavailable; fail silently.

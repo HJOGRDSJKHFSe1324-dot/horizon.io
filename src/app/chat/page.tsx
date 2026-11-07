@@ -11,6 +11,7 @@ const MarkdownContent = dynamic(() => import("@/components/chat/MarkdownContent"
   loading: () => <span className="text-slate-500 text-sm">Loading…</span>,
 });
 import Dropdown from "@/components/Dropdown";
+import { copyToClipboard } from "@/lib/clipboard";
 import { siteCopy } from "@/content/site-copy";
 import { useChatStore } from "@/lib/chat-store";
 import { useChatStream } from "@/hooks/useChatStream";
