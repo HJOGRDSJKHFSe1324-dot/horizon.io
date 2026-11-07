@@ -6,6 +6,7 @@ import { useSession } from "next-auth/react";
 import { Copy, Trash2, Plus, Send, RefreshCw, Pencil, Square } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import Dropdown from "@/components/Dropdown";
+import { siteCopy } from "@/content/site-copy";
 
 function useCountdown(iso: string | null) {
   const [label, setLabel] = useState("");
@@ -116,7 +117,7 @@ function ChatInner() {
     loadConversations();
   }
   async function deleteConv(id: string) {
-    if (!confirm("Delete conversation?")) return;
+    if (!confirm(siteCopy.chat.deleteConfirm)) return;
     await fetch(`/api/conversations/${id}`, { method: "DELETE" });
     if (activeId === id) { setActiveId(null); setMessages([]); }
     loadConversations();
@@ -126,7 +127,7 @@ function ChatInner() {
 
   async function ensureConversation() {
     if (activeId) return activeId;
-    const r = await fetch("/api/conversations", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ modelSlug, title: "New conversation" }) });
+    const r = await fetch("/api/conversations", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ modelSlug, title: siteCopy.chat.newConversationTitle }) });
     const c = await r.json();
     if (c?.id) { setActiveId(c.id); return c.id; }
     return null;
@@ -139,7 +140,7 @@ function ChatInner() {
     const r = await fetch("/api/attachments", { method: "POST", body: form });
     const t = await r.text(); let d: any = {}; try { d = t ? JSON.parse(t) : {}; } catch {}
     if (r.ok && d?.id) setAttachments(prev => [...prev, d]);
-    else alert(d.error || "Upload failed");
+    else alert(d.error || siteCopy.chat.attachments.uploadFailed);
   }
 
   async function removeAttachment(id: string) {
@@ -313,8 +314,8 @@ function ChatInner() {
               className=""
             />
             <div className="flex items-center gap-6 text-xs text-slate-400">
-              <div>Tokens left: <span className="text-white font-medium">{tokenInfo?.remainingTokens ?? "—"}</span></div>
-              {cooldownUntil && <div>Cooldown: <span className="text-amber-400 font-medium">{cooldownLabel}</span></div>}
+              <div>{siteCopy.chat.tokensLeft}: <span className="text-white font-medium">{tokenInfo?.remainingTokens ?? "—"}</span></div>
+              {cooldownUntil && <div>{siteCopy.chat.cooldown}: <span className="text-amber-400 font-medium">{cooldownLabel}</span></div>}
               <div>{selectedModelInfo?.name}</div>
             </div>
           </div>
@@ -322,7 +323,18 @@ function ChatInner() {
           {/* messages */}
           <div ref={scrollRef} className="flex-1 overflow-y-auto scrollbar-thin px-6 py-6 space-y-6">
             {messages.length === 0 && (
-              <div className="text-center text-slate-500 mt-20">Start a conversation.</div>
+              <div className="text-center text-slate-500 mt-20 space-y-4">
+                <div className="text-lg text-slate-300">{siteCopy.chat.emptyTitle}</div>
+                <div className="text-sm">{siteCopy.chat.emptyBody}</div>
+                <div className="flex flex-wrap justify-center gap-2 mt-4">
+                  {siteCopy.chat.suggestedPrompts.map((prompt) => (
+                    <button key={prompt} onClick={() => setInput(prompt)} className="text-xs px-3 py-1.5 rounded-full bg-white/10 hover:bg-white/15 border border-white/10">
+                      {prompt}
+                    </button>
+                  ))}
+                </div>
+                <div className="text-xs text-slate-600">{siteCopy.chat.emptyStatePromptHint}</div>
+              </div>
             )}
             {messages.map((m) => (
               <div key={m.id} className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}>
@@ -363,7 +375,7 @@ function ChatInner() {
                   value={input}
                   onChange={e=>setInput(e.target.value)}
                   onKeyDown={e => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); send(); } }}
-                  placeholder="Message HORIZON..."
+                  placeholder={siteCopy.chat.composerPlaceholder}
                   rows={1}
                   className="w-full resize-none px-3 py-2 bg-transparent outline-none text-sm"
                 />
@@ -421,7 +433,7 @@ function ChatInner() {
 
 export default function ChatPage() {
   return (
-    <Suspense fallback={<div className="p-10">Loading...</div>}>
+    <Suspense fallback={<div className="p-10">{siteCopy.chat.loading}</div>}>
       <ChatInner />
     </Suspense>
   );

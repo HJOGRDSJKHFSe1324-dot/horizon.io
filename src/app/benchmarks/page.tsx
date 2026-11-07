@@ -1,6 +1,7 @@
 "use client";
 import Nav from "@/components/Nav";
 import { useEffect, useState } from "react";
+import { siteCopy } from "@/content/site-copy";
 
 export default function BenchmarksPage() {
   const [data, setData] = useState<any>(null);
@@ -31,21 +32,21 @@ export default function BenchmarksPage() {
   return (
     <main><Nav />
       <div className="max-w-7xl mx-auto px-6 py-16">
-        <h1 className="text-4xl font-semibold mb-2">Horizon Benchmarks</h1>
-        <p className="text-slate-400 mb-10">Real measured results from running identical tests against each model.</p>
+        <h1 className="text-4xl font-semibold mb-2">{siteCopy.benchmarks.title}</h1>
+        <p className="text-slate-400 mb-10">{siteCopy.benchmarks.subtitle}</p>
 
         <div className="grid md:grid-cols-3 gap-6 mb-12">
           {models.map((m: any) => (
             <div key={m.id} className="glass rounded-2xl p-6">
               <h3 className="text-xl font-semibold">{m.name}</h3>
               <div className="mt-4 grid grid-cols-2 gap-4 text-sm">
-                <div><div className="text-slate-500">Tokens/sec</div><div className="text-2xl font-bold">{avgTps(m.slug) ?? "—"}</div></div>
-                <div><div className="text-slate-500">Avg latency</div><div className="text-2xl font-bold">{avgLat(m.slug) != null ? `${avgLat(m.slug)}ms` : "—"}</div></div>
-                <div><div className="text-slate-500">Reasoning</div><div className="text-2xl font-bold">{avg(m.slug, "reasoningScore") ?? "—"}</div></div>
-                <div><div className="text-slate-500">Coding</div><div className="text-2xl font-bold">{avg(m.slug, "codingScore") ?? "—"}</div></div>
-                <div><div className="text-slate-500">Math</div><div className="text-2xl font-bold">{avg(m.slug, "mathScore") ?? "—"}</div></div>
-                <div><div className="text-slate-500">Knowledge</div><div className="text-2xl font-bold">{avg(m.slug, "knowledgeScore") ?? "—"}</div></div>
-                <div className="col-span-2"><div className="text-slate-500">Overall</div><div className="text-3xl font-bold">{avg(m.slug, "overallScore") ?? "—"}</div></div>
+                <div><div className="text-slate-500">{siteCopy.benchmarks.labels.tokensPerSecond}</div><div className="text-2xl font-bold">{avgTps(m.slug) ?? "—"}</div></div>
+                <div><div className="text-slate-500">{siteCopy.benchmarks.labels.averageLatency}</div><div className="text-2xl font-bold">{avgLat(m.slug) != null ? `${avgLat(m.slug)}ms` : "—"}</div></div>
+                <div><div className="text-slate-500">{siteCopy.benchmarks.labels.reasoning}</div><div className="text-2xl font-bold">{avg(m.slug, "reasoningScore") ?? "—"}</div></div>
+                <div><div className="text-slate-500">{siteCopy.benchmarks.labels.coding}</div><div className="text-2xl font-bold">{avg(m.slug, "codingScore") ?? "—"}</div></div>
+                <div><div className="text-slate-500">{siteCopy.benchmarks.labels.math}</div><div className="text-2xl font-bold">{avg(m.slug, "mathScore") ?? "—"}</div></div>
+                <div><div className="text-slate-500">{siteCopy.benchmarks.labels.knowledge}</div><div className="text-2xl font-bold">{avg(m.slug, "knowledgeScore") ?? "—"}</div></div>
+                <div className="col-span-2"><div className="text-slate-500">{siteCopy.benchmarks.labels.overall}</div><div className="text-3xl font-bold">{avg(m.slug, "overallScore") ?? "—"}</div></div>
               </div>
             </div>
           ))}
@@ -56,8 +57,8 @@ export default function BenchmarksPage() {
           <table className="w-full text-sm">
             <thead className="text-slate-400 border-b border-white/5">
               <tr>
-                <th className="text-left p-3">Model</th><th className="text-left p-3">Test</th><th className="text-left p-3">Category</th>
-                <th className="p-3">Tokens/sec</th><th className="p-3">Latency ms</th><th className="p-3">Overall</th><th className="p-3">Measured/Manual</th>
+                <th className="text-left p-3">{siteCopy.benchmarks.table.model}</th><th className="text-left p-3">{siteCopy.benchmarks.table.test}</th><th className="text-left p-3">{siteCopy.benchmarks.table.category}</th>
+                <th className="p-3">{siteCopy.benchmarks.table.tokensPerSecond}</th><th className="p-3">{siteCopy.benchmarks.table.latencyMs}</th><th className="p-3">{siteCopy.benchmarks.table.overall}</th><th className="p-3">{siteCopy.benchmarks.table.measuredManual}</th>
               </tr>
             </thead>
             <tbody>
@@ -69,16 +70,16 @@ export default function BenchmarksPage() {
                   <td className="p-3 text-center">{r.tokensPerSecond != null ? Number(r.tokensPerSecond).toFixed(1) : "—"}</td>
                   <td className="p-3 text-center">{r.latencyMs ?? "—"}</td>
                   <td className="p-3 text-center">{r.overallScore != null ? Number(r.overallScore).toFixed(0) : "—"}</td>
-                  <td className="p-3 text-center">{r.manuallyEntered ? "Manual" : "Measured"}</td>
+                  <td className="p-3 text-center">{r.manuallyEntered ? siteCopy.benchmarks.table.manual : siteCopy.benchmarks.table.measured}</td>
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
-        {results.length === 0 && <p className="text-slate-500 mt-6">No published benchmark results yet.</p>}
+        {results.length === 0 && <p className="text-slate-500 mt-6">{siteCopy.benchmarks.noResults}</p>}
         <div className="mt-12">
-          <h2 className="text-2xl font-semibold mb-4">MMLU-Pro sample results</h2>
-          <img src="/MMLU_PRO_SCORES.png" alt="MMLU-Pro benchmark scores by model" className="rounded-2xl border border-white/10 max-w-full" />
+          <h2 className="text-2xl font-semibold mb-4">{siteCopy.benchmarks.mmluTitle}</h2>
+          <img src="/MMLU_PRO_SCORES.png" alt={siteCopy.benchmarks.mmluAlt} className="rounded-2xl border border-white/10 max-w-full" />
         </div>
       </div>
     </main>
