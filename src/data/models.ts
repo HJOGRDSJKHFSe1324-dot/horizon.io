@@ -14,7 +14,7 @@
 
 export type ModelTier = "FREE" | "PAID";
 
-export type PlanSlug = "FREE" | "PLUS" | "PRO" | "ULTRA";
+export type PlanSlug = "FREE" | "PLUS" | "PRO" | "PRO";
 
 export type BenchmarkStatus = "verified" | "unverified";
 
@@ -134,8 +134,8 @@ export const modelsData: ModelData[] = [
     slug: "halo-2.5",
     tier: "PAID",
     minPlan: "PRO",
-    badge: "FLAGSHIP MODEL",
-    description: "Flagship Horizon model with top-tier performance.",
+    badge: "PREMIUM MODEL",
+    description: "Deep Paid model for long-form analysis and generation.",
     parameters: "9B",
     enabled: true,
     strengths: [
@@ -164,7 +164,7 @@ export const modelsData: ModelData[] = [
     name: "Nova 5.2",
     slug: "nova-5.2",
     tier: "PAID",
-    minPlan: "ULTRA",
+    minPlan: "PRO",
     badge: "ULTRA EXCLUSIVE",
     description: "An independent ultra-tier knowledge-first model, reserved for Ultra subscribers.",
     parameters: "12B",
@@ -179,15 +179,15 @@ export const modelsData: ModelData[] = [
     name: "Nova 5.4 Ultra",
     slug: "nova-5.4-ultra",
     tier: "PAID",
-    minPlan: "ULTRA",
-    badge: "FLAGSHIP ADMIN",
-    description: "The most powerful, smartest AI model HORIZON has ever released. Admin-preview only.",
+    minPlan: "PRO",
+    badge: "FLAGSHIP MODEL",
+    description: "The most powerful, smartest AI model HORIZON has ever released. Now available to Pro and above.",
     parameters: "26B",
-    enabled: false,
+    enabled: true,
     strengths: ['Described as the most powerful, smartest HORIZON model released (database record)'],
     weaknesses: [
-      'Admin-preview only; not generally available',
       'No published HORIZON benchmark results yet (unverified)',
+      'Largest footprint; slower than smaller models',
     ],
     benchmarks: { ...UNVERIFIED_BENCHMARKS },
   },

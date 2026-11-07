@@ -55,8 +55,8 @@ export const siteCopy = {
         chip: "Free",
       },
       {
-        name: "Halo 2.5",
-        slug: "halo-2.5",
+        name: "Nova 5.4 Ultra",
+        slug: "nova-5.4-ultra",
         tag: "FLAGSHIP",
         desc: "Our deepest model for long-form analysis and generation.",
         chip: "Max",
@@ -65,7 +65,7 @@ export const siteCopy = {
   },
   modelsPage: {
     title: "Models",
-    freeNote: "Zenith-1.1 is free. Halo 1.5, Halo 2.5, and Nova 5.2 are paid; Nova 5.2 requires Ultra.",
+    freeNote: "Zenith-1.1 and Halo 1.5 are free. Halo 2.5, Nova 5.2, and Nova 5.4 Ultra are paid; all paid models require Pro.",
     plansLabel: "Plan",
     plansLabelPlural: "Plans",
     available: "Available",

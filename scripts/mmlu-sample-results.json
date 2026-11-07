@@ -1,0 +1,653 @@
+{
+  "sampleSize": 12,
+  "questions": [
+    {
+      "id": 1,
+      "category": "Math",
+      "correct": "B"
+    },
+    {
+      "id": 2,
+      "category": "Physics",
+      "correct": "B"
+    },
+    {
+      "id": 3,
+      "category": "Law",
+      "correct": "C"
+    },
+    {
+      "id": 4,
+      "category": "Psychology",
+      "correct": "D"
+    },
+    {
+      "id": 5,
+      "category": "History",
+      "correct": "B"
+    },
+    {
+      "id": 6,
+      "category": "Computer Science",
+      "correct": "B"
+    },
+    {
+      "id": 7,
+      "category": "Biology",
+      "correct": "D"
+    },
+    {
+      "id": 8,
+      "category": "Chemistry",
+      "correct": "C"
+    },
+    {
+      "id": 9,
+      "category": "Economics",
+      "correct": "B"
+    },
+    {
+      "id": 10,
+      "category": "Engineering",
+      "correct": "C"
+    },
+    {
+      "id": 11,
+      "category": "Philosophy",
+      "correct": "C"
+    },
+    {
+      "id": 12,
+      "category": "Medicine",
+      "correct": "C"
+    }
+  ],
+  "models": {
+    "Zenith-1.1:latest": {
+      "total": 12,
+      "correct": 10,
+      "accuracy": 83.3,
+      "averageLatencyMs": 69,
+      "averageTokensPerSecond": 31.3,
+      "rows": [
+        {
+          "questionId": 1,
+          "category": "Math",
+          "correct": "B",
+          "answer": "C",
+          "raw": "C",
+          "correctFlag": false,
+          "latencyMs": 447
+        },
+        {
+          "questionId": 2,
+          "category": "Physics",
+          "correct": "B",
+          "answer": "B",
+          "raw": "B",
+          "correctFlag": true,
+          "latencyMs": 37
+        },
+        {
+          "questionId": 3,
+          "category": "Law",
+          "correct": "C",
+          "answer": "C",
+          "raw": "C",
+          "correctFlag": true,
+          "latencyMs": 34
+        },
+        {
+          "questionId": 4,
+          "category": "Psychology",
+          "correct": "D",
+          "answer": "D",
+          "raw": "D",
+          "correctFlag": true,
+          "latencyMs": 40
+        },
+        {
+          "questionId": 5,
+          "category": "History",
+          "correct": "B",
+          "answer": "B",
+          "raw": "B) ITALY",
+          "correctFlag": true,
+          "latencyMs": 46
+        },
+        {
+          "questionId": 6,
+          "category": "Computer Science",
+          "correct": "B",
+          "answer": "B",
+          "raw": "B",
+          "correctFlag": true,
+          "latencyMs": 33
+        },
+        {
+          "questionId": 7,
+          "category": "Biology",
+          "correct": "D",
+          "answer": "A",
+          "raw": "A",
+          "correctFlag": false,
+          "latencyMs": 33
+        },
+        {
+          "questionId": 8,
+          "category": "Chemistry",
+          "correct": "C",
+          "answer": "C",
+          "raw": "C",
+          "correctFlag": true,
+          "latencyMs": 33
+        },
+        {
+          "questionId": 9,
+          "category": "Economics",
+          "correct": "B",
+          "answer": "B",
+          "raw": "B",
+          "correctFlag": true,
+          "latencyMs": 33
+        },
+        {
+          "questionId": 10,
+          "category": "Engineering",
+          "correct": "C",
+          "answer": "C",
+          "raw": "C",
+          "correctFlag": true,
+          "latencyMs": 31
+        },
+        {
+          "questionId": 11,
+          "category": "Philosophy",
+          "correct": "C",
+          "answer": "C",
+          "raw": "C",
+          "correctFlag": true,
+          "latencyMs": 31
+        },
+        {
+          "questionId": 12,
+          "category": "Medicine",
+          "correct": "C",
+          "answer": "C",
+          "raw": "C",
+          "correctFlag": true,
+          "latencyMs": 34
+        }
+      ]
+    },
+    "Halo-1:latest": {
+      "total": 12,
+      "correct": 3,
+      "accuracy": 25,
+      "averageLatencyMs": 780,
+      "averageTokensPerSecond": 85.6,
+      "rows": [
+        {
+          "questionId": 1,
+          "category": "Math",
+          "correct": "B",
+          "answer": "E",
+          "raw": "THE CORRECT ANSWER IS B) 13.\n\nTO SOLVE THIS, WE NEED TO SQUARE THE GIVEN VALUES OF X AND Y, AND THEN ADD THEM TOGETHER.\n\nX^2 = (2)^2 = 4\n\nY^2 = (3)^2 = 9\n\nX^2 + Y^2 = 4 + 9 = 13\n\nSO, THE ANSWER IS 13.",
+          "correctFlag": false,
+          "latencyMs": 3356
+        },
+        {
+          "questionId": 2,
+          "category": "Physics",
+          "correct": "B",
+          "answer": "E",
+          "raw": "THE CORRECT ANSWER IS B) MASS * ACCELERATION.\n\nNEWTON'S SECOND LAW STATES THAT THE ACCELERATION OF AN OBJECT IS DIRECTLY PROPORTIONAL TO THE NET FORCE ACTING ON IT AND INVERSELY PROPORTIONAL TO ITS MASS. THE FORMULA FOR NEWTON'S SECOND LAW IS F = MA, WHERE F IS THE FORCE, M IS THE MASS, AND A IS THE ACCELERATION. SO THE CORRECT OPTION IS B) MASS * ACCELERATION.",
+          "correctFlag": false,
+          "latencyMs": 665
+        },
+        {
+          "questionId": 3,
+          "category": "Law",
+          "correct": "C",
+          "answer": "C",
+          "raw": "C) NEGLIGENCE IS A CIVIL WRONG OFTEN ENFORCED WITH DAMAGES RATHER THAN CRIMINAL PUNISHMENT.\n\nNEGLIGENCE IS A CIVIL WRONG THAT OCCURS WHEN SOMEONE FAILS TO TAKE REASONABLE CARE OF THEIR OWN AFFAIRS OR THE AFFAIRS OF OTHERS, RESULTING IN HARM. THE PERSON WHO IS NEGLIGENT MAY BE HELD LIABLE FOR DAMAGES TO THE AFFECTED PARTY, BUT THEY ARE NOT USUALLY PROSECUTED FOR CRIMINAL CHARGES. IN CONTRAST, OPTIONS A, B, AND D (MURDER, ROBBERY, AND TREASON) ARE CONSIDERED CRIMINAL OFFENSES, WHICH ARE TYPICALLY ENFORCED THROUGH CRIMINAL PROSECUTION AND PUNISHMENT.",
+          "correctFlag": true,
+          "latencyMs": 907
+        },
+        {
+          "questionId": 4,
+          "category": "Psychology",
+          "correct": "D",
+          "answer": "D",
+          "raw": "D) SENSORIMOTOR\n\nPIAGET'S THEORY OF COGNITIVE DEVELOPMENT INCLUDES A SERIES OF STAGES, WITH THE SENSORIMOTOR STAGE BEING THE FIRST ONE. THIS STAGE OCCURS FROM BIRTH TO APPROXIMATELY 2 YEARS OLD, WHERE INFANTS LEARN THROUGH SENSORY EXPERIENCES AND MOTOR SKILLS. AS THE CHILD DEVELOPS, THEY PROGRESS THROUGH THE PREOPERATIONAL, CONCRETE OPERATIONS, AND FORMAL OPERATIONS STAGES.",
+          "correctFlag": true,
+          "latencyMs": 618
+        },
+        {
+          "questionId": 5,
+          "category": "History",
+          "correct": "B",
+          "answer": "E",
+          "raw": "THE CORRECT ANSWER IS B) ITALY. THE RENAISSANCE ORIGINATED IN ITALY, PARTICULARLY IN FLORENCE, DURING THE 14TH TO 17TH CENTURIES. IT WAS A PERIOD OF GREAT CULTURAL, INTELLECTUAL, AND ARTISTIC REBIRTH AND FLOURISHING IN EUROPE, AND ITALY WAS THE EPICENTER OF THIS MOVEMENT DUE TO ITS RICH HISTORY OF TRADE, KNOWLEDGE, AND ARTISTIC INNOVATION.",
+          "correctFlag": false,
+          "latencyMs": 590
+        },
+        {
+          "questionId": 6,
+          "category": "Computer Science",
+          "correct": "B",
+          "answer": "E",
+          "raw": "THE AVERAGE AND BEST-CASE TIME COMPLEXITY OF QUICKSORT IS O(N LOG N). SO, THE CORRECT ANSWER IS B) O(N LOG N).",
+          "correctFlag": false,
+          "latencyMs": 275
+        },
+        {
+          "questionId": 7,
+          "category": "Biology",
+          "correct": "D",
+          "answer": "E",
+          "raw": "THE CORRECT ANSWER IS D) DNA -> RNA -> PROTEIN. THIS SEQUENCE DESCRIBES THE CENTRAL DOGMA OF MOLECULAR BIOLOGY, WHERE GENETIC INFORMATION FLOWS FROM DNA TO RNA TO PROTEINS.",
+          "correctFlag": false,
+          "latencyMs": 305
+        },
+        {
+          "questionId": 8,
+          "category": "Chemistry",
+          "correct": "C",
+          "answer": "E",
+          "raw": "THE CORRECT ANSWER IS C) NEUTRAL.\n\nA PH OF 7.0 IS THE NEUTRAL POINT ON THE PH SCALE. THE PH SCALE RANGES FROM 0 TO 14, WITH 0 BEING THE MOST ACIDIC AND 14 THE MOST BASIC. SOLUTIONS WITH A PH OF 7.0 ARE CONSIDERED TO BE NEUTRAL, INDICATING THAT THE CONCENTRATION OF HYDROGEN IONS (H+) IS EQUAL TO THE CONCENTRATION OF HYDROXIDE IONS (OH-). IN PURE WATER, THE NEUTRAL PH IS 7.0, AND THIS IS TYPICALLY THE CASE FOR MANY OTHER SOLUTIONS AS WELL.",
+          "correctFlag": false,
+          "latencyMs": 933
+        },
+        {
+          "questionId": 9,
+          "category": "Economics",
+          "correct": "B",
+          "answer": "E",
+          "raw": "THE CORRECT ANSWER IS B) EQUILIBRIUM. IN A COMPETITIVE MARKET, WHEN THE QUANTITY SUPPLIED EQUALS THE QUANTITY DEMANDED, THE MARKET HAS REACHED A STATE OF EQUILIBRIUM, WHERE THE SUPPLY AND DEMAND CURVES INTERSECT.",
+          "correctFlag": false,
+          "latencyMs": 359
+        },
+        {
+          "questionId": 10,
+          "category": "Engineering",
+          "correct": "C",
+          "answer": "C",
+          "raw": "C) OHMS. \n\nOHMS IS THE UNIT USED TO MEASURE ELECTRICAL RESISTANCE.",
+          "correctFlag": true,
+          "latencyMs": 170
+        },
+        {
+          "questionId": 11,
+          "category": "Philosophy",
+          "correct": "C",
+          "answer": "E",
+          "raw": "THE PHRASE 'I THINK, THEREFORE I AM' IS ASSOCIATED WITH THE PHILOSOPHER RENÉ DESCARTES, SO THE CORRECT ANSWER IS C) DESCARTES.",
+          "correctFlag": false,
+          "latencyMs": 287
+        },
+        {
+          "questionId": 12,
+          "category": "Medicine",
+          "correct": "C",
+          "answer": "E",
+          "raw": "THE CORRECT ANSWER IS C) 60 TO 100 BPM.\n\nA NORMAL RESTING HEART RATE FOR ADULTS IS TYPICALLY BETWEEN 60 AND 100 BEATS PER MINUTE (BPM). THIS RANGE VARIES DEPENDING ON FACTORS SUCH AS AGE, FITNESS LEVEL, AND OVERALL HEALTH, BUT 60 TO 100 BPM IS GENERALLY CONSIDERED WITHIN THE NORMAL RANGE. \n\nLOWER HEART RATES INDICATE A MORE EFFICIENT HEART, WHICH IS OFTEN A SIGN OF GOOD CARDIOVASCULAR FITNESS. ON THE OTHER HAND, HIGHER HEART RATES CAN BE A SIGN OF STRESS, ANXIETY, OR OTHER HEALTH CONDITIONS.",
+          "correctFlag": false,
+          "latencyMs": 896
+        }
+      ]
+    },
+    "Halo2.5:latest": {
+      "total": 12,
+      "correct": 0,
+      "accuracy": 0,
+      "averageLatencyMs": 8,
+      "averageTokensPerSecond": null,
+      "rows": [
+        {
+          "questionId": 1,
+          "category": "Math",
+          "correct": "B",
+          "answer": "",
+          "raw": "",
+          "correctFlag": false,
+          "latencyMs": 10
+        },
+        {
+          "questionId": 2,
+          "category": "Physics",
+          "correct": "B",
+          "answer": "",
+          "raw": "",
+          "correctFlag": false,
+          "latencyMs": 8
+        },
+        {
+          "questionId": 3,
+          "category": "Law",
+          "correct": "C",
+          "answer": "",
+          "raw": "",
+          "correctFlag": false,
+          "latencyMs": 7
+        },
+        {
+          "questionId": 4,
+          "category": "Psychology",
+          "correct": "D",
+          "answer": "",
+          "raw": "",
+          "correctFlag": false,
+          "latencyMs": 8
+        },
+        {
+          "questionId": 5,
+          "category": "History",
+          "correct": "B",
+          "answer": "",
+          "raw": "",
+          "correctFlag": false,
+          "latencyMs": 7
+        },
+        {
+          "questionId": 6,
+          "category": "Computer Science",
+          "correct": "B",
+          "answer": "",
+          "raw": "",
+          "correctFlag": false,
+          "latencyMs": 8
+        },
+        {
+          "questionId": 7,
+          "category": "Biology",
+          "correct": "D",
+          "answer": "",
+          "raw": "",
+          "correctFlag": false,
+          "latencyMs": 8
+        },
+        {
+          "questionId": 8,
+          "category": "Chemistry",
+          "correct": "C",
+          "answer": "",
+          "raw": "",
+          "correctFlag": false,
+          "latencyMs": 8
+        },
+        {
+          "questionId": 9,
+          "category": "Economics",
+          "correct": "B",
+          "answer": "",
+          "raw": "",
+          "correctFlag": false,
+          "latencyMs": 7
+        },
+        {
+          "questionId": 10,
+          "category": "Engineering",
+          "correct": "C",
+          "answer": "",
+          "raw": "",
+          "correctFlag": false,
+          "latencyMs": 9
+        },
+        {
+          "questionId": 11,
+          "category": "Philosophy",
+          "correct": "C",
+          "answer": "",
+          "raw": "",
+          "correctFlag": false,
+          "latencyMs": 8
+        },
+        {
+          "questionId": 12,
+          "category": "Medicine",
+          "correct": "C",
+          "answer": "",
+          "raw": "",
+          "correctFlag": false,
+          "latencyMs": 8
+        }
+      ]
+    },
+    "Nova5.2:latest": {
+      "total": 12,
+      "correct": 12,
+      "accuracy": 100,
+      "averageLatencyMs": 1550,
+      "averageTokensPerSecond": 3.9,
+      "rows": [
+        {
+          "questionId": 1,
+          "category": "Math",
+          "correct": "B",
+          "answer": "B",
+          "raw": "B",
+          "correctFlag": true,
+          "latencyMs": 15425
+        },
+        {
+          "questionId": 2,
+          "category": "Physics",
+          "correct": "B",
+          "answer": "B",
+          "raw": "B",
+          "correctFlag": true,
+          "latencyMs": 290
+        },
+        {
+          "questionId": 3,
+          "category": "Law",
+          "correct": "C",
+          "answer": "C",
+          "raw": "C",
+          "correctFlag": true,
+          "latencyMs": 286
+        },
+        {
+          "questionId": 4,
+          "category": "Psychology",
+          "correct": "D",
+          "answer": "D",
+          "raw": "D",
+          "correctFlag": true,
+          "latencyMs": 286
+        },
+        {
+          "questionId": 5,
+          "category": "History",
+          "correct": "B",
+          "answer": "B",
+          "raw": "B",
+          "correctFlag": true,
+          "latencyMs": 285
+        },
+        {
+          "questionId": 6,
+          "category": "Computer Science",
+          "correct": "B",
+          "answer": "B",
+          "raw": "B",
+          "correctFlag": true,
+          "latencyMs": 287
+        },
+        {
+          "questionId": 7,
+          "category": "Biology",
+          "correct": "D",
+          "answer": "D",
+          "raw": "D",
+          "correctFlag": true,
+          "latencyMs": 288
+        },
+        {
+          "questionId": 8,
+          "category": "Chemistry",
+          "correct": "C",
+          "answer": "C",
+          "raw": "C",
+          "correctFlag": true,
+          "latencyMs": 287
+        },
+        {
+          "questionId": 9,
+          "category": "Economics",
+          "correct": "B",
+          "answer": "B",
+          "raw": "B",
+          "correctFlag": true,
+          "latencyMs": 286
+        },
+        {
+          "questionId": 10,
+          "category": "Engineering",
+          "correct": "C",
+          "answer": "C",
+          "raw": "C",
+          "correctFlag": true,
+          "latencyMs": 285
+        },
+        {
+          "questionId": 11,
+          "category": "Philosophy",
+          "correct": "C",
+          "answer": "C",
+          "raw": "C",
+          "correctFlag": true,
+          "latencyMs": 287
+        },
+        {
+          "questionId": 12,
+          "category": "Medicine",
+          "correct": "C",
+          "answer": "C",
+          "raw": "C",
+          "correctFlag": true,
+          "latencyMs": 304
+        }
+      ]
+    },
+    "Nova5.4-Ultra:latest": {
+      "total": 12,
+      "correct": 12,
+      "accuracy": 100,
+      "averageLatencyMs": 3658,
+      "averageTokensPerSecond": 0.5,
+      "rows": [
+        {
+          "questionId": 1,
+          "category": "Math",
+          "correct": "B",
+          "answer": "B",
+          "raw": "B",
+          "correctFlag": true,
+          "latencyMs": 34138
+        },
+        {
+          "questionId": 2,
+          "category": "Physics",
+          "correct": "B",
+          "answer": "B",
+          "raw": "B",
+          "correctFlag": true,
+          "latencyMs": 916
+        },
+        {
+          "questionId": 3,
+          "category": "Law",
+          "correct": "C",
+          "answer": "C",
+          "raw": "C",
+          "correctFlag": true,
+          "latencyMs": 914
+        },
+        {
+          "questionId": 4,
+          "category": "Psychology",
+          "correct": "D",
+          "answer": "D",
+          "raw": "D",
+          "correctFlag": true,
+          "latencyMs": 882
+        },
+        {
+          "questionId": 5,
+          "category": "History",
+          "correct": "B",
+          "answer": "B",
+          "raw": "B",
+          "correctFlag": true,
+          "latencyMs": 873
+        },
+        {
+          "questionId": 6,
+          "category": "Computer Science",
+          "correct": "B",
+          "answer": "B",
+          "raw": "B",
+          "correctFlag": true,
+          "latencyMs": 892
+        },
+        {
+          "questionId": 7,
+          "category": "Biology",
+          "correct": "D",
+          "answer": "D",
+          "raw": "D",
+          "correctFlag": true,
+          "latencyMs": 873
+        },
+        {
+          "questionId": 8,
+          "category": "Chemistry",
+          "correct": "C",
+          "answer": "C",
+          "raw": "C",
+          "correctFlag": true,
+          "latencyMs": 864
+        },
+        {
+          "questionId": 9,
+          "category": "Economics",
+          "correct": "B",
+          "answer": "B",
+          "raw": "B",
+          "correctFlag": true,
+          "latencyMs": 899
+        },
+        {
+          "questionId": 10,
+          "category": "Engineering",
+          "correct": "C",
+          "answer": "C",
+          "raw": "C",
+          "correctFlag": true,
+          "latencyMs": 868
+        },
+        {
+          "questionId": 11,
+          "category": "Philosophy",
+          "correct": "C",
+          "answer": "C",
+          "raw": "C",
+          "correctFlag": true,
+          "latencyMs": 863
+        },
+        {
+          "questionId": 12,
+          "category": "Medicine",
+          "correct": "C",
+          "answer": "C",
+          "raw": "C",
+          "correctFlag": true,
+          "latencyMs": 918
+        }
+      ]
+    }
+  },
+  "ranAt": "2026-11-07T15:36:21.481Z"
+}
