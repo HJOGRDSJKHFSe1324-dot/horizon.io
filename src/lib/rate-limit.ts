@@ -16,7 +16,7 @@ export function rateLimit(key: string, limit: number, windowMs: number): { ok: b
 }
 
 export function getClientIp(req: Request): string {
-  const h = req.headers as any;
+  const h = req.headers;
   const xff = h.get?.("x-forwarded-for");
   if (xff) return xff.split(",")[0].trim();
   return h.get?.("x-real-ip") || "unknown";

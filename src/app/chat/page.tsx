@@ -241,10 +241,10 @@ function ChatInner() {
                   size="sm"
                   placement="up"
                 />
-                <button onClick={() => setThinkHarder((v: boolean) => !v)} className={`text-xs px-2 py-1 rounded-lg border ${thinkHarder ? "bg-cyan-500/20 border-cyan-400/40" : "bg-white/5 border-white/10"}`}>
+                <button onClick={() => setThinkHarder((v: boolean) => !v)} className={`text-xs px-2 py-1 rounded-lg border ${thinkHarder ? "bg-blue-500/20 border-blue-400/40" : "bg-white/5 border-white/10"}`}>
                   Think harder
                 </button>
-                <button onClick={() => setWebSearch((v: boolean) => !v)} className={`text-xs px-2 py-1 rounded-lg border ${webSearch ? "bg-cyan-500/20 border-cyan-400/40" : "bg-white/5 border-white/10"}`}>
+                <button onClick={() => setWebSearch((v: boolean) => !v)} className={`text-xs px-2 py-1 rounded-lg border ${webSearch ? "bg-blue-500/20 border-blue-400/40" : "bg-white/5 border-white/10"}`}>
                   Web search
                 </button>
               </div>

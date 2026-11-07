@@ -101,13 +101,13 @@ export default function Home() {
 
       <section className="max-w-7xl mx-auto px-6 py-16 reveal">
         <div className="glass rounded-3xl p-8 sm:p-12 text-center">
-          <Sparkles className="mx-auto mb-4 text-cyan-300" size={28} />
+          <Sparkles className="mx-auto mb-4 text-blue-300" size={28} />
           <h2 className="text-3xl sm:text-4xl font-semibold">{siteCopy.home.ctaTitle}</h2>
           <p className="text-[var(--muted)] mt-4 max-w-2xl mx-auto leading-relaxed">
             {siteCopy.home.ctaBody}
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-4">
-            <Link href="/pricing" className="px-6 py-3 rounded-full bg-gradient-to-r from-cyan-400 to-blue-500 text-black font-medium hover:opacity-90">
+            <Link href="/pricing" className="px-6 py-3 rounded-full bg-gradient-to-r from-blue-400 to-blue-500 text-black font-medium hover:opacity-90">
               {siteCopy.home.ctaPlans}
             </Link>
             <Link href="/benchmarks" className="px-6 py-3 rounded-full border border-[var(--border)] hover:bg-[var(--surface)]">

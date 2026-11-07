@@ -44,8 +44,8 @@ export default function PricingPage() {
             const info = planInfo[p.slug] || { desc: "", features: [] };
             const price = (p.priceGbp / 100).toFixed(2);
             return (
-              <div key={p.id} className={`glass rounded-2xl p-6 flex flex-col ${p.slug === "ULTRA" ? "border-cyan-400/30 glow" : ""}`}>
-                {info.highlight && <div className="text-xs text-cyan-300 mb-2 tracking-widest">{info.highlight.toUpperCase()}</div>}
+              <div key={p.id} className={`glass rounded-2xl p-6 flex flex-col ${p.slug === "ULTRA" ? "border-blue-400/30 glow" : ""}`}>
+                {info.highlight && <div className="text-xs text-blue-300 mb-2 tracking-widest">{info.highlight.toUpperCase()}</div>}
                 <h3 className="text-xl font-semibold">{p.name}</h3>
                 <p className="text-slate-400 text-sm mt-1">{info.desc}</p>
                 <div className="mt-4 text-4xl font-bold">&pound;{price}<span className="text-base text-slate-400 font-normal">{siteCopy.pricing.priceSuffix}</span></div>

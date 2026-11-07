@@ -141,13 +141,13 @@ export default function Dropdown({
         aria-label={selected?.label || placeholder}
         onClick={() => setOpen((v) => !v)}
         onKeyDown={onButtonKeyDown}
-        className={`flex items-center gap-1.5 rounded-lg border bg-white/5 ${sizes} transition-all duration-150 hover:bg-white/10 hover:border-cyan-400/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400/60 ${open ? "border-cyan-400/50 bg-white/10" : "border-white/10"}`}
+        className={`flex items-center gap-1.5 rounded-lg border bg-white/5 ${sizes} transition-all duration-150 hover:bg-white/10 hover:border-blue-400/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400/60 ${open ? "border-blue-400/50 bg-white/10" : "border-white/10"}`}
       >
         <span className="truncate max-w-[160px]">{selected?.label || placeholder}</span>
         <ChevronDown
           aria-hidden="true"
           size={12}
-          className={`transition-transform duration-200 ${open ? (rise ? "-rotate-180" : "rotate-180") + " text-cyan-300" : "text-slate-400"}`}
+          className={`transition-transform duration-200 ${open ? (rise ? "-rotate-180" : "rotate-180") + " text-blue-300" : "text-slate-400"}`}
         />
       </button>
       <AnimatePresence>
@@ -186,12 +186,12 @@ export default function Dropdown({
                     className={`w-full flex items-center gap-2 px-2.5 py-1.5 rounded-lg text-left transition duration-100 ${
                       opt.disabled
                         ? "opacity-40 cursor-not-allowed"
-                        : "hover:bg-cyan-500/15 hover:translate-x-0.5"
-                    } ${active ? "bg-cyan-500/10 text-cyan-200" : "text-slate-200"} ${highlighted ? "ring-1 ring-cyan-400/50" : ""}`}
+                        : "hover:bg-blue-500/15 hover:translate-x-0.5"
+                    } ${active ? "bg-blue-500/10 text-blue-200" : "text-slate-200"} ${highlighted ? "ring-1 ring-blue-400/50" : ""}`}
                   >
                     <span className="flex-1 truncate">{opt.label}</span>
                     {opt.hint && <span className="text-[10px] text-slate-500">{opt.hint}</span>}
-                    {active && <Check size={12} className="text-cyan-300" aria-hidden="true" />}
+                    {active && <Check size={12} className="text-blue-300" aria-hidden="true" />}
                   </button>
                 </li>
               );

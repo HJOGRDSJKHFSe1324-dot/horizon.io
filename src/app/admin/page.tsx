@@ -363,7 +363,7 @@ function BenchmarksTab({ data, models, refresh, setMsg }: any) {
           <button key={t.id} onClick={() => toggle(selectedTests, setSelectedTests, t.id)}
             className={`px-3 py-1 rounded-full text-xs ${selectedTests.includes(t.id) ? "bg-white text-black" : "bg-white/10"}`}>{t.name}</button>
         ))}</div>
-        <button onClick={run} className="mt-2 px-4 py-2 rounded-lg bg-gradient-to-r from-cyan-400 to-blue-500 text-black text-sm font-medium">Run benchmarks</button>
+        <button onClick={run} className="mt-2 px-4 py-2 rounded-lg bg-gradient-to-r from-blue-400 to-blue-500 text-black text-sm font-medium">Run benchmarks</button>
       </div>
       <div className="overflow-x-auto glass rounded-xl">
         <table className="w-full text-xs">

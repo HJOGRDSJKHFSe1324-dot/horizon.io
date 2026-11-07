@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 export default auth((req) => {
   const { pathname } = req.nextUrl;
   const isLoggedIn = !!req.auth;
-  const role = (req.auth?.user as any)?.role;
+  const role = (req.auth?.user as { role?: string } | null)?.role;
 
   if (pathname.startsWith("/admin")) {
     if (!isLoggedIn || role !== "ADMIN") {

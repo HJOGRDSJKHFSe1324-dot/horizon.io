@@ -337,7 +337,7 @@ const ChatInput = forwardRef<HTMLTextAreaElement, ChatInputProps>(function ChatI
       {/* Drag overlay */}
       {isDragging && (
         <div
-          className="absolute inset-0 z-40 flex items-center justify-center rounded-2xl border-2 border-dashed border-cyan-400/60 bg-cyan-500/10 text-cyan-200 text-sm pointer-events-none"
+          className="absolute inset-0 z-40 flex items-center justify-center rounded-2xl border-2 border-dashed border-blue-400/60 bg-blue-500/10 text-blue-200 text-sm pointer-events-none"
           aria-hidden="true"
         >
           <Paperclip size={16} className="mr-2" /> Drop files to attach
@@ -370,7 +370,7 @@ const ChatInput = forwardRef<HTMLTextAreaElement, ChatInputProps>(function ChatI
         </div>
       )}
 
-      <div className="rounded-2xl bg-white/5 border border-white/10 p-2 focus-within:border-cyan-400/40 transition-colors">
+      <div className="rounded-2xl bg-white/5 border border-white/10 p-2 focus-within:border-blue-400/40 transition-colors">
         <div className="relative">
           <textarea
             ref={textareaRef}
@@ -408,11 +408,11 @@ const ChatInput = forwardRef<HTMLTextAreaElement, ChatInputProps>(function ChatI
                     onMouseEnter={() => setSlashIndex(idx)}
                     onClick={() => selectSlashCommand(cmd)}
                     className={`w-full flex items-center gap-3 px-2.5 py-2 rounded-lg text-left transition-colors ${
-                      active ? "bg-cyan-500/15 text-cyan-100" : "text-slate-200 hover:bg-white/5"
+                      active ? "bg-blue-500/15 text-blue-100" : "text-slate-200 hover:bg-white/5"
                     }`}
                   >
                     <Command size={13} className="text-slate-400 shrink-0" aria-hidden="true" />
-                    <span className="font-mono text-xs text-cyan-300 shrink-0">/{cmd.name}</span>
+                    <span className="font-mono text-xs text-blue-300 shrink-0">/{cmd.name}</span>
                     <span className="flex-1 text-xs text-slate-300 truncate">{cmd.description}</span>
                     {cmd.usage && <span className="text-[10px] text-slate-500 shrink-0">{cmd.usage}</span>}
                   </button>
@@ -440,7 +440,7 @@ const ChatInput = forwardRef<HTMLTextAreaElement, ChatInputProps>(function ChatI
             <button
               type="button"
               onClick={() => fileInputRef.current?.click()}
-              className="text-xs px-2 py-1 rounded-lg bg-white/10 hover:bg-white/15 border border-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400/60"
+              className="text-xs px-2 py-1 rounded-lg bg-white/10 hover:bg-white/15 border border-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400/60"
               title="Add files"
               aria-label="Add files"
             >
@@ -466,7 +466,7 @@ const ChatInput = forwardRef<HTMLTextAreaElement, ChatInputProps>(function ChatI
                 type="button"
                 onClick={() => submitText()}
                 disabled={!canSend}
-                className="px-4 py-1.5 rounded-lg bg-white text-black disabled:opacity-40 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400/60 flex items-center gap-1.5"
+                className="px-4 py-1.5 rounded-lg bg-white text-black disabled:opacity-40 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400/60 flex items-center gap-1.5"
                 aria-label="Send message"
               >
                 <Send size={16} />

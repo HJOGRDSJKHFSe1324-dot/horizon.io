@@ -14,7 +14,7 @@ export async function getPromoEnd(): Promise<Date> {
   if (env) return new Date(env);
   try {
     const s = await prisma.adminSetting.findUnique({ where: { key: "model_promo_end_at" } });
-    if (s?.value) return new Date(s.value as any);
+    if (s?.value) return new Date(s.value as string);
   } catch {}
   return new Date(DEFAULT_PROMO_END);
 }
@@ -23,7 +23,7 @@ export async function isPromoActive(): Promise<boolean> {
   return (await getPromoEnd()).getTime() > Date.now();
 }
 
-export async function effectiveMinPlan(model: { slug: string; minPlan: any }): Promise<string> {
+export async function effectiveMinPlan(model: { slug: string; minPlan: unknown }): Promise<string> {
   // Fixed availability requested for HORIZON:
   // Zenith-1.1 and Halo 1.5 are free; Halo 2.5/Nova require paid plans.
   if (model.slug === "zenith-1.1" || model.slug === "halo-1.5") return "FREE";
