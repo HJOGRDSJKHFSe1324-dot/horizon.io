@@ -1,0 +1,138 @@
+/* HORIZON typography system (SA-02)
+   Families are self-hosted via next/font/google and exposed as:
+   --font-display, --font-body, --font-mono
+*/
+
+:root {
+  /* Type scale (px-equivalent rem units, 16px root) */
+  --text-12: 0.75rem;   /* 12 */
+  --text-14: 0.875rem;  /* 14 */
+  --text-16: 1rem;      /* 16 */
+  --text-18: 1.125rem;  /* 18 */
+  --text-20: 1.25rem;   /* 20 */
+  --text-24: 1.5rem;    /* 24 */
+  --text-32: 2rem;      /* 32 */
+  --text-40: 2.5rem;    /* 40 */
+  --text-48: 3rem;      /* 48 */
+
+  /* Line heights */
+  --leading-tight: 1.05;
+  --leading-snug: 1.15;
+  --leading-normal: 1.55;
+  --leading-loose: 1.7;
+
+  /* Measure / line length */
+  --measure-prose: 68ch;
+  --measure-narrow: 48ch;
+  --measure-text: 1120px;
+  --measure-content: 1280px;
+
+  /* Letter spacing */
+  --tracking-display: -0.02em;
+  --tracking-tight: -0.01em;
+  --tracking-normal: 0;
+  --tracking-wide: 0.08em;
+}
+
+/* Base body type */
+html {
+  font-family: var(--font-body, "Manrope"), ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+body {
+  font-family: var(--font-body, "Manrope"), ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-size: var(--text-16);
+  line-height: var(--leading-normal);
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Utility family classes */
+.font-display { font-family: var(--font-display, "Space Grotesk"), ui-sans-serif, system-ui, sans-serif; }
+.font-body { font-family: var(--font-body, "Manrope"), ui-sans-serif, system-ui, sans-serif; }
+.font-mono { font-family: var(--font-mono, "JetBrains Mono"), ui-monospace, "SFMono-Regular", Menlo, monospace; }
+
+/* Headings: display face, tight rhythm */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display, "Space Grotesk"), ui-sans-serif, system-ui, sans-serif;
+  font-weight: 600;
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-display);
+  text-wrap: balance;
+  margin: 0;
+}
+
+h1 { font-size: var(--text-48); font-weight: 600; line-height: 1.0; }
+h2 { font-size: var(--text-40); font-weight: 600; }
+h3 { font-size: var(--text-32); font-weight: 600; }
+h4 { font-size: var(--text-24); font-weight: 600; }
+h5 { font-size: var(--text-20); font-weight: 500; }
+h6 { font-size: var(--text-16); font-weight: 600; letter-spacing: var(--tracking-tight); }
+
+/* Paragraph spacing & rhythm */
+p { margin: 0 0 1rem; }
+p + p { margin-top: 0; }
+
+/* Prose / readable measure */
+.prose,
+.measure-prose {
+  max-width: var(--measure-prose);
+}
+
+.measure-narrow { max-width: var(--measure-narrow); }
+.measure-text { max-width: var(--measure-text); }
+.measure-content { max-width: var(--measure-content); }
+
+.prose p {
+  line-height: var(--leading-normal);
+}
+
+.prose :where(h1, h2, h3, h4) {
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+}
+
+/* Code */
+code,
+pre,
+kbd,
+samp,
+tt {
+  font-family: var(--font-mono, "JetBrains Mono"), ui-monospace, "SFMono-Regular", Menlo, monospace;
+  font-size: 0.95em;
+  font-weight: 400;
+}
+
+pre {
+  font-size: var(--text-14);
+  line-height: var(--leading-snug);
+  overflow-x: auto;
+}
+
+code {
+  background: rgba(255, 255, 255, 0.06);
+  padding: 0.1rem 0.35rem;
+  border-radius: 4px;
+}
+
+/* Inline label / eyebrow */
+.eyebrow {
+  font-family: var(--font-body);
+  font-size: var(--text-12);
+  font-weight: 500;
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+}
+
+/* Responsive type tuning */
+@media (max-width: 768px) {
+  h1 { font-size: var(--text-32); }
+  h2 { font-size: var(--text-24); }
+  h3 { font-size: var(--text-20); }
+}
+
+/* Reduced motion: no type animation here, respected globally */
+@media (prefers-reduced-motion: reduce) {
+  * { text-wrap: pretty; }
+}

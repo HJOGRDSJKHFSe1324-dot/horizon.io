@@ -1,14 +1,30 @@
 import type { Metadata } from "next";
-import { Geist, Inter, Space_Grotesk, JetBrains_Mono } from "next/font/google";
+import { Space_Grotesk, Manrope, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import Providers from "./providers";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import Footer from "@/components/Footer";
 
-const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
-const inter = Inter({ variable: "--font-inter", subsets: ["latin"] });
-const display = Space_Grotesk({ variable: "--font-display", subsets: ["latin"] });
-const mono = JetBrains_Mono({ variable: "--font-mono", subsets: ["latin"] });
+const display = Space_Grotesk({
+  variable: "--font-display",
+  subsets: ["latin"],
+  weight: ["500", "600"],
+  display: "swap",
+});
+
+const body = Manrope({
+  variable: "--font-body",
+  subsets: ["latin"],
+  weight: ["400", "500"],
+  display: "swap",
+});
+
+const mono = JetBrains_Mono({
+  variable: "--font-mono",
+  subsets: ["latin"],
+  weight: ["400"],
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: "HORIZON — Intelligence Beyond Limits",
@@ -17,8 +33,11 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className="dark">
-      <body className={`${geistSans.variable} ${inter.variable} ${display.variable} ${mono.variable} antialiased bg-[var(--bg)] text-[var(--fg)] font-body`}>
+    <html
+      lang="en"
+      className={`dark ${display.variable} ${body.variable} ${mono.variable}`}
+    >
+      <body className="antialiased bg-[var(--bg)] text-[var(--fg)] font-body">
         <ThemeProvider>
           <Providers>
             {children}
