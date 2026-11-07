@@ -1,0 +1,38 @@
+{
+  "name": "horizon-mark-spin",
+  "version": 1,
+  "source": "public/brand/horizon-mark.svg",
+  "frameCount": 144,
+  "angleStepDegrees": 2.5,
+  "transparent": true,
+  "background": "transparent",
+  "format": "webp",
+  "fps": 30,
+  "durationSeconds": 4.8,
+  "loop": true,
+  "resolutions": [
+    {
+      "size": 512,
+      "width": 512,
+      "height": 512,
+      "directory": "512",
+      "count": 144,
+      "filePattern": "frame_{index}.webp",
+      "zeroPadding": 3
+    },
+    {
+      "size": 256,
+      "width": 256,
+      "height": 256,
+      "directory": "256",
+      "count": 144,
+      "filePattern": "frame_{index}.webp",
+      "zeroPadding": 3
+    }
+  ],
+  "preview": {
+    "width": 128,
+    "height": 128,
+    "file": "preview.webp"
+  }
+}
