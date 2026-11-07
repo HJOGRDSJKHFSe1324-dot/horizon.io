@@ -49,13 +49,13 @@ body {
 }
 
 /* Utility family classes */
-.font-display { font-family: var(--font-display, "Space Grotesk"), ui-sans-serif, system-ui, sans-serif; }
+.font-display { font-family: var(--font-display, "Fraunces"), ui-sans-serif, system-ui, sans-serif; }
 .font-body { font-family: var(--font-body, "Manrope"), ui-sans-serif, system-ui, sans-serif; }
 .font-mono { font-family: var(--font-mono, "JetBrains Mono"), ui-monospace, "SFMono-Regular", Menlo, monospace; }
 
 /* Headings: display face, tight rhythm */
 h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-display, "Space Grotesk"), ui-sans-serif, system-ui, sans-serif;
+  font-family: var(--font-display, "Fraunces"), ui-sans-serif, system-ui, sans-serif;
   font-weight: 600;
   line-height: var(--leading-tight);
   letter-spacing: var(--tracking-display);

@@ -861,9 +861,11 @@ export function useChatReliability(): UseChatReliabilityResult {
   };
 }
 
-export default {
+const chatReliability = {
   classifyChatError,
   readChatSseStream,
   useChatReliability,
   useOnlineStatus,
 };
+
+export default chatReliability;

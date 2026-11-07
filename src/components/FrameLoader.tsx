@@ -43,7 +43,7 @@ export function FrameLoader({
       aria-busy={!state.isComplete}
     >
       {displayFrame ? (
-        // eslint-disable-next-line @next/next/no-img-element
+         
         <img
           src={displayFrame.src}
           alt={alt}

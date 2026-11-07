@@ -1,14 +1,15 @@
 import type { Metadata } from "next";
-import { Space_Grotesk, Manrope, JetBrains_Mono } from "next/font/google";
+import { Fraunces, Manrope, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import Providers from "./providers";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import Footer from "@/components/Footer";
 
-const display = Space_Grotesk({
+const display = Fraunces({
   variable: "--font-display",
   subsets: ["latin"],
-  weight: ["500", "600"],
+  style: ["normal", "italic"],
+  weight: "variable",
   display: "swap",
 });
 

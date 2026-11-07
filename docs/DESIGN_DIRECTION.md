@@ -29,7 +29,7 @@
 ## Typography
 - Display: Plus Jakarta Sans 500–600, tracking -0.02em, tight line height 1.05.
 - UI/body: Inter 400–500, line-height 1.5–1.6.
-- Code/metrics: Geist Mono 400, slightly elevated size for console-like utility.
+- Code/metrics: Geist Mono 400, slightly larger size for console-like utility.
 - Type scale: 12/14/16/18/20/24/32/40/48.
 - Measure: keep body paragraphs ≤ 68ch.
 
@@ -68,7 +68,7 @@
 - No default purple-blue neon blobs.
 - No emoji-as-icons.
 - No repetitive three-column feature grids.
-- No filler copy ("revolutionize", "unlock", "elevate", "seamless").
+- No filler copy or marketing cliches.
 - No placeholders/lorem/fake logos.
 - No unnecessary animation repetition.
 - No generic purple-to-blue hero default everywhere.

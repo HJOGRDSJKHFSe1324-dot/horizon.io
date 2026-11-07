@@ -57,7 +57,7 @@ export default function SpinPoster({
       aria-label={label ?? "HORIZON logo poster"}
       style={{ margin: 0 }}
     >
-      {/* eslint-disable-next-line @next/next/no-img-element */}
+      { }
       <img
         src={resolvedSrc}
         alt={alt}

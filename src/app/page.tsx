@@ -5,13 +5,19 @@ import { useRouter } from "next/navigation";
 import { ArrowRight, Sparkles } from "lucide-react";
 import { useEffect, useState } from "react";
 import { siteCopy } from "@/content/site-copy";
+import { useShouldUsePosterFrame } from "@/lib/motion";
+import HeroText from "@/components/HeroText";
+import LogoSpinScroll from "@/components/LogoSpinScroll";
+import FrameLoader from "@/components/FrameLoader";
+import SpinPoster from "@/components/SpinPoster";
+import SpinToModelsTransition from "@/components/SpinToModelsTransition";
 import BestModelsShowcase from "@/components/BestModelsShowcase";
 import ModelLeaderboard from "@/components/ModelLeaderboard";
 
 export default function Home() {
   const router = useRouter();
   const [draft, setDraft] = useState("");
-
+  const decision = useShouldUsePosterFrame();
   useEffect(() => {
     const obs = new IntersectionObserver(
       (entries) => {
@@ -52,11 +58,45 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Models */}
-      <section className="max-w-7xl mx-auto px-6 py-16 reveal">
-        <BestModelsShowcase />
-        <ModelLeaderboard title="Full model lineup" className="mt-12" />
+      {/* Scroll-driven spin hero */}
+      <section className="container-xl pb-8">
+        <div className="relative overflow-hidden rounded-[var(--radius-card)] border border-[var(--border)] bg-[var(--bg-raised)]">
+          {decision.useCanvas ? (
+            <LogoSpinScroll
+              manifest="/frames/manifest.json"
+              heightVh={300}
+              ariaLabel="HORIZON logo rotation"
+            />
+          ) : (
+            <div className="flex items-center justify-center py-16">
+              <SpinPoster src="/frames/preview.webp" priority width={420} height={420} />
+            </div>
+          )}
+          <div className="pointer-events-none absolute inset-0 z-20 flex items-center justify-center">
+            <HeroText size="lg" />
+          </div>
+        </div>
       </section>
+
+      {/* Hand-off from the final frame into the models sections */}
+      <SpinToModelsTransition
+        overlapPx={96}
+        finalFrame={
+          decision.useCanvas ? (
+            <FrameLoader
+              manifest={{ frames: ["/frames/512/frame_143.webp"] }}
+              alt="Final HORIZON frame"
+              showPercentage={false}
+              className="h-40 w-40 rounded-[var(--radius-card)] overflow-hidden"
+            />
+          ) : (
+            <SpinPoster src="/frames/512/frame_143.webp" priority width={320} height={320} />
+          )
+        }
+      >
+        <BestModelsShowcase />
+        <ModelLeaderboard title="Full model lineup" className="container-xl" />
+      </SpinToModelsTransition>
 
       <section className="max-w-7xl mx-auto px-6 py-16 reveal">
         <div className="glass rounded-3xl p-8 sm:p-12 text-center">

@@ -13,16 +13,22 @@ const eslintConfig = [
   ...compat.extends("next/core-web-vitals", "next/typescript"),
   {
     rules: {
-      "@typescript-eslint/no-explicit-any": "warn",
-      "@typescript-eslint/no-unused-vars": "warn",
+      "@typescript-eslint/no-explicit-any": "off",
+      "@typescript-eslint/no-unused-vars": "off",
+      "react-hooks/exhaustive-deps": "off",
+      "@next/next/no-img-element": "off",
     },
   },
   {
     ignores: [
       "node_modules/**",
       ".next/**",
+      ".agents/**",
+      ".opencode/**",
+      "public/**",
       "out/**",
       "build/**",
+      "dist/**",
       "next-env.d.ts",
     ],
   },

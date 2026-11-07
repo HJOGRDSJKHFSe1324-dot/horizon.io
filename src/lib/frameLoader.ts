@@ -642,7 +642,7 @@ export function useFramePreloader(
     return () => {
       cancel();
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+     
   }, [normalized]);
 
   const progress = totalAssets > 0
