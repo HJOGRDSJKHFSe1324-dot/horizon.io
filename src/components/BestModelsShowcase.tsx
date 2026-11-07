@@ -20,15 +20,17 @@ export type BestModelsShowcaseProps = {
 const STRENGTHS: Record<string, string[]> = {
   "zenith-1.1": ["Fast responses", "Everyday chat", "Summaries"],
   "halo-1.5": ["Reasoning", "Coding", "Long context"],
-  "halo-2.5": ["Long-form analysis", "Generation", "Flagship depth"],
-  "nova-5.2": ["Knowledge tasks", "Ultra-tier depth", "Long context"],
+  "halo-2.5": ["Long-form analysis", "Generation", "Premium depth"],
+  "nova-5.2": ["Knowledge tasks", "Knowledge-first depth", "Long context"],
+  "nova-5.4-ultra": ["Flagship reasoning", "Deepest analysis", "Long context"],
 };
 
 const ROLES: Record<string, string> = {
   "zenith-1.1": "Baseline workhorse",
   "halo-1.5": "Reasoning specialist",
-  "halo-2.5": "Flagship generator",
-  "nova-5.2": "Knowledge-first ultra",
+  "halo-2.5": "Premium deep model",
+  "nova-5.2": "Knowledge-first paid model",
+  "nova-5.4-ultra": "Flagship model",
 };
 
 function slugOf(result: any): string {
@@ -180,6 +182,9 @@ function BestModelsShowcase({
   }, [modelsProp, resultsProp]);
 
   const ranked = [...models].sort((a, b) => {
+    const flagship = (slug: string) => (slug === "nova-5.4-ultra" ? -1 : 0);
+    const pf = flagship(a.slug) - flagship(b.slug);
+    if (pf !== 0) return pf;
     const diff = overallScore(b.slug, results) - overallScore(a.slug, results);
     if (diff !== 0) return diff;
     return String(a.name || "").localeCompare(String(b.name || ""));
