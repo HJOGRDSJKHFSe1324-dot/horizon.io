@@ -1,5 +1,6 @@
 "use client";
 import Nav from "@/components/Nav";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import { siteCopy } from "@/content/site-copy";
 
@@ -30,7 +31,7 @@ export default function BenchmarksPage() {
   }
 
   return (
-    <main><Nav />
+    <main id="main"><Nav />
       <div className="max-w-7xl mx-auto px-6 py-16">
         <h1 className="text-4xl font-semibold mb-2">{siteCopy.benchmarks.title}</h1>
         <p className="text-slate-400 mb-10">{siteCopy.benchmarks.subtitle}</p>
@@ -79,7 +80,7 @@ export default function BenchmarksPage() {
         {results.length === 0 && <p className="text-slate-500 mt-6">{siteCopy.benchmarks.noResults}</p>}
         <div className="mt-12">
           <h2 className="text-2xl font-semibold mb-4">{siteCopy.benchmarks.mmluTitle}</h2>
-          <img src="/MMLU_PRO_SCORES.png" alt={siteCopy.benchmarks.mmluAlt} className="rounded-2xl border border-white/10 max-w-full" />
+          <Image src="/MMLU_PRO_SCORES.png" alt={siteCopy.benchmarks.mmluAlt} width={1000} height={520} className="rounded-2xl border border-white/10 max-w-full h-auto" />
         </div>
       </div>
     </main>

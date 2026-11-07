@@ -4,7 +4,8 @@ import React, { useMemo } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import type { ComponentPropsWithoutRef } from "react";
-import CodeBlock from "./CodeBlock";
+import dynamic from "next/dynamic";
+const CodeBlock = dynamic(() => import("./CodeBlock"), { ssr: false });
 
 export interface MarkdownContentProps {
   content: string;

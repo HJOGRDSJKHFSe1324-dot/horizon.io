@@ -4,7 +4,11 @@ import { useEffect, useState, useRef, Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { Copy, Trash2, Plus, Send, RefreshCw, Pencil, Square } from "lucide-react";
-import MarkdownContent from "@/components/chat/MarkdownContent";
+import dynamic from "next/dynamic";
+const MarkdownContent = dynamic(() => import("@/components/chat/MarkdownContent").then((m) => m.default), {
+  ssr: false,
+  loading: () => <span className="text-slate-500 text-sm">Loading…</span>,
+});
 import Dropdown from "@/components/Dropdown";
 import { siteCopy } from "@/content/site-copy";
 import { useChatStore } from "@/lib/chat-store";
@@ -144,7 +148,7 @@ function ChatInner() {
   const handleSelectConv = (id: string) => { setActiveId(id); };
 
   return (
-    <main className="h-screen flex flex-col">
+    <main id="main" className="h-screen flex flex-col">
       <Nav />
       <div className="flex-1 flex overflow-hidden">
         {/* sidebar */}
