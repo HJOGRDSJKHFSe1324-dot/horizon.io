@@ -3,220 +3,207 @@
 
 /* ==========================================================================
    HORIZON design tokens (SA-03)
-   Dark-first, light via html.light. Semantic tokens + spacing/radius/shadow/motion.
+   Source of truth: DESIGN_BRIEF.md v4 (SA-01). Dark-first; html.light overrides.
    ========================================================================== */
 
 @theme {
-  --font-sans: var(--font-family-sans);
-  --font-mono: var(--font-family-mono);
-  --font-display: var(--font-family-display);
+  --font-display: var(--font-display);
+  --font-sans: var(--font-body);
+  --font-mono: var(--font-mono);
 
   --color-background: var(--bg);
   --color-foreground: var(--fg);
   --color-muted: var(--muted);
+  --color-subtle: var(--subtle);
   --color-surface: var(--surface);
   --color-surface-2: var(--surface-2);
   --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
   --color-accent: var(--accent);
-  --color-accent-2: var(--accent-2);
-  --color-success: var(--color-success);
-  --color-warning: var(--color-warning);
-  --color-danger: var(--color-danger);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-danger: var(--danger);
 
-  --radius-control: var(--radius-control);
-  --radius-card: var(--radius-card);
-  --radius-container: var(--radius-container);
-  --radius-pill: var(--radius-pill);
+  --radius-sm: var(--radius-sm);
+  --radius-md: var(--radius-md);
+  --radius-lg: var(--radius-lg);
+  --radius-xl: var(--radius-xl);
 }
 
-:root {
+/* ==========================================================================
+   Dark theme (default + explicit)
+   ========================================================================== */
+:root,
+html.dark {
   color-scheme: dark;
 
-  /* ------------------------------------------------------------------ */
-  /* Semantic color tokens (dark)                                        */
-  /* ------------------------------------------------------------------ */
-  --color-bg: #0b0d12;
-  --color-bg-raised: #12151d;
-  --color-surface: #1a1e28;
-  --color-surface-raised: #222838;
-  --color-surface-hover: #1e2433;
-  --color-border: #262b3a;
-  --color-border-strong: #353c52;
-  --color-text: #f5f7fa;
-  --color-text-muted: #a3aab9;
-  --color-text-subtle: #6b7280;
-  --color-accent: #4f7cf3;
-  --color-accent-hover: #6b90ff;
-  --color-accent-ai: #22d3ee;
-  --color-accent-2: var(--color-accent-ai);
-  --color-success: #22c55e;
-  --color-warning: #f59e0b;
-  --color-danger: #f87171;
-  --color-info: #60a5fa;
+  /* --- Semantic color tokens --- */
+  --bg: #0c0d10;
+  --bg-raised: #13151a;
+  --surface: #1a1d24;
+  --surface-2: #222630;
+  --border: #2d323d;
+  --border-strong: #3a4150;
+  --fg: #f2f3f7;
+  --muted: #a5aab7;
+  --subtle: #6c7281;
+  --accent: #e9a23b;
+  --accent-hover: #f2b35a;
+  --accent-active: #c98a28;
+  --accent-fg: #14100a;
+  --success: #3fa46a;
+  --warning: #d99a2b;
+  --danger: #e0564a;
+  --info: var(--accent);
 
-  --color-overlay: rgba(4, 6, 12, 0.64);
-  --color-glass-bg: rgba(255, 255, 255, 0.035);
-  --color-glass-border: rgba(255, 255, 255, 0.08);
-  --color-code-bg: rgba(255, 255, 255, 0.07);
-  --color-code-fg: #e2e8f0;
+  /* single brand accent: alias legacy secondary accent */
+  --accent-2: var(--accent);
 
-  /* Back-compat aliases consumed across the codebase */
-  --bg: var(--color-bg);
-  --fg: var(--color-text);
-  --muted: var(--color-text-muted);
-  --surface: var(--color-surface);
-  --surface-2: var(--color-surface-hover);
-  --border: var(--color-border);
-  --accent: var(--color-accent);
-  --accent-2: var(--color-accent-ai);
+  /* --- Overlay / code --- */
+  --overlay: rgba(8, 10, 14, 0.72);
+  --code-bg: rgba(255, 255, 255, 0.06);
+  --code-fg: #e7e9ef;
 
-  /* ------------------------------------------------------------------ */
-  /* Spacing scale (4px grid)                                            */
-  /* ------------------------------------------------------------------ */
+  /* --- Space scale (v4) --- */
   --space-0: 0px;
   --space-1: 4px;
   --space-2: 8px;
   --space-3: 12px;
   --space-4: 16px;
-  --space-5: 24px;
-  --space-6: 32px;
-  --space-7: 48px;
-  --space-8: 64px;
-  --space-9: 96px;
-  --space-10: 128px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
+  --space-24: 96px;
+  --space-32: 128px;
+  --space-40: 160px;
 
-  --space-section: var(--space-9);
-  --space-container-x: var(--space-5);
-  --max-content: 1280px;
-  --max-prose: 68ch;
+  --container-xs: 640px;
+  --container-sm: 760px;
+  --container-md: 960px;
+  --container-lg: 1120px;
+  --container-xl: 1280px;
+  --grid-gap: var(--space-6);
+  --measure-prose: 68ch;
 
-  /* ------------------------------------------------------------------ */
-  /* Radius scale                                                        */
-  /* ------------------------------------------------------------------ */
-  --radius-xs: 4px;
-  --radius-sm: 6px;
-  --radius-md: 8px;
-  --radius-lg: 12px;
-  --radius-xl: 16px;
-  --radius-2xl: 20px;
+  /* --- Radius scale (v4) --- */
+  --radius-xs: 2px;
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 10px;
+  --radius-xl: 14px;
+  --radius-2xl: 18px;
   --radius-pill: 999px;
   --radius-full: 9999px;
 
-  --radius-control: var(--radius-sm);
+  --radius-control: var(--radius-md);
   --radius-card: var(--radius-lg);
   --radius-container: var(--radius-xl);
 
-  /* ------------------------------------------------------------------ */
-  /* Shadows / elevation (dark)                                          */
-  /* ------------------------------------------------------------------ */
-  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.35);
-  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.32);
-  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.38);
-  --shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.48);
-  --shadow-card: 0 1px 0 rgba(255, 255, 255, 0.04), 0 8px 28px rgba(0, 0, 0, 0.38);
-  --shadow-glow: 0 0 40px rgba(79, 124, 243, 0.16);
-  --shadow-focus: 0 0 0 3px rgba(79, 124, 243, 0.36);
+  /* --- Shadows (v4 dark) --- */
+  --shadow-1: 0 1px 2px rgba(0, 0, 0, 0.45);
+  --shadow-2: 0 8px 24px rgba(0, 0, 0, 0.40);
+  --shadow-3: 0 20px 48px rgba(0, 0, 0, 0.50);
+  --shadow-focus: 0 0 0 2px var(--bg), 0 0 0 4px var(--accent);
 
-  /* ------------------------------------------------------------------ */
-  /* Motion tokens                                                       */
-  /* ------------------------------------------------------------------ */
-  --duration-micro: 100ms;
+  --shadow-sm: var(--shadow-1);
+  --shadow-md: var(--shadow-2);
+  --shadow-lg: var(--shadow-3);
+
+  /* --- Motion (v4) --- */
+  --duration-micro: 120ms;
   --duration-control: 180ms;
-  --duration-panel: 240ms;
-  --duration-page: 320ms;
+  --duration-panel: 260ms;
+  --duration-page: 380ms;
 
-  --ease-out: cubic-bezier(0.25, 1, 0.5, 1);
-  --ease-in: cubic-bezier(0.5, 0, 0.75, 1);
-  --ease-in-out: cubic-bezier(0.45, 0, 0.55, 1);
-  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
-  --ease-in-quart: cubic-bezier(0.5, 0, 0.75, 1);
-  --ease-emphasized: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-enter: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-exit: cubic-bezier(0.4, 0, 1, 1);
+  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
 
-  /* ------------------------------------------------------------------ */
-  /* Typography stacks (coordinate with Next font variables from SA-02)    */
-  /* ------------------------------------------------------------------ */
-  --font-family-sans: var(--font-body, "Manrope"), system-ui, -apple-system, "Segoe UI", sans-serif;
-  --font-family-ui: var(--font-body, "Manrope"), system-ui, sans-serif;
-  --font-family-display: var(--font-display, "Space Grotesk"), var(--font-body, "Manrope"), system-ui, sans-serif;
-  --font-family-mono: var(--font-mono, "JetBrains Mono"), ui-monospace, "Cascadia Code", monospace;
+  --ease-out: var(--ease-enter);
+  --ease-in: var(--ease-exit);
+  --ease-in-out: var(--ease-standard);
 
-  --font-sans: var(--font-family-sans);
-  --font-ui: var(--font-family-ui);
-  --font-body-stack: var(--font-family-sans);
-  --font-mono-stack: var(--font-family-mono);
-}
-
-html.light {
-  color-scheme: light;
-
-  --color-bg: #f6f8fc;
-  --color-bg-raised: #ffffff;
-  --color-surface: #eef2f8;
-  --color-surface-raised: #ffffff;
-  --color-surface-hover: #e4eaf4;
-  --color-border: #dce3ee;
-  --color-border-strong: #c7d2e3;
-  --color-text: #0f172a;
-  --color-text-muted: #475569;
-  --color-text-subtle: #94a3b8;
-  --color-accent: #3b63d6;
-  --color-accent-hover: #4f7cf3;
-  --color-accent-ai: #0891b2;
-  --color-accent-2: var(--color-accent-ai);
-  /* keep brand status colors stable across themes */
-  --color-success: #22c55e;
-  --color-warning: #f59e0b;
-  --color-danger: #f87171;
-  --color-info: #2563eb;
-
-  --color-overlay: rgba(15, 23, 42, 0.48);
-  --color-glass-bg: rgba(255, 255, 255, 0.72);
-  --color-glass-border: rgba(15, 23, 42, 0.10);
-  --color-code-bg: rgba(15, 23, 42, 0.06);
-  --color-code-fg: #0f172a;
-
-  --bg: var(--color-bg);
-  --fg: var(--color-text);
-  --muted: var(--color-text-muted);
-  --surface: var(--color-surface);
-  --surface-2: var(--color-surface-hover);
-  --border: var(--color-border);
-  --accent: var(--color-accent);
-  --accent-2: var(--color-accent-ai);
-
-  --shadow-xs: 0 1px 2px rgba(15, 23, 42, 0.06);
-  --shadow-sm: 0 2px 8px rgba(15, 23, 42, 0.08);
-  --shadow-md: 0 8px 24px rgba(15, 23, 42, 0.10);
-  --shadow-lg: 0 16px 48px rgba(15, 23, 42, 0.14);
-  --shadow-card: 0 1px 2px rgba(15, 23, 42, 0.05), 0 8px 24px rgba(15, 23, 42, 0.08);
-  --shadow-glow: 0 0 40px rgba(59, 99, 214, 0.14);
-  --shadow-focus: 0 0 0 3px rgba(59, 99, 214, 0.24);
-}
-
-@media (max-width: 1024px) {
-  :root { --space-section: var(--space-8); }
-}
-@media (max-width: 640px) {
-  :root { --space-section: 44px; --space-container-x: var(--space-4); }
+  --reveal-distance: 16px;
 }
 
 /* ==========================================================================
-   Base reset
+   Light theme
+   ========================================================================== */
+html.light {
+  color-scheme: light;
+
+  --bg: #f3f1ec;
+  --bg-raised: #ffffff;
+  --surface: #ebe7e0;
+  --surface-2: #e2ded6;
+  --border: #d5d0c7;
+  --border-strong: #bdb6aa;
+  --fg: #15171c;
+  --muted: #5c6170;
+  --subtle: #8a8f9d;
+  --accent: #b8761f;
+  --accent-hover: #a36717;
+  --accent-active: #8c5812;
+  --accent-fg: #fff9f0;
+  --success: #2f7a54;
+  --warning: #b07a1f;
+  --danger: #b83232;
+  --info: var(--accent);
+
+  --accent-2: var(--accent);
+
+  --overlay: rgba(20, 22, 28, 0.48);
+  --code-bg: rgba(16, 24, 40, 0.06);
+  --code-fg: #15171c;
+
+  --shadow-1: 0 1px 2px rgba(16, 24, 40, 0.06);
+  --shadow-2: 0 8px 24px rgba(16, 24, 40, 0.08);
+  --shadow-3: 0 20px 48px rgba(16, 24, 40, 0.12);
+  --shadow-focus: 0 0 0 2px var(--bg), 0 0 0 4px var(--accent);
+
+  --shadow-sm: var(--shadow-1);
+  --shadow-md: var(--shadow-2);
+  --shadow-lg: var(--shadow-3);
+}
+
+@media (max-width: 1024px) {
+  :root, html { --grid-gap: 20px; }
+}
+@media (max-width: 640px) {
+  :root, html { --grid-gap: 16px; }
+}
+
+/* ==========================================================================
+   Base reset + foundation
    ========================================================================== */
 
 @layer base {
   *, *::before, *::after { box-sizing: border-box; }
-  * { margin: 0; }
-  html { -webkit-text-size-adjust: 100%; tab-size: 4; height: 100%; }
-  body { min-height: 100vh; line-height: 1.55; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; text-rendering: optimizeLegibility; background: var(--bg); color: var(--fg); }
-  html, body { background: var(--bg); color: var(--fg); }
+  html {
+    -webkit-text-size-adjust: 100%;
+    tab-size: 4;
+    scroll-behavior: smooth;
+    background: var(--bg);
+    color: var(--fg);
+  }
+  body {
+    min-height: 100vh;
+    background: var(--bg);
+    color: var(--fg);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
   img, picture, video, canvas, svg { display: block; max-width: 100%; height: auto; }
-  input, button, textarea, select { font: inherit; color: inherit; }
+  button, input, select, textarea { font: inherit; }
   button { cursor: pointer; }
-  p, h1, h2, h3, h4, h5, h6 { overflow-wrap: break-word; }
   a { color: inherit; text-decoration: none; }
-  ::selection { background: var(--accent); color: #ffffff; }
-  :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  ::selection { background: var(--accent); color: var(--accent-fg); }
+  :focus-visible { outline: none; box-shadow: var(--shadow-focus); border-radius: var(--radius-sm); }
 
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
@@ -226,85 +213,77 @@ html.light {
       transition-duration: 0.01ms !important;
       scroll-behavior: auto !important;
     }
-    .animate-fade, .reveal, .motion-fade, .motion-slide-up { animation: none !important; opacity: 1 !important; transform: none !important; transition: none !important; }
   }
 }
 
 /* ==========================================================================
-   Utility classes
+   Utility classes (tokens-driven)
    ========================================================================== */
 
 @layer utilities {
-  /* Typography */
-  .font-display { font-family: var(--font-family-display); letter-spacing: -0.02em; }
-  .font-body, .font-sans, .font-ui { font-family: var(--font-family-sans); }
-  .font-mono { font-family: var(--font-family-mono); }
-  .tabular-nums { font-variant-numeric: tabular-nums; }
-  .text-balance { text-wrap: balance; }
-  .text-pretty { text-wrap: pretty; }
-
-  /* Color helpers */
   .text-fg { color: var(--fg); }
   .text-muted { color: var(--muted); }
-  .text-subtle { color: var(--color-text-subtle); }
+  .text-subtle { color: var(--subtle); }
   .text-accent { color: var(--accent); }
-  .text-accent-ai { color: var(--accent-2); }
-  .text-success { color: var(--color-success); }
-  .text-warning { color: var(--color-warning); }
-  .text-danger { color: var(--color-danger); }
+  .text-success { color: var(--success); }
+  .text-warning { color: var(--warning); }
+  .text-danger { color: var(--danger); }
 
   .bg-app { background-color: var(--bg); }
-  .bg-raised { background-color: var(--color-bg-raised); }
+  .bg-raised { background-color: var(--bg-raised); }
   .bg-surface { background-color: var(--surface); }
   .bg-surface-2 { background-color: var(--surface-2); }
-  .bg-glass { background-color: var(--color-glass-bg); }
-  .border-default { border-color: var(--border); }
-  .border-strong { border-color: var(--color-border-strong); }
 
-  /* Surfaces */
+  .border-default { border-color: var(--border); }
+  .border-strong { border-color: var(--border-strong); }
+
   .surface { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-card); }
-  .surface-raised { background: var(--color-bg-raised); border: 1px solid var(--border); border-radius: var(--radius-card); box-shadow: var(--shadow-card); }
-  .glass { background: var(--color-glass-bg); border: 1px solid var(--color-glass-border); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
-  .elevated { box-shadow: var(--shadow-md); }
-  .glow { box-shadow: var(--shadow-glow); }
+  .surface-raised { background: var(--bg-raised); border: 1px solid var(--border); border-radius: var(--radius-card); box-shadow: var(--shadow-1); }
+  .elevated { box-shadow: var(--shadow-2); }
   .ring-focus { box-shadow: var(--shadow-focus); }
 
-  /* Layout rhythm */
-  .container-page { width: 100%; max-width: var(--max-content); margin-inline: auto; padding-inline: var(--space-container-x); }
-  .container-prose { max-width: var(--max-prose); }
-  .section { padding-block: var(--space-section); }
-  .section-sm { padding-block: var(--space-6); }
-  .stack { display: flex; flex-direction: column; gap: var(--space-4); }
+  .duration-micro { transition-duration: var(--duration-micro); }
+  .duration-control { transition-duration: var(--duration-control); }
+  .duration-panel { transition-duration: var(--duration-panel); }
+  .duration-page { transition-duration: var(--duration-page); }
 
-  /* Scrollbars */
+  .container-page { width: 100%; max-width: var(--container-xl); margin-inline: auto; padding-inline: var(--space-6); }
+  .container-xl { width: 100%; max-width: var(--container-xl); margin-inline: auto; padding-inline: var(--space-6); }
+  .container-lg { width: 100%; max-width: var(--container-lg); margin-inline: auto; padding-inline: var(--space-6); }
+  .container-md { width: 100%; max-width: var(--container-md); margin-inline: auto; padding-inline: var(--space-6); }
+  .container-sm { width: 100%; max-width: var(--container-sm); margin-inline: auto; padding-inline: var(--space-6); }
+  .container-xs { width: 100%; max-width: var(--container-xs); margin-inline: auto; padding-inline: var(--space-5); }
+  .measure-prose { max-width: var(--measure-prose); }
+  .stack { display: flex; flex-direction: column; gap: var(--space-4); }
+  .section { padding-block: var(--space-24); }
+  .section-sm { padding-block: var(--space-16); }
+  .section-xs { padding-block: var(--space-12); }
+
   .scrollbar-thin::-webkit-scrollbar { width: 6px; height: 6px; }
   .scrollbar-thin::-webkit-scrollbar-track { background: transparent; }
   .scrollbar-thin::-webkit-scrollbar-thumb { background: var(--border); border-radius: var(--radius-pill); }
-  .scrollbar-thin::-webkit-scrollbar-thumb:hover { background: var(--color-border-strong); }
+  .scrollbar-thin::-webkit-scrollbar-thumb:hover { background: var(--border-strong); }
 
-  /* Reveals / motion */
-  .reveal { opacity: 0; transform: translateY(18px); transition: opacity var(--duration-page) var(--ease-out), transform var(--duration-page) var(--ease-out); }
+  .reveal { opacity: 0; transform: translateY(var(--reveal-distance)); transition: opacity var(--duration-panel) var(--ease-enter), transform var(--duration-panel) var(--ease-enter); }
   .reveal.is-visible { opacity: 1; transform: none; }
-  .animate-fade { animation: horizon-fade var(--duration-page) var(--ease-out) both; }
-  .motion-fade { animation: horizon-fade var(--duration-page) var(--ease-out) both; }
-  .motion-slide-up { animation: horizon-slide-up var(--duration-page) var(--ease-out) both; }
-  .motion-control { transition-duration: var(--duration-control); transition-timing-function: var(--ease-out); }
-  .motion-panel { transition-duration: var(--duration-panel); transition-timing-function: var(--ease-out); }
+  .animate-fade { animation: horizon-fade var(--duration-page) var(--ease-enter) both; }
+  .motion-fade { animation: horizon-fade var(--duration-page) var(--ease-enter) both; }
+  .motion-slide-up { animation: horizon-slide-up var(--duration-page) var(--ease-enter) both; }
+  .transition-standard { transition-timing-function: var(--ease-standard); }
 
   @keyframes horizon-fade {
     from { opacity: 0; transform: translateY(8px); }
     to { opacity: 1; transform: none; }
   }
   @keyframes horizon-slide-up {
-    from { opacity: 0; transform: translateY(16px); }
+    from { opacity: 0; transform: translateY(var(--reveal-distance)); }
     to { opacity: 1; transform: none; }
   }
 }
 
 /* ==========================================================================
-   Markdown content styles (preserved + themed)
+   Markdown content (preserved, themed)
    ========================================================================== */
-
 .markdown table { width: 100%; border-collapse: collapse; display: block; overflow-x: auto; }
 .markdown th, .markdown td { border: 1px solid var(--border); padding: .4rem; }
 .markdown img { max-width: 100%; height: auto; border-radius: var(--radius-md); }
@@ -320,27 +299,19 @@ html.light {
 .markdown ul { list-style: disc; }
 .markdown ol { list-style: decimal; }
 .markdown code {
-  background: var(--color-code-bg);
-  color: var(--color-code-fg);
+  background: var(--code-bg);
+  color: var(--code-fg);
   padding: 0.1rem 0.35rem;
   border-radius: var(--radius-xs);
-  font-family: var(--font-family-mono);
+  font-family: var(--font-mono, "JetBrains Mono"), ui-monospace, Menlo, monospace;
   font-size: 0.85em;
 }
-.markdown pre { background: var(--color-code-bg); padding: 0.75rem; border-radius: var(--radius-md); overflow-x: auto; }
-.markdown pre code { background: transparent; padding: 0; color: var(--color-code-fg); }
-.markdown a { color: var(--accent-2); text-decoration: underline; }
+.markdown pre { background: var(--code-bg); padding: 0.75rem; border-radius: var(--radius-md); overflow-x: auto; }
+.markdown pre code { background: transparent; padding: 0; color: var(--code-fg); }
+.markdown a { color: var(--accent); text-decoration: underline; }
 .markdown blockquote { border-left: 2px solid var(--border); padding-left: 0.75rem; color: var(--muted); }
 .markdown hr { border: none; border-top: 1px solid var(--border); margin: 0.75rem 0; }
 
-/* ==========================================================================
-   Light-mode compatibility shims for legacy dark-first utility classes
-   ========================================================================== */
-
+/* Legacy dark-first softening (keep) */
 html.light .text-slate-100, html.light .text-white { color: var(--fg) !important; }
 html.light .text-slate-200, html.light .text-slate-300, html.light .text-slate-400, html.light .text-slate-500 { color: var(--muted) !important; }
-html.light .bg-\[\#05070d\], html.light .bg-\[\#070a12\] { background-color: var(--bg) !important; }
-html.light .bg-white\/5, html.light .bg-white\/10 { background-color: var(--surface-2) !important; }
-html.light .border-white\/5, html.light .border-white\/10, html.light .border-white\/15 { border-color: var(--border) !important; }
-html.light .glass { background: var(--color-glass-bg); border: 1px solid var(--border); }
-html.light .scrollbar-thin::-webkit-scrollbar-thumb { background: var(--border); }
