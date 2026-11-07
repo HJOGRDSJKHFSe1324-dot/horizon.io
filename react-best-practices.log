@@ -1,0 +1,31 @@
+
+│
+●  [46m[30m[1m opencode [22m[39m[49m Agent detected — installing non-interactively
+[?25l│
+◇  Source: https://github.com/vercel-labs/agent-skills.git
+[?25h[?25l│
+◒  Fetching skills…[1G[J◐  Fetching skills…[1G[J◓  Fetching skills…[1G[J◑  Fetching skills…[1G[J◒  Fetching skills…[1G[J◐  Fetching skills…[1G[J◓  Fetching skills…[1G[J◑  Fetching skills…[1G[J◒  Cloning repository….[1G[J◐  Cloning repository….[1G[J◓  Cloning repository….[1G[J◑  Cloning repository….[1G[J◒  Cloning repository….[1G[J◐  Cloning repository….[1G[J◓  Cloning repository….[1G[J◑  Cloning repository….[1G[J◒  Cloning repository…..[1G[J◐  Cloning repository…..[1G[J◓  Cloning repository…..[1G[J◇  Repository cloned
+[?25h[?25l│
+[1G[J◇  Found [32m9[39m skills
+[?25h│
+■  No matching skills found for: react-best-practices
+│
+●  Available skills:
+│
+│    - vercel-composition-patterns
+│
+│    - deploy-to-vercel
+│
+│    - vercel-react-best-practices
+│
+│    - vercel-react-native-skills
+│
+│    - vercel-react-view-transitions
+│
+│    - vercel-cli-with-tokens
+│
+│    - vercel-optimize
+│
+│    - web-design-guidelines
+│
+│    - writing-guidelines

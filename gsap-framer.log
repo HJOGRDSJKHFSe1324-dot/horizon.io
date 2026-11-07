@@ -1,0 +1,43 @@
+
+│
+●  [46m[30m[1m opencode [22m[39m[49m Agent detected — installing non-interactively
+[?25l│
+◇  Source: https://github.com/github/awesome-copilot.git
+[?25h[?25l│
+◒  Cloning repository…[1G[J◐  Cloning repository…[1G[J◓  Cloning repository…[1G[J◑  Cloning repository…[1G[J◒  Cloning repository…[1G[J◐  Cloning repository…[1G[J◓  Cloning repository…[1G[J◑  Cloning repository…[1G[J◒  Cloning repository….[1G[J◐  Cloning repository….[1G[J◓  Cloning repository….[1G[J◑  Cloning repository….[1G[J◒  Cloning repository….[1G[J◐  Cloning repository….[1G[J◓  Cloning repository….[1G[J◑  Cloning repository….[1G[J◒  Cloning repository…..[1G[J◐  Cloning repository…..[1G[J◓  Cloning repository…..[1G[J◑  Cloning repository…..[1G[J◒  Cloning repository…..[1G[J◐  Cloning repository…..[1G[J◓  Cloning repository…..[1G[J◑  Cloning repository…..[1G[J◒  Cloning repository…...[1G[J◐  Cloning repository…...[1G[J◓  Cloning repository…...[1G[J◑  Cloning repository…...[1G[J◒  Cloning repository…...[1G[J◐  Cloning repository…...[1G[J◓  Cloning repository…...[1G[J◑  Cloning repository…...[1G[J◒  Cloning repository…...[1G[J◐  Cloning repository…[1G[J◓  Cloning repository…[1G[J◑  Cloning repository…[1G[J◒  Cloning repository…[1G[J◐  Cloning repository…[1G[J◓  Cloning repository…[1G[J◑  Cloning repository…[1G[J◒  Cloning repository…[1G[J◐  Cloning repository….[1G[J◓  Cloning repository….[1G[J◑  Cloning repository….[1G[J◒  Cloning repository….[1G[J◐  Cloning repository….[1G[J◓  Cloning repository….[1G[J◑  Cloning repository….[1G[J◒  Cloning repository….[1G[J◐  Cloning repository…..[1G[J◓  Cloning repository…..[1G[J◑  Cloning repository…..[1G[J◒  Cloning repository…..[1G[J◐  Cloning repository…..[1G[J◓  Cloning repository…..[1G[J◑  Cloning repository…..[1G[J◒  Cloning repository…..[1G[J◐  Cloning repository…...[1G[J◓  Cloning repository…...[1G[J◑  Cloning repository…...[1G[J◒  Cloning repository…...[1G[J◐  Cloning repository…...[1G[J◓  Cloning repository…...[1G[J◑  Cloning repository…...[1G[J◒  Cloning repository…...[1G[J◐  Cloning repository…...[1G[J◓  Cloning repository…[1G[J◑  Cloning repository…[1G[J◒  Cloning repository…[1G[J◐  Cloning repository…[1G[J◇  Repository cloned
+[?25h[?25l│
+[1G[J◒  Discovering skills…[1G[J◐  Discovering skills…[1G[J◓  Discovering skills…[1G[J◇  Found [32m460[39m skills
+[?25h│
+●  Selected 1 skill: [36mgsap-framer-scroll-animation[39m
+
+│
+◇  Installation Summary ────────────────────────────────────────────────────╮
+│                                                                           │
+│  [36m~\Documents\Horizon website\.agents\skills\gsap-framer-scroll-animation[39m  │
+│    [2mcopy →[22m OpenCode, Amp, Antigravity, Antigravity CLI, Cline +17 more     │
+│                                                                           │
+├───────────────────────────────────────────────────────────────────────────╯
+│
+◇  Security Risk Assessments ──────────────────────────────────────────────────╮
+│                                                                              │
+│                                [2mGen[22m               [2mSocket[22m            [2mSnyk[22m      │
+│  [36mgsap-framer-scroll-animation[39m  [32mSafe[39m              [32m0 alerts[39m          [32mLow Risk[39m  │
+│                                                                              │
+│  [2mDetails:[22m [2mhttps://skills.sh/github/awesome-copilot[22m                           │
+│                                                                              │
+├──────────────────────────────────────────────────────────────────────────────╯
+[?25l│
+[1G[J◇  Installation complete
+[?25h
+│
+◇  [32mInstalled 1 skill[39m ───────────────────────────────────╮
+│                                                       │
+│  [32m✓[39m gsap-framer-scroll-animation [2m(copied)[22m              │
+│    [2m→[22m ~\Documents\Horizon                              │
+│  website\.agents\skills\gsap-framer-scroll-animation  │
+│                                                       │
+├───────────────────────────────────────────────────────╯
+
+│
+└  [32mDone![39m[2m  Review skills before use; they run with full agent permissions.[22m
+
