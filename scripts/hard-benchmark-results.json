@@ -1,0 +1,592 @@
+{
+  "name": "HORIZON harder benchmark v3",
+  "sampleSize": 12,
+  "models": {
+    "Zenith-1.1:latest": {
+      "total": 12,
+      "correct": 5,
+      "accuracy": 41.7,
+      "averageLatencyMs": 387,
+      "averageTokensPerSecond": 14,
+      "rows": [
+        {
+          "questionId": 1,
+          "category": "Math",
+          "expected": "C",
+          "answer": "E",
+          "raw": "E) 11",
+          "correct": false,
+          "latencyMs": 4030
+        },
+        {
+          "questionId": 2,
+          "category": "Programming",
+          "expected": "A",
+          "answer": "B",
+          "raw": "B) FALSE",
+          "correct": false,
+          "latencyMs": 47
+        },
+        {
+          "questionId": 3,
+          "category": "Logic",
+          "expected": "B",
+          "answer": "B",
+          "raw": "B) KNAVE",
+          "correct": true,
+          "latencyMs": 59
+        },
+        {
+          "questionId": 4,
+          "category": "Probability",
+          "expected": "C",
+          "answer": "A",
+          "raw": "A) 0.2",
+          "correct": false,
+          "latencyMs": 66
+        },
+        {
+          "questionId": 5,
+          "category": "Computer Science",
+          "expected": "B",
+          "answer": "A",
+          "raw": "A) 8",
+          "correct": false,
+          "latencyMs": 53
+        },
+        {
+          "questionId": 6,
+          "category": "Physics",
+          "expected": "C",
+          "answer": "D",
+          "raw": "D) 40",
+          "correct": false,
+          "latencyMs": 55
+        },
+        {
+          "questionId": 7,
+          "category": "Chemistry",
+          "expected": "C",
+          "answer": "A",
+          "raw": "A) TOWARD PRODUCTS",
+          "correct": false,
+          "latencyMs": 59
+        },
+        {
+          "questionId": 8,
+          "category": "Law",
+          "expected": "C",
+          "answer": "C",
+          "raw": "C) BEYOND A REASONABLE DOUBT",
+          "correct": true,
+          "latencyMs": 58
+        },
+        {
+          "questionId": 9,
+          "category": "Medicine",
+          "expected": "B",
+          "answer": "B",
+          "raw": "B)",
+          "correct": true,
+          "latencyMs": 43
+        },
+        {
+          "questionId": 10,
+          "category": "Programming",
+          "expected": "A",
+          "answer": "A",
+          "raw": "A) TRUE",
+          "correct": true,
+          "latencyMs": 50
+        },
+        {
+          "questionId": 11,
+          "category": "Philosophy",
+          "expected": "C",
+          "answer": "B",
+          "raw": "B) MILL",
+          "correct": false,
+          "latencyMs": 52
+        },
+        {
+          "questionId": 12,
+          "category": "Math",
+          "expected": "A",
+          "answer": "A",
+          "raw": "A) 0.24",
+          "correct": true,
+          "latencyMs": 70
+        }
+      ]
+    },
+    "Halo-1:latest": {
+      "total": 12,
+      "correct": 1,
+      "accuracy": 8.3,
+      "averageLatencyMs": 1329,
+      "averageTokensPerSecond": 104.4,
+      "rows": [
+        {
+          "questionId": 1,
+          "category": "Math",
+          "expected": "C",
+          "answer": "E",
+          "raw": "TO SOLVE THIS PROBLEM, LET'S FOLLOW THE ORDER OF OPERATIONS:\n\n1. PARENTHESES: FIRST, SOLVE THE EXPRESSIONS INSIDE THE PARENTHESES.\n   ((7 + 3) * (4 - 1) - 5) / 3\n   = (10 * 3 - 5) / 3\n\n2. MULTIPLICATION AND DIVISION: NEXT, SOLVE THE MULTIPLICATION AND DIVISION FROM LEFT TO RIGHT.\n   (10 * 3 - 5) / 3\n   = (30 - 5) / 3\n   = 25 / 3\n\n3. FINALLY, SOLVE THE DIVISION:\n   25 / 3 ≈ 8.33\n\nSINCE NONE OF THE OPTIONS ARE VERY CLOSE TO 8.33, THERE SEEMS TO BE A MISTAKE IN THE PROVIDED OPTIONS. HOWEVER, THE CLOSEST OPTION TO OUR RESULT IS B) 8. ASSUMING THERE MIGHT BE A SLIGHT ERROR IN THE PROBLEM STATEMENT, THE MOST REASONABLE CHOICE IS B) 8.",
+          "correct": false,
+          "latencyMs": 4007
+        },
+        {
+          "questionId": 2,
+          "category": "Programming",
+          "expected": "A",
+          "answer": "E",
+          "raw": "THE VALUE OF BOOL([]) IN PYTHON IS FALSE. \n\nSO THE CORRECT ANSWER IS:\n\nA) TRUE\n\nHOWEVER, THAT IS INCORRECT. THE CORRECT ANSWER IS:\n\nB) FALSE\n\nEXPLANATION: IN PYTHON, BOOL([]) IS EQUIVALENT TO BOOL([]), WHICH IS EQUIVALENT TO FALSE BECAUSE AN EMPTY LIST IS CONSIDERED FALSE IN A BOOLEAN CONTEXT.",
+          "correct": false,
+          "latencyMs": 579
+        },
+        {
+          "questionId": 3,
+          "category": "Logic",
+          "expected": "B",
+          "answer": "E",
+          "raw": "TO SOLVE THIS, LET'S ANALYZE THE STATEMENTS GIVEN.\n\nIF A IS A KNIGHT, THEN A ALWAYS TELLS THE TRUTH. SO, IF A SAYS, \"B IS A KNAVE,\" THEN B MUST INDEED BE A KNAVE. \n\nNOW, B SAYS, \"A AND I ARE OF DIFFERENT KINDS.\" SINCE B IS A KNAVE, B ALWAYS LIES. SO, B'S STATEMENT \"A AND I ARE OF DIFFERENT KINDS\" MUST BE FALSE. THIS IMPLIES THAT A AND B ARE OF THE SAME KIND (BOTH KNIGHTS OR BOTH KNAVES).\n\nHOWEVER, FROM THE FIRST PART, WE CONCLUDED THAT IF A IS A KNIGHT, THEN B MUST BE A KNAVE. BUT IF A AND B ARE OF THE SAME KIND, THEY CAN'T BE OF DIFFERENT KINDS (KNAVE AND KNIGHT). THIS CONTRADICTION SHOWS THAT OUR INITIAL ASSUMPTION (A IS A KNIGHT) IS INCORRECT.\n\nNEXT, LET'S CONSIDER THE POSSIBILITY THAT A IS A KNAVE. IF A IS A KNAVE, THEN A ALWAYS LIES. SO, A'S STATEMENT \"B IS A KNAVE\" MUST BE FALSE. THIS MEANS THAT B IS NOT A KNAVE, SO B MUST BE A KNIGHT (SINCE KNIGHTS ALWAYS TELL THE TRUTH AND CANNOT BE BOTH A KNIGHT AND A KNAVE).\n\nNOW, B SAYS, \"A AND I ARE OF DIFFERENT KINDS.\" SINCE B IS A KNIGHT, B'S STATEMENT MUST BE TRUE. THIS MEANS THAT A AND B ARE INDEED OF DIFFERENT KINDS, WHICH ALIGNS WITH OUR CONCLUSION THAT B IS A KNIGHT AND A IS A KNAVE.\n\nTHEREFORE, A IS A KNAVE. THE CORRECT ANSWER IS B) KNAVE.",
+          "correct": false,
+          "latencyMs": 2590
+        },
+        {
+          "questionId": 4,
+          "category": "Probability",
+          "expected": "C",
+          "answer": "D",
+          "raw": "TO FIND P(B|A), WE USE THE FORMULA:\n\nP(B|A) = P(A AND B) / P(A)\n\nGIVEN:\nP(A) = 0.4\nP(B AND A) = 0.2\n\nNOW, PLUG IN THE VALUES:\n\nP(B|A) = 0.2 / 0.4 = 0.5\n\nSO, THE CORRECT ANSWER IS C) 0.5.",
+          "correct": false,
+          "latencyMs": 751
+        },
+        {
+          "questionId": 5,
+          "category": "Computer Science",
+          "expected": "B",
+          "answer": "C",
+          "raw": "TO CONVERT BINARY TO DECIMAL, EACH DIGIT IS MULTIPLIED BY 2 TO THE POWER OF ITS POSITION, STARTING FROM RIGHT TO LEFT. SO, 0B1010 IN DECIMAL IS CALCULATED AS FOLLOWS:\n\n1 * 2^3 = 8\n0 * 2^2 = 0\n1 * 2^1 = 2\n0 * 2^0 = 0\n\nADDING THESE UP: 8 + 0 + 2 + 0 = 10\n\nTHE CORRECT ANSWER IS B) 10.",
+          "correct": false,
+          "latencyMs": 880
+        },
+        {
+          "questionId": 6,
+          "category": "Physics",
+          "expected": "C",
+          "answer": "D",
+          "raw": "TO FIND THE FORCE IN NEWTONS, WE USE NEWTON'S SECOND LAW: F = M × A. \n\nGIVEN:\nM = 10 KG\nA = 2 M/S^2\n\nF = 10 KG × 2 M/S^2 = 20 N\n\nSO THE CORRECT ANSWER IS C) 20.",
+          "correct": false,
+          "latencyMs": 554
+        },
+        {
+          "questionId": 7,
+          "category": "Chemistry",
+          "expected": "C",
+          "answer": "E",
+          "raw": "THE CORRECT ANSWER IS A) TOWARD PRODUCTS.\n\nWHEN THE PRESSURE IS INCREASED, THE REACTION SHIFTS TOWARD THE SIDE WITH FEWER MOLES OF GAS. IN THE REACTION H2 + I2 <-> 2HI, THERE ARE 2 MOLES OF GAS ON THE LEFT SIDE (H2 AND I2) AND 2 MOLES OF GAS ON THE RIGHT SIDE (2HI). SINCE THE NUMBER OF MOLES OF GAS IS THE SAME ON BOTH SIDES, THE REACTION DOES NOT SHIFT. HOWEVER, IF THE PRESSURE IS INCREASED, THE EQUILIBRIUM CONSTANT KP WILL INCREASE, CAUSING THE REACTION TO FAVOR THE SIDE WITH MORE MOLES OF GAS, WHICH IS 2 MOLES OF HI ON THE RIGHT SIDE, BUT SINCE MOLES ARE EQUAL, THE SHIFT IS NOT SIGNIFICANT. FOR GASES, CHANGES IN PRESSURE CAN SLIGHTLY FAVOR THE SIDE WITH FEWER MOLES. HOWEVER, IN THIS SPECIFIC CASE, THE SHIFT IS NEGLIGIBLE AND THE QUESTION IS LIKELY TESTING THE UNDERSTANDING THAT THE NUMBER OF MOLES OF GAS IS THE SAME ON BOTH SIDES, LEADING TO NO SIGNIFICANT SHIFT. YET, THE CORRECT ANSWER BASED ON THE ASSUMPTION OF THE PROBLEM'S INTENTION IS A) TOWARD PRODUCTS. BUT, STRICTLY, THE ANSWER WOULD BE C) NO SHIFT.\n\nGIVEN THE POTENTIAL FOR AMBIGUITY, THE MOST APPROPRIATE ANSWER BASED ON THE GIVEN OPTIONS IS LIKELY A) TOWARD PRODUCTS, BUT THE CORRECT ANSWER FROM A STRICT THERMODYNAMIC PERSPECTIVE IS C) NO SHIFT. THEREFORE, THERE MIGHT BE AN ERROR IN THE QUESTION'S FRAMING.",
+          "correct": false,
+          "latencyMs": 2366
+        },
+        {
+          "questionId": 8,
+          "category": "Law",
+          "expected": "C",
+          "answer": "E",
+          "raw": "THE CORRECT ANSWER IS C) BEYOND A REASONABLE DOUBT. IN A CRIMINAL CASE, THE STANDARD OF PROOF IS \"BEYOND A REASONABLE DOUBT.\" THIS MEANS THAT THE PROSECUTION MUST PROVE THEIR CASE SO WELL THAT THERE IS NO REASONABLE DOUBT LEFT IN THE MIND OF THE JURY OR JUDGE.",
+          "correct": false,
+          "latencyMs": 480
+        },
+        {
+          "questionId": 9,
+          "category": "Medicine",
+          "expected": "B",
+          "answer": "E",
+          "raw": "THE CORRECT ANSWER IS B) EPINEPHRINE. EPINEPHRINE IS THE PRIMARY TREATMENT FOR SEVERE ANAPHYLAXIS AS IT WORKS TO QUICKLY REVERSE THE EFFECTS OF AN ALLERGIC REACTION ON THE CARDIOVASCULAR SYSTEM AND OTHER VITAL ORGANS. IT IS ADMINISTERED INTRAMUSCULARLY OR SUBCUTANEOUSLY, OFTEN VIA AN EPIPEN OR SIMILAR AUTO-INJECTOR DEVICE. THE OTHER OPTIONS ARE NOT TYPICALLY USED AS PRIMARY TREATMENTS FOR ANAPHYLAXIS: DIPHENHYDRAMINE IS AN ANTIHISTAMINE AND MAY BE USED IN SOME CASES, ALBUTEROL IS A BRONCHODILATOR AND MAY BE USED FOR ASTHMA BUT NOT FOR ANAPHYLAXIS, AND CORTISONE IS AN ANTI-INFLAMMATORY MEDICATION THAT MAY BE USED FOR TREATMENT AFTER AN ANAPHYLACTIC REACTION BUT NOT AS THE INITIAL TREATMENT.",
+          "correct": false,
+          "latencyMs": 1320
+        },
+        {
+          "questionId": 10,
+          "category": "Programming",
+          "expected": "A",
+          "answer": "E",
+          "raw": "THE CORRECT ANSWER IS A) TRUE. THE `INCLUDES()` METHOD IN JAVASCRIPT CHECKS WHETHER A VALUE IS CONTAINED WITHIN AN ARRAY. IN THE GIVEN EXAMPLE, WE HAVE A = [1,2,3] AND WE'RE ASKING IF THE ARRAY INCLUDES THE VALUE 2. SINCE 2 IS INDEED IN THE ARRAY, THE OUTPUT OF CONSOLE.LOG(A.INCLUDES(2)) WILL BE TRUE.",
+          "correct": false,
+          "latencyMs": 651
+        },
+        {
+          "questionId": 11,
+          "category": "Philosophy",
+          "expected": "C",
+          "answer": "C",
+          "raw": "C) KANT\n\nIMMANUEL KANT, THE GERMAN PHILOSOPHER, IS KNOWN FOR THIS PRINCIPLE, WHICH IS OFTEN CITED AS A CORE ETHICAL PRINCIPLE IN HIS DEONTOLOGICAL ETHICS. IN HIS WORK \"GROUNDWORK OF THE METAPHYSICS OF MORALS,\" KANT WRITES, \"TREAT HUMANITY ALWAYS AS AN END, NEVER MERELY AS A MEANS.\" THIS PRINCIPLE EMPHASIZES THE IMPORTANCE OF RESPECTING INDIVIDUALS AS ENDS IN THEMSELVES, RATHER THAN USING THEM FOR OUR OWN PURPOSES.",
+          "correct": true,
+          "latencyMs": 745
+        },
+        {
+          "questionId": 12,
+          "category": "Math",
+          "expected": "A",
+          "answer": "D",
+          "raw": "TO FIND P(A AND B), WE CAN USE THE FORMULA FOR CONDITIONAL PROBABILITY: P(A|B) = P(A AND B) / P(B). REARRANGING THE FORMULA TO SOLVE FOR P(A AND B), WE GET: P(A AND B) = P(A|B) * P(B).\n\nGIVEN P(A|B) = 0.8 AND P(B) = 0.3, WE CAN CALCULATE P(A AND B):\n\nP(A AND B) = 0.8 * 0.3 = 0.24\n\nSO THE CORRECT ANSWER IS A) 0.24.",
+          "correct": false,
+          "latencyMs": 1028
+        }
+      ]
+    },
+    "Halo2.5:latest": {
+      "total": 12,
+      "correct": 0,
+      "accuracy": 0,
+      "averageLatencyMs": 925,
+      "averageTokensPerSecond": null,
+      "rows": [
+        {
+          "questionId": 1,
+          "category": "Math",
+          "expected": "C",
+          "answer": "",
+          "raw": "",
+          "correct": false,
+          "latencyMs": 11001
+        },
+        {
+          "questionId": 2,
+          "category": "Programming",
+          "expected": "A",
+          "answer": "",
+          "raw": "",
+          "correct": false,
+          "latencyMs": 10
+        },
+        {
+          "questionId": 3,
+          "category": "Logic",
+          "expected": "B",
+          "answer": "",
+          "raw": "",
+          "correct": false,
+          "latencyMs": 10
+        },
+        {
+          "questionId": 4,
+          "category": "Probability",
+          "expected": "C",
+          "answer": "",
+          "raw": "",
+          "correct": false,
+          "latencyMs": 10
+        },
+        {
+          "questionId": 5,
+          "category": "Computer Science",
+          "expected": "B",
+          "answer": "",
+          "raw": "",
+          "correct": false,
+          "latencyMs": 9
+        },
+        {
+          "questionId": 6,
+          "category": "Physics",
+          "expected": "C",
+          "answer": "",
+          "raw": "",
+          "correct": false,
+          "latencyMs": 8
+        },
+        {
+          "questionId": 7,
+          "category": "Chemistry",
+          "expected": "C",
+          "answer": "",
+          "raw": "",
+          "correct": false,
+          "latencyMs": 8
+        },
+        {
+          "questionId": 8,
+          "category": "Law",
+          "expected": "C",
+          "answer": "",
+          "raw": "",
+          "correct": false,
+          "latencyMs": 7
+        },
+        {
+          "questionId": 9,
+          "category": "Medicine",
+          "expected": "B",
+          "answer": "",
+          "raw": "",
+          "correct": false,
+          "latencyMs": 8
+        },
+        {
+          "questionId": 10,
+          "category": "Programming",
+          "expected": "A",
+          "answer": "",
+          "raw": "",
+          "correct": false,
+          "latencyMs": 8
+        },
+        {
+          "questionId": 11,
+          "category": "Philosophy",
+          "expected": "C",
+          "answer": "",
+          "raw": "",
+          "correct": false,
+          "latencyMs": 9
+        },
+        {
+          "questionId": 12,
+          "category": "Math",
+          "expected": "A",
+          "answer": "",
+          "raw": "",
+          "correct": false,
+          "latencyMs": 7
+        }
+      ]
+    },
+    "Nova5.2:latest": {
+      "total": 12,
+      "correct": 9,
+      "accuracy": 75,
+      "averageLatencyMs": 1054,
+      "averageTokensPerSecond": 6.2,
+      "rows": [
+        {
+          "questionId": 1,
+          "category": "Math",
+          "expected": "C",
+          "answer": "B",
+          "raw": "B\nB",
+          "correct": false,
+          "latencyMs": 9756
+        },
+        {
+          "questionId": 2,
+          "category": "Programming",
+          "expected": "A",
+          "answer": "A",
+          "raw": "A",
+          "correct": true,
+          "latencyMs": 243
+        },
+        {
+          "questionId": 3,
+          "category": "Logic",
+          "expected": "B",
+          "answer": "A",
+          "raw": "A",
+          "correct": false,
+          "latencyMs": 285
+        },
+        {
+          "questionId": 4,
+          "category": "Probability",
+          "expected": "C",
+          "answer": "C",
+          "raw": "C",
+          "correct": true,
+          "latencyMs": 287
+        },
+        {
+          "questionId": 5,
+          "category": "Computer Science",
+          "expected": "B",
+          "answer": "B",
+          "raw": "B",
+          "correct": true,
+          "latencyMs": 267
+        },
+        {
+          "questionId": 6,
+          "category": "Physics",
+          "expected": "C",
+          "answer": "C",
+          "raw": "C",
+          "correct": true,
+          "latencyMs": 254
+        },
+        {
+          "questionId": 7,
+          "category": "Chemistry",
+          "expected": "C",
+          "answer": "A",
+          "raw": "A",
+          "correct": false,
+          "latencyMs": 256
+        },
+        {
+          "questionId": 8,
+          "category": "Law",
+          "expected": "C",
+          "answer": "C",
+          "raw": "C",
+          "correct": true,
+          "latencyMs": 252
+        },
+        {
+          "questionId": 9,
+          "category": "Medicine",
+          "expected": "B",
+          "answer": "B",
+          "raw": "B",
+          "correct": true,
+          "latencyMs": 252
+        },
+        {
+          "questionId": 10,
+          "category": "Programming",
+          "expected": "A",
+          "answer": "A",
+          "raw": "A",
+          "correct": true,
+          "latencyMs": 254
+        },
+        {
+          "questionId": 11,
+          "category": "Philosophy",
+          "expected": "C",
+          "answer": "C",
+          "raw": "C",
+          "correct": true,
+          "latencyMs": 252
+        },
+        {
+          "questionId": 12,
+          "category": "Math",
+          "expected": "A",
+          "answer": "A",
+          "raw": "A",
+          "correct": true,
+          "latencyMs": 288
+        }
+      ]
+    },
+    "Nova5.4-Ultra:latest": {
+      "total": 12,
+      "correct": 10,
+      "accuracy": 83.3,
+      "averageLatencyMs": 2843,
+      "averageTokensPerSecond": 0.7,
+      "rows": [
+        {
+          "questionId": 1,
+          "category": "Math",
+          "expected": "C",
+          "answer": "A",
+          "raw": "A",
+          "correct": false,
+          "latencyMs": 24897
+        },
+        {
+          "questionId": 2,
+          "category": "Programming",
+          "expected": "A",
+          "answer": "A",
+          "raw": "A",
+          "correct": true,
+          "latencyMs": 843
+        },
+        {
+          "questionId": 3,
+          "category": "Logic",
+          "expected": "B",
+          "answer": "A",
+          "raw": "A",
+          "correct": false,
+          "latencyMs": 841
+        },
+        {
+          "questionId": 4,
+          "category": "Probability",
+          "expected": "C",
+          "answer": "C",
+          "raw": "C",
+          "correct": true,
+          "latencyMs": 822
+        },
+        {
+          "questionId": 5,
+          "category": "Computer Science",
+          "expected": "B",
+          "answer": "B",
+          "raw": "B",
+          "correct": true,
+          "latencyMs": 801
+        },
+        {
+          "questionId": 6,
+          "category": "Physics",
+          "expected": "C",
+          "answer": "C",
+          "raw": "C",
+          "correct": true,
+          "latencyMs": 817
+        },
+        {
+          "questionId": 7,
+          "category": "Chemistry",
+          "expected": "C",
+          "answer": "C",
+          "raw": "C",
+          "correct": true,
+          "latencyMs": 859
+        },
+        {
+          "questionId": 8,
+          "category": "Law",
+          "expected": "C",
+          "answer": "C",
+          "raw": "C",
+          "correct": true,
+          "latencyMs": 840
+        },
+        {
+          "questionId": 9,
+          "category": "Medicine",
+          "expected": "B",
+          "answer": "B",
+          "raw": "B",
+          "correct": true,
+          "latencyMs": 849
+        },
+        {
+          "questionId": 10,
+          "category": "Programming",
+          "expected": "A",
+          "answer": "A",
+          "raw": "A",
+          "correct": true,
+          "latencyMs": 851
+        },
+        {
+          "questionId": 11,
+          "category": "Philosophy",
+          "expected": "C",
+          "answer": "C",
+          "raw": "C",
+          "correct": true,
+          "latencyMs": 862
+        },
+        {
+          "questionId": 12,
+          "category": "Math",
+          "expected": "A",
+          "answer": "A",
+          "raw": "A",
+          "correct": true,
+          "latencyMs": 835
+        }
+      ]
+    }
+  },
+  "ranAt": "2026-11-07T15:47:16.828Z"
+}

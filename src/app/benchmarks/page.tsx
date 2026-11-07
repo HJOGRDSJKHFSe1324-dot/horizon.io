@@ -12,17 +12,17 @@ export default function BenchmarksPage() {
 
         <div className="mb-10">
           <Image
-            src="/MMLU_PRO_SAMPLE.png"
-            alt="MMLU-Pro sample benchmark results for HORIZON models"
-            width={1120}
-            height={640}
+            src="/HORIZON_HARD_BENCHMARK.png"
+            alt="Harder HORIZON reasoning benchmark results with all model names"
+            width={1180}
+            height={680}
             className="rounded-2xl border border-white/10 max-w-full h-auto"
             priority
           />
         </div>
 
         <p className="text-sm text-slate-500 max-w-2xl">
-          A 12-question MMLU-Pro style sample across science, humanities, and professional reasoning tasks. Scores are measured model outputs; latency and throughput are not shown here.
+          A harder 12-question suite across math, logic, programming, law, medicine, and science. Accuracy is measured from model answers. Scores separate the Nova flagship from the rest.
         </p>
       </div>
     </main>
