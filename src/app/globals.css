@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "../styles/typography.css";
 
 /* ==========================================================================
    HORIZON design tokens (SA-03)
@@ -134,14 +135,14 @@
   /* ------------------------------------------------------------------ */
   /* Typography stacks (coordinate with Next font variables from SA-02)    */
   /* ------------------------------------------------------------------ */
-  --font-family-sans: var(--font-inter, var(--font-geist-sans, "Inter")), system-ui, -apple-system, "Segoe UI", sans-serif;
-  --font-family-ui: var(--font-inter, var(--font-geist-sans, "Inter")), system-ui, sans-serif;
-  --font-family-display: var(--font-display, var(--font-jakarta, "Space Grotesk")), var(--font-inter, var(--font-geist-sans, "Inter")), system-ui, sans-serif;
-  --font-family-mono: var(--font-mono, var(--font-geist-mono, "JetBrains Mono")), ui-monospace, "Cascadia Code", monospace;
+  --font-family-sans: var(--font-body, "Manrope"), system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-family-ui: var(--font-body, "Manrope"), system-ui, sans-serif;
+  --font-family-display: var(--font-display, "Space Grotesk"), var(--font-body, "Manrope"), system-ui, sans-serif;
+  --font-family-mono: var(--font-mono, "JetBrains Mono"), ui-monospace, "Cascadia Code", monospace;
 
   --font-sans: var(--font-family-sans);
   --font-ui: var(--font-family-ui);
-  --font-body: var(--font-family-sans);
+  --font-body-stack: var(--font-family-sans);
   --font-mono-stack: var(--font-family-mono);
 }
 
