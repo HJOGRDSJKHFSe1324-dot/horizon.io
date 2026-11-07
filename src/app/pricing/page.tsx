@@ -35,7 +35,7 @@ export default function PricingPage() {
   const planInfo: any = siteCopy.pricing.planMeta;
 
   return (
-    <main><Nav />
+    <main id="main"><Nav />
       <div className="max-w-7xl mx-auto px-6 py-16">
         <h1 className="text-4xl font-semibold text-center mb-4">{siteCopy.pricing.title}</h1>
         <p className="text-slate-400 text-center mb-12">{siteCopy.pricing.subtitle}</p>

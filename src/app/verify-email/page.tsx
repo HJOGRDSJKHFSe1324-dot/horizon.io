@@ -15,7 +15,7 @@ function VerifyEmailInner() {
       .then(d => setStatus((d as any).ok ? "Email verified. You can sign in." : ((d as any).error || "Failed")))
       .catch(() => setStatus("Error"));
   }, [sp]);
-  return <main><Nav /><div className="max-w-md mx-auto px-6 py-20 text-center">{status}</div></main>;
+  return <main id="main"><Nav /><div className="max-w-md mx-auto px-6 py-20 text-center">{status}</div></main>;
 }
 
 export default function VerifyEmailPage() {

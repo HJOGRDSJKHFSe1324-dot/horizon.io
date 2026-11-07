@@ -26,20 +26,20 @@ function ResetPasswordInner() {
   }
 
   return (
-    <main><Nav />
+    <main id="main"><Nav />
       <div className="max-w-md mx-auto px-6 py-20">
         <h1 className="text-3xl font-semibold mb-8">Reset password</h1>
         {msg && <div className="text-green-400 mb-4 text-sm">{msg}</div>}
         {stage === "request" && (
           <form onSubmit={requestReset} className="space-y-4">
-            <input value={email} onChange={e=>setEmail(e.target.value)} type="email" required placeholder="Email" className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 outline-none" />
+            <input value={email} onChange={e=>setEmail(e.target.value)} type="email" required placeholder="Email" aria-label="Email" className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 outline-none" />
             <button className="w-full py-3 rounded-xl bg-white text-black font-medium">Send reset link</button>
           </form>
         )}
         {stage === "confirm" && (
           <form onSubmit={confirmReset} className="space-y-4">
-            <input value={token} onChange={e=>setToken(e.target.value)} placeholder="Token" className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 outline-none" />
-            <input value={password} onChange={e=>setPassword(e.target.value)} type="password" required placeholder="New password" className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 outline-none" />
+            <input value={token} onChange={e=>setToken(e.target.value)} placeholder="Token" aria-label="Reset token" className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 outline-none" />
+            <input value={password} onChange={e=>setPassword(e.target.value)} type="password" required placeholder="New password" aria-label="New password" className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 outline-none" />
             <button className="w-full py-3 rounded-xl bg-white text-black font-medium">Update password</button>
           </form>
         )}

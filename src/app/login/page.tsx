@@ -30,14 +30,14 @@ function LoginInner() {
   }
 
   return (
-    <main><Nav />
+    <main id="main"><Nav />
       <div className="max-w-md mx-auto px-6 py-20">
         <h1 className="text-3xl font-semibold mb-2">Welcome back</h1>
         <p className="text-slate-400 mb-8">Sign in to HORIZON.</p>
         {err && <div className="text-red-400 mb-4 text-sm">{err}</div>}
         <form onSubmit={submit} className="space-y-4">
-          <input value={email} onChange={e=>setEmail(e.target.value)} type="email" required placeholder="Email" className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 outline-none" />
-          <input value={password} onChange={e=>setPassword(e.target.value)} type="password" required placeholder="Password" className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 outline-none" />
+          <input value={email} onChange={e=>setEmail(e.target.value)} type="email" required placeholder="Email" aria-label="Email" className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 outline-none" />
+          <input value={password} onChange={e=>setPassword(e.target.value)} type="password" required placeholder="Password" aria-label="Password" className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 outline-none" />
           <button disabled={loading} className="w-full py-3 rounded-xl bg-white text-black font-medium disabled:opacity-50">{loading ? "..." : "Sign in"}</button>
         </form>
         <div className="mt-4 flex justify-between text-sm text-slate-400">

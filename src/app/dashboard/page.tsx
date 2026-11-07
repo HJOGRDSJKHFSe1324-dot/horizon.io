@@ -16,9 +16,9 @@ export default function DashboardPage() {
     await fetch("/api/user/me", { method: "DELETE" });
     window.location.href = "/";
   }
-  if (!data) return <main><Nav /><div className="p-10">Loading...</div></main>;
+  if (!data) return <main id="main"><Nav /><div className="p-10">Loading...</div></main>;
   return (
-    <main><Nav />
+    <main id="main"><Nav />
       <div className="max-w-4xl mx-auto px-6 py-12 space-y-6">
         <h1 className="text-3xl font-semibold">Dashboard</h1>
         <div className="glass rounded-2xl p-6 grid md:grid-cols-2 gap-6">

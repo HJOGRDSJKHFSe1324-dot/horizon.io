@@ -36,7 +36,7 @@ export default function Home() {
   }
 
   return (
-    <main className="min-h-screen overflow-x-hidden">
+    <main id="main" className="min-h-screen overflow-x-hidden">
       <Nav />
 
       <section className="max-w-7xl mx-auto px-6 pt-28 pb-20 reveal">
@@ -130,6 +130,7 @@ export default function Home() {
               }
             }}
             placeholder={siteCopy.home.composerPlaceholder}
+            aria-label="Message HORIZON"
             rows={1}
             className="w-full resize-none bg-transparent px-4 py-3 outline-none text-sm"
           />

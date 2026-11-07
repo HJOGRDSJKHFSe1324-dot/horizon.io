@@ -28,7 +28,7 @@ export function FrameLoader({
   options,
   className,
   style,
-  alt = "Frame sequence",
+  alt = "Animated HORIZON logo frame",
   showPercentage = true,
   children,
   renderOverlay,

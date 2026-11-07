@@ -27,7 +27,7 @@ export default function ModelsPage() {
   const [data, setData] = useState<any>(null);
   useEffect(() => { fetch("/api/models").then(async r => { const t = await r.text(); try { setData(t ? JSON.parse(t) : null); } catch { setData(null); } }).catch(() => {}); }, []);
   return (
-    <main><Nav />
+    <main id="main"><Nav />
       <div className="max-w-7xl mx-auto px-6 py-16">
         <h1 className="text-4xl font-semibold mb-4">{siteCopy.modelsPage.title}</h1>
         <div className="mb-8 glass rounded-xl px-4 py-3 text-sm">

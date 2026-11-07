@@ -252,7 +252,7 @@ html.light {
 
   .surface { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-card); }
   .surface-raised { background: var(--bg-raised); border: 1px solid var(--border); border-radius: var(--radius-card); box-shadow: var(--shadow-1); }
-  .elevated { box-shadow: var(--shadow-2); }
+   .shadow-raised { box-shadow: var(--shadow-2); }
   .ring-focus { box-shadow: var(--shadow-focus); }
 
   .duration-micro { transition-duration: var(--duration-micro); }

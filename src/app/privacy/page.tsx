@@ -1,7 +1,7 @@
 import Nav from "@/components/Nav";
 export default function PrivacyPage() {
   return (
-    <main><Nav />
+    <main id="main"><Nav />
       <div className="max-w-3xl mx-auto px-6 py-20 space-y-4 text-slate-300">
         <h1 className="text-3xl font-semibold text-white">Privacy Policy</h1>
         <p>HORIZON processes account, usage, and subscription data to provide AI services. Personal data is stored in PostgreSQL and protected with hashed passwords, secure sessions, and server-side authorization.</p>
