@@ -97,6 +97,7 @@ model User {
   payments           Payment[]
   bitcoinWithdrawals BitcoinWithdrawal[]
   benchmarkResults   BenchmarkResult[]
+  chatAttachments    ChatAttachment[]
 
   @@index([email])
   @@index([role])
@@ -216,7 +217,8 @@ model Conversation {
 
   user     User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   model    Model?    @relation(fields: [modelId], references: [id])
-  messages Message[]
+  messages      Message[]
+  attachments   ChatAttachment[]
 
   @@index([userId])
   @@index([updatedAt])
@@ -232,6 +234,7 @@ model Message {
   inputTokens    Int      @default(0)
   outputTokens   Int      @default(0)
   totalTokens    Int      @default(0)
+  effort         String?
   createdAt      DateTime @default(now())
 
   conversation Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
@@ -239,6 +242,23 @@ model Message {
   model        Model?       @relation(fields: [modelId], references: [id])
 
   @@index([conversationId])
+}
+
+model ChatAttachment {
+  id             String   @id @default(cuid())
+  conversationId String
+  userId         String
+  fileName       String
+  mimeType       String?
+  sizeBytes      Int
+  storedPath     String
+  createdAt      DateTime @default(now())
+
+  conversation Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  user         User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([conversationId])
+  @@index([userId])
 }
 
 model TokenTransaction {

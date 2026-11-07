@@ -2,7 +2,7 @@
 import Nav from "@/components/Nav";
 import { useEffect, useState } from "react";
 
-const tabs = ["Overview", "Users", "Subscriptions", "Payments", "Conversions", "Withdrawals", "Models", "Server", "Benchmarks", "Settings"];
+const tabs = ["Overview", "Users", "Subscriptions", "Payments", "Conversions", "Withdrawals", "Bans", "Models", "Server", "Benchmarks", "Settings"];
 
 export default function AdminPage() {
   const [tab, setTab] = useState("Overview");
@@ -24,6 +24,8 @@ export default function AdminPage() {
     load("payments", "/api/admin/payments");
     load("conversions", "/api/admin/conversions");
     load("withdrawals", "/api/admin/withdrawals");
+    load("bans", "/api/admin/bans");
+    load("bans", "/api/admin/bans");
     load("models", "/api/models?admin=1");
     load("health", "/api/admin/server-health");
     load("benchmarks", "/api/admin/benchmarks");
@@ -39,6 +41,8 @@ export default function AdminPage() {
     load("benchmarks", "/api/admin/benchmarks");
     load("conversions", "/api/admin/conversions");
     load("withdrawals", "/api/admin/withdrawals");
+    load("bans", "/api/admin/bans");
+    load("bans", "/api/admin/bans");
   };
 
   return (
@@ -58,6 +62,7 @@ export default function AdminPage() {
         {tab === "Payments" && <PaymentsTab data={data.payments} />}
         {tab === "Conversions" && <ConversionsTab data={data.conversions} refresh={refresh} setMsg={setMsg} />}
         {tab === "Withdrawals" && <WithdrawalsTab data={data.withdrawals} btcAddress={(data.settings || []).find((s: any) => s.key === "btc_receiving_address")?.value} refresh={refresh} setMsg={setMsg} />}
+        {tab === "Bans" && <BansTab data={data.bans} refresh={refresh} setMsg={setMsg} />}
         {tab === "Models" && <ModelsTab data={data.models?.models} refresh={refresh} setMsg={setMsg} />}
         {tab === "Server" && <ServerTab data={data.health} refresh={refresh} setMsg={setMsg} />}
         {tab === "Benchmarks" && <BenchmarksTab data={data.benchmarks} models={data.models?.models} refresh={refresh} setMsg={setMsg} />}
@@ -382,6 +387,43 @@ function BenchmarksTab({ data, models, refresh, setMsg }: any) {
           </tbody>
         </table>
       </div>
+    </div>
+  );
+}
+
+function BansTab({ data, refresh, setMsg }: any) {
+  async function toggle(ban: any, next: boolean) {
+    const res = await fetch("/api/admin/bans", { method: "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ ip: ban.ip, banned: next }) });
+    setMsg(res.ok ? (next ? "IP banned" : "IP unbanned") : "Failed");
+    refresh();
+  }
+  return (
+    <div className="overflow-x-auto glass rounded-xl">
+      <table className="w-full text-xs">
+        <thead className="text-slate-400 border-b border-white/5"><tr>
+          <th className="p-2 text-left">IP</th><th className="p-2">Status</th><th className="p-2">Email</th><th className="p-2">Location</th><th className="p-2">Reason</th><th className="p-2">Expires</th><th className="p-2">Actions</th>
+        </tr></thead>
+        <tbody>
+          {(data || []).map((b: any) => (
+            <tr key={b.ip} className="border-b border-white/5">
+              <td className="p-2 font-mono">{b.ip}</td>
+              <td className="p-2 text-center">{b.banned ? "Banned" : "Cleared"}</td>
+              <td className="p-2 text-center">{b.email || "—"}</td>
+              <td className="p-2 text-center">{b.location ? `${b.location.city || ""}, ${b.location.country || ""}`.trim().replace(/^, |, $/g, "") : "—"}</td>
+              <td className="p-2 text-center">{b.reason || "—"}</td>
+              <td className="p-2 text-center">{b.expiresAt ? new Date(b.expiresAt).toLocaleString() : "—"}</td>
+              <td className="p-2 text-center space-x-1">
+                {b.banned ? (
+                  <button onClick={() => toggle(b, false)} className="px-2 py-0.5 rounded bg-white/10">Unban</button>
+                ) : (
+                  <button onClick={() => toggle(b, true)} className="px-2 py-0.5 rounded bg-red-500/20 text-red-300">Ban again</button>
+                )}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      {(data || []).length === 0 && <div className="p-4 text-slate-400 text-sm">No IP records yet. Trigger an IP by attempting a jailbreak-style message.</div>}
     </div>
   );
 }

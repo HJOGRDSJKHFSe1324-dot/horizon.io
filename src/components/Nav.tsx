@@ -2,7 +2,8 @@
 import Link from "next/link";
 import { useSession, signOut } from "next-auth/react";
 import { useState } from "react";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Sun, Moon } from "lucide-react";
+import { useTheme } from "@/components/ThemeProvider";
 
 const links = [
   { href: "/", label: "Home" },
@@ -10,10 +11,12 @@ const links = [
   { href: "/chat", label: "Chat" },
   { href: "/pricing", label: "Pricing" },
   { href: "/benchmarks", label: "Benchmarks" },
+  { href: "/tools", label: "Tools" },
 ];
 
 export default function Nav() {
   const { data: session, status } = useSession();
+  const { toggle, theme } = useTheme();
   const [open, setOpen] = useState(false);
   return (
     <header className="sticky top-0 z-50 backdrop-blur bg-[#05070d]/70 border-b border-white/5">
@@ -40,6 +43,9 @@ export default function Nav() {
               <Link href="/register" className="text-sm px-4 py-1.5 rounded-full bg-white text-black font-medium hover:bg-slate-200">Get Started</Link>
             </>
           )}
+          <button onClick={toggle} className="px-2 py-1 rounded-lg border border-white/10" aria-label="Toggle theme">
+            {theme === "dark" ? <Sun size={16} /> : <Moon size={16} />}
+          </button>
           <button onClick={() => setOpen(!open)} className="md:hidden px-2 py-1" aria-label="Menu">
             {open ? <X size={20} /> : <Menu size={20} />}
           </button>

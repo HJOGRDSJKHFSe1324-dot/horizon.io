@@ -7,6 +7,30 @@ export function planRank(slug: string) {
   return PLAN_RANK[slug] ?? 0;
 }
 
+const DEFAULT_PROMO_END = "2026-11-27T00:00:00.000Z";
+
+export async function getPromoEnd(): Promise<Date> {
+  const env = process.env.MODEL_PROMO_END_AT;
+  if (env) return new Date(env);
+  try {
+    const s = await prisma.adminSetting.findUnique({ where: { key: "model_promo_end_at" } });
+    if (s?.value) return new Date(s.value as any);
+  } catch {}
+  return new Date(DEFAULT_PROMO_END);
+}
+
+export async function isPromoActive(): Promise<boolean> {
+  return (await getPromoEnd()).getTime() > Date.now();
+}
+
+export async function effectiveMinPlan(model: { slug: string; minPlan: any }): Promise<string> {
+  if (model.slug === "halo-1.5") return "FREE"; // free forever after the promo
+  if (model.slug === "zenith-1.1") {
+    return (await isPromoActive()) ? "FREE" : "PLUS";
+  }
+  return String(model.minPlan);
+}
+
 export async function getActivePlan(userId: string) {
   const user = await prisma.user.findUnique({
     where: { id: userId },
@@ -61,12 +85,16 @@ export async function canUseModel(userId: string, modelSlug: string) {
   if (!model || !model.enabled) return { ok: false, reason: "Model unavailable" };
   const plan = await getActivePlan(userId);
   const pSlug = plan?.slug || PlanSlug.FREE;
-  if (planRank(pSlug as string) < planRank(model.minPlan as string)) {
-    return { ok: false, reason: `Requires ${model.minPlan} plan` };
+  const requiredPlan = await effectiveMinPlan(model);
+  if (planRank(pSlug as string) < planRank(requiredPlan)) {
+    return { ok: false, reason: `Requires ${requiredPlan} plan` };
   }
-  // model access list check
+  // model access list check (free forever / promo free models remain usable by free users)
+  const required = await effectiveMinPlan(model);
   const access = (plan?.modelAccess as string[] | null) || [];
-  if (access.length && !access.includes(model.slug)) {
+  if (requiredPlan === "FREE" && (plan?.slug === PlanSlug.FREE || !plan)) {
+    // allow
+  } else if (access.length && !access.includes(model.slug)) {
     return { ok: false, reason: `Not included in your plan` };
   }
   // free cooldown for free model? applies plan free

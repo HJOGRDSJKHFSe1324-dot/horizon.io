@@ -77,8 +77,13 @@ def list_models(authorization: str | None = Header(default=None)):
 
 
 def _ollama_payload(req: ChatRequest, stream: bool):
-    messages = [{"role": m.role, "content": m.content} for m in req.messages]
-    payload = {"model": req.model, "messages": messages, "stream": stream}
+    system_text = "\n\n".join(m.content for m in req.messages if m.role == "system")
+    other = [m for m in req.messages if m.role != "system"]
+    messages = []
+    if system_text.strip():
+        messages.append({"role": "system", "content": system_text})
+    messages.extend({"role": m.role, "content": m.content} for m in other)
+    payload = {"model": req.model, "messages": messages, "stream": stream, "think": False}
     if req.max_tokens:
         payload["options"] = {"num_predict": req.max_tokens}
     return payload

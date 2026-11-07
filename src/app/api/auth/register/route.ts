@@ -44,17 +44,5 @@ export async function POST(req: NextRequest) {
 
 async function sendEmail(to: string, subject: string, text: string) {
   console.log(`[EMAIL] To: ${to} Subject: ${subject}\n${text}`);
-  if (!process.env.SMTP_HOST) return;
-  try {
-    const nodemailer = await import("nodemailer");
-    const transporter = nodemailer.default.createTransport({
-      host: process.env.SMTP_HOST,
-      port: Number(process.env.SMTP_PORT || 587),
-      secure: Number(process.env.SMTP_PORT) === 465,
-      auth: process.env.SMTP_USER ? { user: process.env.SMTP_USER, pass: process.env.SMTP_PASS } : undefined,
-    });
-    await transporter.sendMail({ from: process.env.EMAIL_FROM || "HORIZON <no-reply@horizon.local>", to, subject, text });
-  } catch (e) {
-    console.error("SMTP send failed", e);
-  }
+  console.log("[EMAIL] Nodemailer removed; configure an external email provider if production email is required.");
 }

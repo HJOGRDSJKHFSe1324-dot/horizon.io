@@ -1,7 +1,8 @@
 import { NextRequest } from "next/server";
+export const dynamic = "force-dynamic";
 import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
-import { getActivePlan, getRemainingTokens, canUseModel } from "@/lib/tokens";
+import { getActivePlan, getRemainingTokens, canUseModel, effectiveMinPlan, getPromoEnd } from "@/lib/tokens";
 
 export async function GET(req: NextRequest) {
   try {
@@ -12,16 +13,19 @@ export async function GET(req: NextRequest) {
     const plan = userId ? await getActivePlan(userId) : null;
     const remaining = userId ? await getRemainingTokens(userId) : 0;
     const cooldown = userId ? (await prisma.user.findUnique({ where: { id: userId }, select: { cooldownUntil: true, freeTokensUsed: true, freeAllowance: true } })) : null;
+    const promoEndsAt = (await getPromoEnd()).toISOString();
     const enriched = await Promise.all(models.map(async (m) => {
-      const perm = userId ? await canUseModel(userId, m.slug) : { ok: m.tier === "FREE", reason: m.tier === "FREE" ? undefined : "Sign in required" };
+      const requiredPlan = await effectiveMinPlan(m);
+      const badge = m.slug === "zenith-1.1" && requiredPlan === "FREE" ? "FREE MODEL (Promo)" : m.slug === "zenith-1.1" ? "PAID MODEL" : m.badge;
+      const perm = userId ? await canUseModel(userId, m.slug) : { ok: requiredPlan === "FREE", reason: requiredPlan === "FREE" ? undefined : "Sign in required" };
       const publicModel = {
         id: m.id, name: m.name, slug: m.slug, description: m.description, tier: m.tier,
-        enabled: m.enabled, minPlan: m.minPlan, badge: m.badge, createdAt: m.createdAt, updatedAt: m.updatedAt,
+        enabled: m.enabled, minPlan: requiredPlan, badge, createdAt: m.createdAt, updatedAt: m.updatedAt,
       };
-      const full = isAdmin ? m : publicModel;
-      return { ...full, canUse: perm.ok, reason: perm.reason };
+      const full = isAdmin ? { ...m, minPlan: requiredPlan, badge } : publicModel;
+      return { ...full, canUse: perm.ok, reason: perm.reason, promoEndsAt };
     }));
-    return Response.json({ models: enriched, plan, remainingTokens: remaining, cooldownUntil: cooldown?.cooldownUntil ?? null, freeTokensUsed: cooldown?.freeTokensUsed ?? 0, freeAllowance: cooldown?.freeAllowance ?? 0 });
+    return Response.json({ models: enriched, plan, remainingTokens: remaining, cooldownUntil: cooldown?.cooldownUntil ?? null, freeTokensUsed: cooldown?.freeTokensUsed ?? 0, freeAllowance: cooldown?.freeAllowance ?? 0, promoEndsAt });
   } catch (e: any) {
     return Response.json({ error: e?.message || "Database unavailable", models: [] }, { status: 503 });
   }

@@ -62,6 +62,13 @@ export async function* streamChat(params: {
 }): AsyncGenerator<{ delta: string; usage?: { prompt_tokens?: number; completion_tokens?: number; total_tokens?: number } }, StreamResult, void> {
   const model = await prisma.model.findUnique({ where: { id: params.modelDbId } });
   if (!model || !model.enabled) throw new Error("Model not available.");
+  // Some local models (e.g. DeepSeek/Qwen3) reject multiple system messages. Merge them.
+  const merged: ChatMessage[] = [];
+  const systemText = params.messages.filter((m) => m.role === "system").map((m) => m.content).join("\n\n");
+  if (systemText.trim()) merged.push({ role: "system", content: systemText });
+  for (const m of params.messages) if (m.role !== "system") merged.push(m);
+  params.messages = merged;
+
   const { url, modelId } = resolveEndpoint(model);
 
   const res = await fetch(url, {

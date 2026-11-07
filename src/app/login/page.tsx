@@ -23,7 +23,9 @@ function LoginInner() {
       else if (res.error.includes("AccountDisabled")) setErr("Account disabled.");
       else setErr("Invalid credentials.");
     } else {
-      router.push(sp.get("callbackUrl") || "/chat");
+      const cb = sp.get("callbackUrl") || "/chat";
+      const safe = cb.startsWith("/") && !cb.startsWith("//") ? cb : "/chat";
+      router.push(safe);
     }
   }
 

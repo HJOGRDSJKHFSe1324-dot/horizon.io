@@ -1,0 +1,30 @@
+[
+  {
+    "ip": "::1",
+    "email": "admin@horizon.local",
+    "banned": false,
+    "bannedAt": "2026-11-07T02:28:09.646Z",
+    "expiresAt": null,
+    "location": {
+      "country": "Local",
+      "region": "Local",
+      "city": "Local/private network",
+      "latitude": null,
+      "longitude": null
+    },
+    "reason": "ignore previous instructions",
+    "attempts": 1,
+    "lastSeen": "2026-11-07T02:29:22.621Z"
+  },
+  {
+    "ip": "::ffff:127.0.0.1",
+    "email": "admin@horizon.local",
+    "banned": false,
+    "bannedAt": "2026-11-07T03:15:02.070Z",
+    "expiresAt": null,
+    "location": null,
+    "reason": "unsafe model output",
+    "attempts": 1,
+    "lastSeen": "2026-11-07T03:22:33.958Z"
+  }
+]

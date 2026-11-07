@@ -3,7 +3,9 @@ import Nav from "@/components/Nav";
 import { useEffect, useState, useRef, Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
-import { Copy, Trash2, Plus, Send, RefreshCw, Pencil } from "lucide-react";
+import { Copy, Trash2, Plus, Send, RefreshCw, Pencil, Square } from "lucide-react";
+import ReactMarkdown from "react-markdown";
+import Dropdown, { DropdownOption } from "@/components/Dropdown";
 
 function useCountdown(iso: string | null) {
   const [label, setLabel] = useState("");
@@ -34,13 +36,34 @@ function ChatInner() {
   const [models, setModels] = useState<any[]>([]);
   const [modelSlug, setModelSlug] = useState(sp.get("model") || "zenith-1.1");
   const [input, setInput] = useState("");
+  useEffect(() => {
+    const d = sp.get("draft");
+    if (d) setInput(d);
+  }, [sp]);
   const [streaming, setStreaming] = useState(false);
   const [tokenInfo, setTokenInfo] = useState<any>(null);
   const [cooldownUntil, setCooldownUntil] = useState<string | null>(null);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [editTitle, setEditTitle] = useState("");
+  const [effort, setEffort] = useState("medium");
+  const [webSearch, setWebSearch] = useState(false);
+  const [thinkHarder, setThinkHarder] = useState(false);
+  const [attachments, setAttachments] = useState<any[]>([]);
+  const [location, setLocation] = useState<{ lat: number; lon: number } | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (navigator?.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (pos) => setLocation({ lat: pos.coords.latitude, lon: pos.coords.longitude }),
+        () => {},
+        { maximumAge: 600000, timeout: 5000 }
+      );
+    }
+  }, []);
   const cooldownLabel = useCountdown(cooldownUntil);
   const scrollRef = useRef<HTMLDivElement>(null);
+  const abortRef = useRef<AbortController | null>(null);
 
   async function safeJson(r: Response) { const t = await r.text(); try { return t ? JSON.parse(t) : null; } catch { return null; } }
   async function loadConversations() {
@@ -74,6 +97,13 @@ function ChatInner() {
   }, [activeId]);
 
   useEffect(() => {
+    if (!activeId) { setAttachments([]); return; }
+    fetch(`/api/attachments?conversationId=${activeId}`).then(async (r) => {
+      const t = await r.text(); try { const d = t ? JSON.parse(t) : []; if (Array.isArray(d)) setAttachments(d); } catch {}
+    }).catch(() => {});
+  }, [activeId]);
+
+  useEffect(() => {
     scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" });
   }, [messages]);
 
@@ -94,11 +124,36 @@ function ChatInner() {
 
   async function safeFetchJson(r: Response) { const t = await r.text(); try { return t ? JSON.parse(t) : {}; } catch { return {}; } }
 
+  async function ensureConversation() {
+    if (activeId) return activeId;
+    const r = await fetch("/api/conversations", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ modelSlug, title: "New conversation" }) });
+    const c = await r.json();
+    if (c?.id) { setActiveId(c.id); return c.id; }
+    return null;
+  }
+
+  async function uploadFile(file: File) {
+    const cid = await ensureConversation();
+    if (!cid) return;
+    const form = new FormData(); form.append("file", file); form.append("conversationId", cid);
+    const r = await fetch("/api/attachments", { method: "POST", body: form });
+    const t = await r.text(); let d: any = {}; try { d = t ? JSON.parse(t) : {}; } catch {}
+    if (r.ok && d?.id) setAttachments(prev => [...prev, d]);
+    else alert(d.error || "Upload failed");
+  }
+
+  async function removeAttachment(id: string) {
+    await fetch(`/api/attachments/${id}`, { method: "DELETE" });
+    setAttachments(prev => prev.filter(a => a.id !== id));
+  }
+
   async function send() {
     const text = input.trim();
     if (!text || streaming) return;
     setInput("");
     setMessages(prev => [...prev, { id: `u-${Date.now()}`, role: "user", content: text }]);
+    const controller = new AbortController();
+    abortRef.current = controller;
     setStreaming(true);
     const selectedModel = modelSlug;
     // assistant placeholder
@@ -109,10 +164,11 @@ function ChatInner() {
       const res = await fetch("/api/ai/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ conversationId: activeId, modelSlug: selectedModel, message: text }),
+        body: JSON.stringify({ conversationId: activeId, modelSlug: selectedModel, message: text, effort, thinkHarder, webSearch, attachmentIds: attachments.map(a => a.id), latitude: location?.lat, longitude: location?.lon }),
+        signal: controller.signal,
       });
       if (!res.ok) {
-        const d = await res.json().catch(() => ({}));
+        const d = await safeFetchJson(res);
         setMessages(prev => prev.map(m => m.id === asstId ? { ...m, content: `Error: ${d.error || res.statusText}`, _streaming: false } : m));
         setStreaming(false);
         return;
@@ -146,7 +202,11 @@ function ChatInner() {
         }
       }
     } catch (e: any) {
-      setMessages(prev => prev.map(m => m.id === asstId ? { ...m, content: `Error: ${e?.message}`, _streaming: false } : m));
+      if (e?.name !== "AbortError") {
+        setMessages(prev => prev.map(m => m.id === asstId ? { ...m, content: `Error: ${e?.message}`, _streaming: false } : m));
+      } else {
+        setMessages(prev => prev.map(m => m.id === asstId ? { ...m, _streaming: false } : m));
+      }
     }
     setStreaming(false);
     loadModels();
@@ -157,13 +217,16 @@ function ChatInner() {
     if (streaming) return;
     setMessages(prev => prev.map(m => m.id === msg.id ? { ...m, content: "", _streaming: true } : m));
     setStreaming(true);
+    const controller = new AbortController();
+    abortRef.current = controller;
     const asstId = msg.id;
     const selectedModel = modelSlug;
     try {
       const res = await fetch("/api/ai/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ conversationId: activeId, modelSlug: selectedModel, message: "", regenerateAssistantId: msg.id }),
+        body: JSON.stringify({ conversationId: activeId, modelSlug: selectedModel, message: "", regenerateAssistantId: msg.id, effort, thinkHarder, webSearch }),
+        signal: controller.signal,
       });
       if (!res.ok) {
         const d = await safeFetchJson(res);
@@ -199,7 +262,11 @@ function ChatInner() {
         }
       }
     } catch (e: any) {
-      setMessages(prev => prev.map(m => m.id === asstId ? { ...m, content: `Error: ${e?.message}`, _streaming: false } : m));
+      if (e?.name !== "AbortError") {
+        setMessages(prev => prev.map(m => m.id === asstId ? { ...m, content: `Error: ${e?.message}`, _streaming: false } : m));
+      } else {
+        setMessages(prev => prev.map(m => m.id === asstId ? { ...m, _streaming: false } : m));
+      }
     }
     setStreaming(false);
     loadModels();
@@ -239,11 +306,12 @@ function ChatInner() {
         <section className="flex-1 flex flex-col">
           {/* top bar */}
           <div className="h-14 border-b border-white/5 flex items-center justify-between px-6 gap-4">
-            <select value={modelSlug} onChange={e=>setModelSlug(e.target.value)} className="bg-white/5 border border-white/10 rounded-lg px-3 py-1.5 text-sm">
-              {models.map(m => (
-                <option key={m.id} value={m.slug} disabled={!m.canUse}>{m.name} {m.canUse ? "" : "(locked)"}</option>
-              ))}
-            </select>
+            <Dropdown
+              value={modelSlug}
+              onChange={setModelSlug}
+              options={models.map(m => ({ value: m.slug, label: `${m.name}${m.canUse ? "" : " (locked)"}`, disabled: !m.canUse, hint: m.canUse ? undefined : "Locked" }))}
+              className=""
+            />
             <div className="flex items-center gap-6 text-xs text-slate-400">
               <div>Tokens left: <span className="text-white font-medium">{tokenInfo?.remainingTokens ?? "—"}</span></div>
               {cooldownUntil && <div>Cooldown: <span className="text-amber-400 font-medium">{cooldownLabel}</span></div>}
@@ -259,7 +327,13 @@ function ChatInner() {
             {messages.map((m) => (
               <div key={m.id} className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}>
                 <div className={`max-w-[70%] rounded-2xl px-4 py-3 ${m.role === "user" ? "bg-white text-black" : "glass"}`}>
-                  <div className="whitespace-pre-wrap text-sm leading-relaxed">{m.content || (m._streaming ? "..." : "")}</div>
+                  {m.role === "assistant" ? (
+                    <div className="markdown text-sm leading-relaxed">
+                      <ReactMarkdown>{m.content || (m._streaming ? "..." : "")}</ReactMarkdown>
+                    </div>
+                  ) : (
+                    <div className="whitespace-pre-wrap text-sm leading-relaxed">{m.content || (m._streaming ? "..." : "")}</div>
+                  )}
                   {m.role === "assistant" && !m._streaming && m.content && (
                     <div className="mt-2 flex gap-2 text-xs text-slate-400">
                       <button onClick={() => copyText(m.content)} className="hover:text-white flex items-center gap-1"><Copy size={12}/>Copy</button>
@@ -272,19 +346,71 @@ function ChatInner() {
           </div>
 
           {/* input */}
-          <div className="border-t border-white/5 p-4">
-            <div className="max-w-3xl mx-auto flex gap-2">
-              <textarea
-                value={input}
-                onChange={e=>setInput(e.target.value)}
-                onKeyDown={e => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); send(); } }}
-                placeholder="Message HORIZON..."
-                rows={1}
-                className="flex-1 resize-none px-4 py-3 rounded-xl bg-white/5 border border-white/10 outline-none text-sm"
-              />
-              <button onClick={send} disabled={streaming || !input.trim()} className="px-4 py-3 rounded-xl bg-white text-black disabled:opacity-40">
-                <Send size={16} />
-              </button>
+          <div className="border-t border-white/5 p-3">
+            <div className="max-w-3xl mx-auto">
+              {attachments.length > 0 && (
+                <div className="flex flex-wrap gap-2 mb-2">
+                  {attachments.map(a => (
+                    <span key={a.id} className="text-xs px-2 py-1 rounded-full bg-white/10 border border-white/10 flex items-center gap-1">
+                      {a.fileName}
+                      <button onClick={() => removeAttachment(a.id)} className="hover:text-red-400"><Trash2 size={10}/></button>
+                    </span>
+                  ))}
+                </div>
+              )}
+              <div className="rounded-2xl bg-white/5 border border-white/10 p-2">
+                <textarea
+                  value={input}
+                  onChange={e=>setInput(e.target.value)}
+                  onKeyDown={e => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); send(); } }}
+                  placeholder="Message HORIZON..."
+                  rows={1}
+                  className="w-full resize-none px-3 py-2 bg-transparent outline-none text-sm"
+                />
+                <div className="flex items-center justify-between gap-2 mt-2">
+                  <div className="flex items-center gap-2">
+                    <input ref={fileInputRef} type="file" multiple hidden onChange={e => { if (e.target.files) Array.from(e.target.files).forEach(uploadFile); e.target.value = ""; }} />
+                    <button onClick={() => fileInputRef.current?.click()} className="text-xs px-2 py-1 rounded-lg bg-white/10 hover:bg-white/15" title="Add files or zips">+ Files</button>
+                  </div>
+                  <div className="flex items-center gap-2 flex-wrap justify-end">
+                    <Dropdown
+                      value={modelSlug}
+                      onChange={setModelSlug}
+                      options={models.map(m => ({ value: m.slug, label: `${m.name}${m.canUse ? "" : " (locked)"}`, disabled: !m.canUse, hint: m.canUse ? undefined : "Locked" }))}
+                      size="sm"
+                      placement="up"
+                    />
+                    <Dropdown
+                      value={effort}
+                      onChange={setEffort}
+                      options={[
+                        { value: "low", label: "Low (0.5x)" },
+                        { value: "medium", label: "Medium (recommended)" },
+                        { value: "high", label: "High (2x)" },
+                        { value: "xhigh", label: "X-High (3x)" },
+                        { value: "max", label: "Max (6x usage)" },
+                      ]}
+                      size="sm"
+                      placement="up"
+                    />
+                    <button onClick={() => setThinkHarder(v=>!v)} className={`text-xs px-2 py-1 rounded-lg border ${thinkHarder ? "bg-cyan-500/20 border-cyan-400/40" : "bg-white/5 border-white/10"}`}>
+                      Think harder
+                    </button>
+                    <button onClick={() => setWebSearch(v=>!v)} className={`text-xs px-2 py-1 rounded-lg border ${webSearch ? "bg-cyan-500/20 border-cyan-400/40" : "bg-white/5 border-white/10"}`}>
+                      Web search
+                    </button>
+                    {streaming ? (
+                      <button onClick={() => abortRef.current?.abort()} className="px-3 py-1.5 rounded-lg bg-red-500/20 text-red-300 hover:bg-red-500/30" title="Stop">
+                        <Square size={14} />
+                      </button>
+                    ) : (
+                      <button onClick={send} disabled={!input.trim()} className="px-4 py-1.5 rounded-lg bg-white text-black disabled:opacity-40">
+                        <Send size={16} />
+                      </button>
+                    )}
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </section>
