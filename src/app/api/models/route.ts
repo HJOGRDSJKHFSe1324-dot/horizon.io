@@ -3,6 +3,7 @@ export const dynamic = "force-dynamic";
 import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
 import { getActivePlan, getRemainingTokens, canUseModel, effectiveMinPlan, getPromoEnd } from "@/lib/tokens";
+import { getModelData } from "@/data/models";
 
 export async function GET(req: NextRequest) {
   try {
@@ -19,12 +20,20 @@ export async function GET(req: NextRequest) {
       const requiredPlan = await effectiveMinPlan(m);
       const badge = m.slug === "zenith-1.1" ? "FREE MODEL" : m.badge;
       const perm = userId ? await canUseModel(userId, m.slug) : { ok: requiredPlan === "FREE", reason: requiredPlan === "FREE" ? undefined : "Sign in required" };
+      const extra = getModelData(m.slug);
+      const staticFields = {
+        strengths: extra?.strengths ?? [],
+        weaknesses: extra?.weaknesses ?? [],
+        benchmarks: extra?.benchmarks ?? null,
+        parameters: extra?.parameters ?? null,
+      };
       const publicModel = {
         id: m.id, name: m.name, slug: m.slug, description: m.description, tier: m.tier,
         enabled: m.enabled, minPlan: requiredPlan, badge, createdAt: m.createdAt, updatedAt: m.updatedAt,
         plans: plans.filter((pl) => ((pl.modelAccess as string[] | null) || []).includes(m.slug) || (requiredPlan === "FREE" && pl.slug === "FREE")).map((pl) => pl.name),
+        ...staticFields,
       };
-      const full = isAdmin ? { ...m, minPlan: requiredPlan, badge, plans: plans.filter((pl) => ((pl.modelAccess as string[] | null) || []).includes(m.slug) || (requiredPlan === "FREE" && pl.slug === "FREE")).map((pl) => pl.name) } : publicModel;
+      const full = isAdmin ? { ...m, minPlan: requiredPlan, badge, plans: plans.filter((pl) => ((pl.modelAccess as string[] | null) || []).includes(m.slug) || (requiredPlan === "FREE" && pl.slug === "FREE")).map((pl) => pl.name), ...staticFields } : publicModel;
       return { ...full, canUse: perm.ok, reason: perm.reason, promoEndsAt };
     }));
     const visibleModels = isAdmin ? enriched : enriched.filter((m: any) => m.enabled);
