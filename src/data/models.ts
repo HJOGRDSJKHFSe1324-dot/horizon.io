@@ -132,20 +132,20 @@ export const modelsData: ModelData[] = [
   {
     name: "Halo 2.5",
     slug: "halo-2.5",
-    tier: "PAID",
-    minPlan: "PRO",
-    badge: "PREMIUM MODEL",
+    tier: "FREE",
+    minPlan: "FREE",
+    badge: "FREE MODEL",
     description: "Deep Paid model for long-form analysis and generation.",
     parameters: "9B",
     enabled: true,
     strengths: [
-      "Flagship, top-tier performance positioning (seed + site copy)",
-      "Highest measured overall average in the suite (82.35%)",
-      "Measured coding, knowledge, and reasoning averages of 100%, 100%, and 66.67%",
+      "Deep reasoning and long-form generation, now free to all",
+      "Strong measured benchmark profile in HORIZON suites",
+      "Coding, knowledge, and reasoning strengths from published results",
     ],
     weaknesses: [
-      "Measured math average of 80% in the HORIZON benchmark suite",
-      "Lowest measured throughput of the three benchmarked models (25.04 tokens/s average)",
+      "Slower than the smaller models (25.04 tokens/s average)",
+      "Higher resource footprint than Zenith and Halo 1.5",
     ],
     benchmarks: {
       status: "verified",
