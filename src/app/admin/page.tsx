@@ -46,8 +46,8 @@ export default function AdminPage() {
   };
 
   return (
-    <main><Nav />
-      <div className="max-w-7xl mx-auto px-6 py-8">
+    <main id="main"><Nav />
+      <div className="mx-auto max-w-7xl px-6 py-12">
         <h1 className="text-3xl font-semibold mb-6">Admin Dashboard</h1>
         <div className="flex flex-wrap gap-2 mb-6">
           {tabs.map(t => (

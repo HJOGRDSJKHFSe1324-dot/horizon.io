@@ -16,8 +16,8 @@ export default function ToolsPage() {
   }
 
   return (
-    <main><Nav />
-      <div className="max-w-5xl mx-auto px-6 py-16">
+    <main id="main"><Nav />
+      <div className="mx-auto max-w-5xl px-6 py-12">
         <h1 className="text-4xl font-semibold mb-8">HORIZON Tools</h1>
         <div className="grid md:grid-cols-2 gap-4 mb-10">
           {tools.map(t => <div key={t.name} className="glass rounded-xl p-4"><div className="font-semibold">{t.name}</div><div className="text-sm text-slate-400">{t.description}</div><div className="text-xs text-slate-500 mt-1">{t.method} {t.path}</div></div>)}
