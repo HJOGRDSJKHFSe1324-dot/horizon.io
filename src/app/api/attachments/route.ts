@@ -19,6 +19,9 @@ export async function POST(req: NextRequest) {
   const conversationId = String(form.get("conversationId") || "");
   if (!file || !conversationId) return Response.json({ error: "file and conversationId required" }, { status: 400 });
   if (file.size > MAX_BYTES) return Response.json({ error: "file too large (25MB max)" }, { status: 413 });
+  if (file.type && !Array.from(ALLOWED).some((p) => file.type.startsWith(p))) {
+    return Response.json({ error: "unsupported file type" }, { status: 415 });
+  }
 
   const conv = await prisma.conversation.findFirst({ where: { id: conversationId, userId } });
   if (!conv) return Response.json({ error: "conversation not found" }, { status: 404 });

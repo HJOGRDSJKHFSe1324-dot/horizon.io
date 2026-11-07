@@ -19,7 +19,7 @@ export async function POST(req: NextRequest) {
   if (existing) return Response.json({ error: "Email already registered" }, { status: 409 });
 
   const passwordHash = await bcrypt.hash(password, 12);
-  const freePlan = await prisma.plan.findUnique({ where: { slug: "FREE" } });
+  const canSendEmail = !!(process.env.RESEND_API_KEY || process.env.SENDGRID_API_KEY || (process.env.GMAIL_USER && process.env.GMAIL_APP_PASSWORD));
   await prisma.user.create({
     data: {
       name: name || null,
@@ -27,6 +27,7 @@ export async function POST(req: NextRequest) {
       passwordHash,
       freeAllowance: 200000,
       tokenBalance: 0,
+      emailVerified: canSendEmail ? null : new Date(),
     },
   });
 
@@ -36,13 +37,19 @@ export async function POST(req: NextRequest) {
     data: { identifier: email, token, expires: new Date(Date.now() + 24 * 60 * 60 * 1000) },
   });
   const verifyUrl = `${process.env.NEXTAUTH_URL || "http://localhost:3000"}/verify-email?token=${token}&email=${encodeURIComponent(email)}`;
-  // send email if SMTP configured, else log
-  await sendEmail(email, "Verify your HORIZON account", `Click to verify: ${verifyUrl}`).catch(() => {});
-
-  return Response.json({ ok: true, message: "Registered. Check your email to verify." });
+  const verifyText = `Click to verify your HORIZON account: ${verifyUrl}`;
+  let emailSent = true;
+  try {
+    await (await import("@/lib/email")).sendEmail({ to: email, subject: "Verify your HORIZON account", text: verifyText });
+  } catch (e) {
+    emailSent = false;
+  }
+  const isDev = process.env.NODE_ENV !== "production";
+  return Response.json({
+    ok: true,
+    message: emailSent ? "Registered. Check your email to verify." : "Registered, but email could not be sent. Use the verification link below (development only).",
+    ...(process.env.AUTH_DEBUG_LINKS === "true" && (!emailSent || (!process.env.RESEND_API_KEY && !process.env.SENDGRID_API_KEY && !(process.env.GMAIL_USER && process.env.GMAIL_APP_PASSWORD))) ? { verificationUrl: verifyUrl } : {}),
+  });
 }
 
-async function sendEmail(to: string, subject: string, text: string) {
-  console.log(`[EMAIL] To: ${to} Subject: ${subject}\n${text}`);
-  console.log("[EMAIL] Nodemailer removed; configure an external email provider if production email is required.");
-}
+// Email sending provided by src/lib/email.ts

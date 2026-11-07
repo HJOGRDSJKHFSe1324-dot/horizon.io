@@ -14,7 +14,6 @@ const JAILBREAK_RULES: Array<{ name: string; weight: number; re: RegExp }> = [
   { name: "encoded instruction", weight: 2, re: /base64|rot13|hex\s*decode/i },
 ];
 
-const SUSPICIOUS_TOKENS = ["system:", "assistant:", "tool:", "function:", "xml", "instruction", "override"];
 
 function normalize(text: string) {
   return text

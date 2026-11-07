@@ -1,9 +1,9 @@
 [
   {
     "ip": "::1",
-    "email": "admin@horizon.local",
+    "email": "rogenlittle1324@gmail.com",
     "banned": false,
-    "bannedAt": "2026-11-07T02:28:09.646Z",
+    "bannedAt": "2026-11-07T10:14:50.028Z",
     "expiresAt": null,
     "location": {
       "country": "Local",
@@ -13,8 +13,8 @@
       "longitude": null
     },
     "reason": "ignore previous instructions",
-    "attempts": 1,
-    "lastSeen": "2026-11-07T02:29:22.621Z"
+    "attempts": 2,
+    "lastSeen": "2026-11-07T10:24:49.836Z"
   },
   {
     "ip": "::ffff:127.0.0.1",

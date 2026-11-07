@@ -278,7 +278,8 @@ function ModelsTab({ data, refresh, setMsg }: any) {
                 <td className="p-2 text-center">{m.tier}</td>
                 <td className="p-2 text-center">{m.minPlan}</td>
                 <td className="p-2 text-center">{m.enabled ? "Yes" : "No"}</td>
-                <td className="p-2 text-center">
+                <td className="p-2 text-center space-x-1">
+                  <a href={`/chat?model=${m.slug}`} target="_blank" rel="noopener noreferrer" className="px-2 py-0.5 rounded bg-white/10">Preview</a>
                   <button onClick={() => setEditing({ ...m })} className="px-2 py-0.5 rounded bg-white/10">Edit</button>
                 </td>
               </tr>

@@ -13,19 +13,19 @@ export default function BenchmarksPage() {
     const rs = results.filter((r: any) => r.model.slug === slug && r[field] != null);
     if (!rs.length) return null;
     const vals = rs.map((r: any) => Number(r[field]));
-    return (vals.reduce((a,b)=>a+b,0)/vals.length).toFixed(2);
+    return (vals.reduce((a: number, b: number) => a + b, 0)/vals.length).toFixed(2);
   }
   function avgTps(slug: string) {
     const rs = results.filter((r: any) => r.model.slug === slug && r.tokensPerSecond != null);
     if (!rs.length) return null;
     const vals = rs.map((r: any) => Number(r.tokensPerSecond));
-    return (vals.reduce((a,b)=>a+b,0)/vals.length).toFixed(1);
+    return (vals.reduce((a: number, b: number) => a + b, 0)/vals.length).toFixed(1);
   }
   function avgLat(slug: string) {
     const rs = results.filter((r: any) => r.model.slug === slug && r.latencyMs != null);
     if (!rs.length) return null;
     const vals = rs.map((r: any) => Number(r.latencyMs));
-    return Math.round(vals.reduce((a,b)=>a+b,0)/vals.length);
+    return Math.round(vals.reduce((a: number, b: number) => a + b, 0)/vals.length);
   }
 
   return (
@@ -76,6 +76,10 @@ export default function BenchmarksPage() {
           </table>
         </div>
         {results.length === 0 && <p className="text-slate-500 mt-6">No published benchmark results yet.</p>}
+        <div className="mt-12">
+          <h2 className="text-2xl font-semibold mb-4">MMLU-Pro sample results</h2>
+          <img src="/MMLU_PRO_SCORES.png" alt="MMLU-Pro benchmark scores by model" className="rounded-2xl border border-white/10 max-w-full" />
+        </div>
       </div>
     </main>
   );

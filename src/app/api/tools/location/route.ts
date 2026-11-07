@@ -1,6 +1,6 @@
-import { NextRequest } from "next/server";
+// no NextRequest needed
 
-export async function GET(req: NextRequest) {
+export async function GET() {
   try {
     const r = await fetch("http://ip-api.com/json/?fields=status,country,regionName,city,lat,lon,timezone,isp", { signal: AbortSignal.timeout(5000) });
     const data: any = await r.json();

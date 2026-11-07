@@ -24,10 +24,9 @@ export async function isPromoActive(): Promise<boolean> {
 }
 
 export async function effectiveMinPlan(model: { slug: string; minPlan: any }): Promise<string> {
-  if (model.slug === "halo-1.5") return "FREE"; // free forever after the promo
-  if (model.slug === "zenith-1.1") {
-    return (await isPromoActive()) ? "FREE" : "PLUS";
-  }
+  // Fixed availability requested for HORIZON:
+  // Zenith-1.1 and Halo 1.5 are free; Halo 2.5/Nova require paid plans.
+  if (model.slug === "zenith-1.1" || model.slug === "halo-1.5") return "FREE";
   return String(model.minPlan);
 }
 
@@ -82,7 +81,8 @@ export async function canUseModel(userId: string, modelSlug: string) {
   const user = await prisma.user.findUnique({ where: { id: userId } });
   if (!user) return { ok: false, reason: "User not found" };
   const model = await prisma.model.findUnique({ where: { slug: modelSlug } });
-  if (!model || !model.enabled) return { ok: false, reason: "Model unavailable" };
+  if (!model) return { ok: false, reason: "Model unavailable" };
+  if (user.role === "ADMIN") return { ok: true }; // preview any model, including disabled/gatekept ones
   const plan = await getActivePlan(userId);
   const pSlug = plan?.slug || PlanSlug.FREE;
   const requiredPlan = await effectiveMinPlan(model);
@@ -90,7 +90,7 @@ export async function canUseModel(userId: string, modelSlug: string) {
     return { ok: false, reason: `Requires ${requiredPlan} plan` };
   }
   // model access list check (free forever / promo free models remain usable by free users)
-  const required = await effectiveMinPlan(model);
+
   const access = (plan?.modelAccess as string[] | null) || [];
   if (requiredPlan === "FREE" && (plan?.slug === PlanSlug.FREE || !plan)) {
     // allow
@@ -171,10 +171,6 @@ export async function consumeTokens(params: {
     });
     return { balanceAfter: updated.tokenBalance, cooldownUntil: null };
   }
-}
-
-export function userPlanSlug(user: any) {
-  return "FREE";
 }
 
 export const FREE_COOLDOWN_HOURS = 5;

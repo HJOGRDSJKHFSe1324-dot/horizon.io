@@ -5,7 +5,7 @@ import { useSearchParams, useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { Copy, Trash2, Plus, Send, RefreshCw, Pencil, Square } from "lucide-react";
 import ReactMarkdown from "react-markdown";
-import Dropdown, { DropdownOption } from "@/components/Dropdown";
+import Dropdown from "@/components/Dropdown";
 
 function useCountdown(iso: string | null) {
   const [label, setLabel] = useState("");
@@ -376,7 +376,7 @@ function ChatInner() {
                     <Dropdown
                       value={modelSlug}
                       onChange={setModelSlug}
-                      options={models.map(m => ({ value: m.slug, label: `${m.name}${m.canUse ? "" : " (locked)"}`, disabled: !m.canUse, hint: m.canUse ? undefined : "Locked" }))}
+                      options={models.map(m => ({ value: m.slug, label: `${m.name}${m.canUse ? "" : " (locked)"} — ${(m.plans || [m.minPlan]).join(", ")}`, disabled: !m.canUse, hint: m.canUse ? undefined : "Locked" }))}
                       size="sm"
                       placement="up"
                     />

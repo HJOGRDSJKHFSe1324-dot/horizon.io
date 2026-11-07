@@ -11,7 +11,6 @@ export default function RegisterPage() {
   const [msg, setMsg] = useState("");
   const [err, setErr] = useState("");
   const [loading, setLoading] = useState(false);
-  const router = useRouter();
 
   async function submit(e: React.FormEvent) {
     e.preventDefault();
@@ -21,7 +20,10 @@ export default function RegisterPage() {
     let data: any = {}; try { data = text ? JSON.parse(text) : {}; } catch { data = {}; }
     setLoading(false);
     if (!res.ok) setErr(data.error || "Failed");
-    else setMsg(data.message || "Registered. Check your email.");
+    else {
+      setMsg(data.message || "Registered. Check your email.");
+      if (data.verificationUrl) setMsg((m) => `${m} Verify link (dev): ${data.verificationUrl}`);
+    }
   }
 
   return (

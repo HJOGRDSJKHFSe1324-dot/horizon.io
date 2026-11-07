@@ -34,7 +34,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     async signIn({ user }) {
       if (user?.email) {
         const dbUser = await prisma.user.findUnique({ where: { email: user.email }, select: { settings: true } });
-        if (dbUser?.settings?.disabled) return false;
+        if ((dbUser?.settings as any)?.disabled) return false;
       }
       return true;
     },
@@ -53,5 +53,6 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       return session;
     },
   },
+  trustHost: true,
   secret: process.env.NEXTAUTH_SECRET,
 });

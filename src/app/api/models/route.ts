@@ -10,22 +10,25 @@ export async function GET(req: NextRequest) {
     const userId = (session?.user as any)?.id;
     const isAdmin = (session?.user as any)?.role === "ADMIN";
     const models = await prisma.model.findMany({ orderBy: { name: "asc" } });
+    const plans = await prisma.plan.findMany({ where: { active: true }, orderBy: { priceGbp: "asc" } });
     const plan = userId ? await getActivePlan(userId) : null;
     const remaining = userId ? await getRemainingTokens(userId) : 0;
     const cooldown = userId ? (await prisma.user.findUnique({ where: { id: userId }, select: { cooldownUntil: true, freeTokensUsed: true, freeAllowance: true } })) : null;
     const promoEndsAt = (await getPromoEnd()).toISOString();
     const enriched = await Promise.all(models.map(async (m) => {
       const requiredPlan = await effectiveMinPlan(m);
-      const badge = m.slug === "zenith-1.1" && requiredPlan === "FREE" ? "FREE MODEL (Promo)" : m.slug === "zenith-1.1" ? "PAID MODEL" : m.badge;
+      const badge = m.slug === "zenith-1.1" ? "FREE MODEL" : m.badge;
       const perm = userId ? await canUseModel(userId, m.slug) : { ok: requiredPlan === "FREE", reason: requiredPlan === "FREE" ? undefined : "Sign in required" };
       const publicModel = {
         id: m.id, name: m.name, slug: m.slug, description: m.description, tier: m.tier,
         enabled: m.enabled, minPlan: requiredPlan, badge, createdAt: m.createdAt, updatedAt: m.updatedAt,
+        plans: plans.filter((pl) => ((pl.modelAccess as string[] | null) || []).includes(m.slug) || (requiredPlan === "FREE" && pl.slug === "FREE")).map((pl) => pl.name),
       };
-      const full = isAdmin ? { ...m, minPlan: requiredPlan, badge } : publicModel;
+      const full = isAdmin ? { ...m, minPlan: requiredPlan, badge, plans: plans.filter((pl) => ((pl.modelAccess as string[] | null) || []).includes(m.slug) || (requiredPlan === "FREE" && pl.slug === "FREE")).map((pl) => pl.name) } : publicModel;
       return { ...full, canUse: perm.ok, reason: perm.reason, promoEndsAt };
     }));
-    return Response.json({ models: enriched, plan, remainingTokens: remaining, cooldownUntil: cooldown?.cooldownUntil ?? null, freeTokensUsed: cooldown?.freeTokensUsed ?? 0, freeAllowance: cooldown?.freeAllowance ?? 0, promoEndsAt });
+    const visibleModels = isAdmin ? enriched : enriched.filter((m: any) => m.enabled);
+    return Response.json({ models: visibleModels, plan, plans, remainingTokens: remaining, cooldownUntil: cooldown?.cooldownUntil ?? null, freeTokensUsed: cooldown?.freeTokensUsed ?? 0, freeAllowance: cooldown?.freeAllowance ?? 0, promoEndsAt });
   } catch (e: any) {
     return Response.json({ error: e?.message || "Database unavailable", models: [] }, { status: 503 });
   }

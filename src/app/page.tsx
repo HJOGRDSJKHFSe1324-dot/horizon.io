@@ -7,20 +7,15 @@ import { useEffect, useRef, useState } from "react";
 
 const models = [
   { name: "Zenith-1.1", slug: "zenith-1.1", tag: "FREE MODEL", desc: "Fast, capable baseline for everyday chat, summaries, and light reasoning.", chip: "Free" },
-  { name: "Halo 1.5", slug: "halo-1.5", tag: "PAID MODEL", desc: "Stronger reasoning, coding, and long-context performance for work that matters.", chip: "Pro" },
+  { name: "Halo 1.5", slug: "halo-1.5", tag: "FREE MODEL", desc: "Stronger reasoning, coding, and long-context performance for work that matters.", chip: "Free" },
   { name: "Halo 2.5", slug: "halo-2.5", tag: "FLAGSHIP", desc: "Our deepest model with top-tier long-form reasoning, analysis, and generation.", chip: "Max" },
 ];
 
 export default function Home() {
   const router = useRouter();
   const [draft, setDraft] = useState("");
-  const [scrolled, setScrolled] = useState(false);
-  const sectionRefs = useRef<HTMLElement[]>([]);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 60);
-    window.addEventListener("scroll", onScroll, { passive: true });
-    onScroll();
     const obs = new IntersectionObserver(
       (entries) => {
         for (const e of entries) if (e.isIntersecting) e.target.classList.add("is-visible");
@@ -28,10 +23,7 @@ export default function Home() {
       { threshold: 0.12 }
     );
     document.querySelectorAll(".reveal").forEach((el) => obs.observe(el));
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-      obs.disconnect();
-    };
+    return () => obs.disconnect();
   }, []);
 
   function goChat() {
@@ -106,18 +98,6 @@ export default function Home() {
         </div>
       </section>
 
-      <footer className="border-t border-[var(--border)] mt-20">
-        <div className="max-w-7xl mx-auto px-6 py-10 text-sm text-[var(--muted)] flex flex-col md:flex-row justify-between gap-4">
-          <div>© {new Date().getFullYear()} HORIZON</div>
-          <div className="flex flex-wrap gap-6">
-            <Link href="/privacy" className="hover:text-[var(--fg)]">Privacy</Link>
-            <Link href="/terms" className="hover:text-[var(--fg)]">Terms</Link>
-            <Link href="/models" className="hover:text-[var(--fg)]">Models</Link>
-            <Link href="/tools" className="hover:text-[var(--fg)]">Tools</Link>
-            <Link href="/benchmarks" className="hover:text-[var(--fg)]">Benchmarks</Link>
-          </div>
-        </div>
-      </footer>
 
       {/* ChatGPT-style bottom composer */}
       <div className="fixed bottom-4 left-1/2 -translate-x-1/2 w-[min(900px,96vw)] z-40">

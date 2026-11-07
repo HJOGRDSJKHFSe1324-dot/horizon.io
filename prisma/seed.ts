@@ -6,10 +6,10 @@ const prisma = new PrismaClient();
 async function main() {
   // Plans
   const plans = [
-    { slug: PlanSlug.FREE, name: "Free", priceGbp: 0, tokenAllowance: 200000, priority: 0, description: "Get started with Zenith-1.1", modelAccess: ["zenith-1.1"], features: ["200K tokens", "Zenith-1.1", "5-hour cooldown after exhausting allowance"] },
+    { slug: PlanSlug.FREE, name: "Free", priceGbp: 0, tokenAllowance: 200000, priority: 0, description: "Get started with Zenith-1.1 and Halo 1.5", modelAccess: ["zenith-1.1", "halo-1.5"], features: ["200K tokens", "Zenith-1.1", "Halo 1.5", "5-hour cooldown after exhausting allowance"] },
     { slug: PlanSlug.PLUS, name: "Horizon Plus", priceGbp: 200, tokenAllowance: 500000, priority: 1, description: "More tokens for everyday use", modelAccess: ["zenith-1.1"], features: ["500K tokens/billing cycle", "Zenith-1.1", "Standard priority"] },
-    { slug: PlanSlug.PRO, name: "Horizon Pro", priceGbp: 1000, tokenAllowance: 1000000, priority: 2, description: "Access to all models", modelAccess: ["zenith-1.1", "halo-1.5", "halo-2.5"], features: ["1M tokens/billing cycle", "All models", "Standard priority"] },
-    { slug: PlanSlug.ULTRA, name: "Horizon Ultra", priceGbp: 2000, tokenAllowance: 5000000, priority: 3, description: "Maximum power", modelAccess: ["zenith-1.1", "halo-1.5", "halo-2.5"], features: ["5M tokens/billing cycle", "All models", "Highest priority"] },
+    { slug: PlanSlug.PRO, name: "Horizon Pro", priceGbp: 1000, tokenAllowance: 1000000, priority: 2, description: "Advanced models through Pro", modelAccess: ["zenith-1.1", "halo-1.5", "halo-2.5"], features: ["1M tokens/billing cycle", "Zenith-1.1, Halo 1.5, Halo 2.5", "Standard priority"] },
+    { slug: PlanSlug.ULTRA, name: "Horizon Ultra", priceGbp: 2000, tokenAllowance: 5000000, priority: 3, description: "Maximum power", modelAccess: ["zenith-1.1", "halo-1.5", "halo-2.5", "nova-5.2"], features: ["5M tokens/billing cycle", "All models", "Highest priority"] },
   ];
   for (const p of plans) {
     await prisma.plan.upsert({
@@ -23,8 +23,9 @@ async function main() {
   const baseUrl = process.env.AI_SERVER_BASE_URL || null;
   const models = [
     { name: "Zenith-1.1", slug: "zenith-1.1", description: "Horizon's free flagship model. Fast, capable, and accessible to everyone.", tier: ModelTier.FREE, minPlan: PlanSlug.FREE, badge: "FREE MODEL", apiModelId: "Zenith-1.1:latest" },
-    { name: "Halo 1.5", slug: "halo-1.5", description: "Advanced reasoning and coding model for subscribers.", tier: ModelTier.PAID, minPlan: PlanSlug.PRO, badge: "PAID MODEL", apiModelId: "Halo-1:latest" },
+    { name: "Halo 1.5", slug: "halo-1.5", description: "Advanced reasoning and coding model, now free.", tier: ModelTier.FREE, minPlan: PlanSlug.FREE, badge: "FREE MODEL", apiModelId: "Halo-1:latest" },
     { name: "Halo 2.5", slug: "halo-2.5", description: "Flagship Horizon model with top-tier performance.", tier: ModelTier.PAID, minPlan: PlanSlug.PRO, badge: "FLAGSHIP MODEL", apiModelId: "Halo2.5:latest" },
+    { name: "Nova 5.2", slug: "nova-5.2", description: "An independent ultra-tier knowledge-first model, reserved for Ultra subscribers.", tier: ModelTier.PAID, minPlan: PlanSlug.ULTRA, badge: "ULTRA EXCLUSIVE", apiModelId: "Nova5.2:latest" },
   ];
   for (const m of models) {
     await prisma.model.upsert({

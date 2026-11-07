@@ -1,4 +1,4 @@
-import { NextRequest } from "next/server";
+// no NextRequest import needed
 import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
 import { getActivePlan, getRemainingTokens } from "@/lib/tokens";

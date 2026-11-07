@@ -35,7 +35,7 @@ function evaluate(expr: string): number {
       const sign = s[i++] === "-" ? -1 : 1;
       return sign * parseFactor();
     }
-    let start = i;
+    const start = i;
     while (i < s.length && /[0-9.]/.test(s[i])) i++;
     if (i === start) throw new Error("expected number");
     const n = Number(s.slice(start, i));
