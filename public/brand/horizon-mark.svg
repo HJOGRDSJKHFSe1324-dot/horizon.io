@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-labelledby="hzMarkTitle">
+  <title id="hzMarkTitle">HORIZON mark</title>
+  <desc>Abstract H-shaped horizon mark with a rising accent circle.</desc>
+  <defs>
+    <style>
+      .hz-mark { fill: #F5F7FA; }
+      .hz-accent { fill: #4F7CF3; }
+      @media (prefers-color-scheme: light) {
+        .hz-mark { fill: #0F172A; }
+        .hz-accent { fill: #3B63D6; }
+      }
+    </style>
+  </defs>
+  <rect class="hz-mark" x="14" y="10" width="8" height="44" rx="4" />
+  <rect class="hz-mark" x="42" y="10" width="8" height="44" rx="4" />
+  <rect class="hz-mark" x="14" y="28" width="36" height="4" rx="2" />
+  <circle class="hz-accent" cx="32" cy="22" r="6" />
+</svg>

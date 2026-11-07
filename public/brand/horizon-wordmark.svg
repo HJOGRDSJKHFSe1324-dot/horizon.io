@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 64" width="300" height="64" role="img" aria-labelledby="hzWordmarkTitle">
+  <title id="hzWordmarkTitle">HORIZON wordmark</title>
+  <desc>HORIZON brand wordmark.</desc>
+  <defs>
+    <style>
+      .hz-word { fill: #F5F7FA; }
+      @media (prefers-color-scheme: light) {
+        .hz-word { fill: #0F172A; }
+      }
+    </style>
+  </defs>
+  <text x="8" y="46" class="hz-word"
+        font-family="'Space Grotesk', 'Plus Jakarta Sans', 'Segoe UI', system-ui, sans-serif"
+        font-size="40" font-weight="600" letter-spacing="0.06em">HORIZON</text>
+</svg>
