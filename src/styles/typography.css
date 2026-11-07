@@ -63,12 +63,13 @@ h1, h2, h3, h4, h5, h6 {
   margin: 0;
 }
 
-h1 { font-size: var(--text-48); font-weight: 600; line-height: 1.0; }
-h2 { font-size: var(--text-40); font-weight: 600; }
-h3 { font-size: var(--text-32); font-weight: 600; }
-h4 { font-size: var(--text-24); font-weight: 600; }
-h5 { font-size: var(--text-20); font-weight: 500; }
-h6 { font-size: var(--text-16); font-weight: 600; letter-spacing: var(--tracking-tight); }
+/* Fluid type scale (SA-22): scales smoothly between mobile and desktop. */
+h1 { font-size: clamp(2rem, 1.25rem + 3.125vw, 3rem); font-weight: 600; line-height: 1.0; }
+h2 { font-size: clamp(1.875rem, 1.375rem + 2.5vw, 2.5rem); font-weight: 600; }
+h3 { font-size: clamp(1.5rem, 1.125rem + 1.875vw, 2rem); font-weight: 600; }
+h4 { font-size: clamp(1.25rem, 1.125rem + 0.625vw, 1.5rem); font-weight: 600; }
+h5 { font-size: clamp(1.125rem, 1.0625rem + 0.3125vw, 1.25rem); font-weight: 500; }
+h6 { font-size: clamp(1rem, 0.9375rem + 0.3125vw, 1rem); font-weight: 600; letter-spacing: var(--tracking-tight); }
 
 /* Paragraph spacing & rhythm */
 p { margin: 0 0 1rem; }
@@ -125,11 +126,11 @@ code {
   text-transform: uppercase;
 }
 
-/* Responsive type tuning */
-@media (max-width: 768px) {
-  h1 { font-size: var(--text-32); }
-  h2 { font-size: var(--text-24); }
-  h3 { font-size: var(--text-20); }
+/* Fluid type already clamps across breakpoints; keep a modest cap for very small screens. */
+@media (max-width: 380px) {
+  h1 { font-size: 1.75rem; }
+  h2 { font-size: 1.5rem; }
+  h3 { font-size: 1.25rem; }
 }
 
 /* Reduced motion: no type animation here, respected globally */

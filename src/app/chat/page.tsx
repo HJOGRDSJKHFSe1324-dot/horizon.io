@@ -84,6 +84,7 @@ function ChatInner() {
 
   const fileInputRef = useRef<HTMLInputElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   useEffect(() => {
     if (navigator?.geolocation) {
@@ -143,31 +144,34 @@ function ChatInner() {
 
   const handleDelete = (id: string) => { deleteConv(id); };
 
-  const handleNewConv = () => { newConv(); };
+  const handleNewConv = () => { newConv(); setSidebarOpen(false); };
 
-  const handleSelectConv = (id: string) => { setActiveId(id); };
+  const handleSelectConv = (id: string) => { setActiveId(id); setSidebarOpen(false); };
 
   return (
     <main id="main" className="h-screen flex flex-col">
       <Nav />
       <div className="flex-1 flex overflow-hidden">
+        {/* mobile sidebar overlay */}
+        {sidebarOpen && <button onClick={() => setSidebarOpen(false)} className="fixed inset-0 z-40 bg-black/60 md:hidden" aria-label="Close conversations overlay" />}
         {/* sidebar */}
-        <aside className="w-72 border-r border-white/5 flex flex-col bg-[#070a12]">
-          <div className="p-4">
-            <button onClick={handleNewConv} className="w-full py-2.5 rounded-xl bg-white/10 hover:bg-white/15 flex items-center justify-center gap-2 text-sm">
+        <aside aria-label="Conversations" className={`${sidebarOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"} fixed md:static inset-y-0 left-0 z-50 md:z-auto w-72 max-w-[85vw] border-r border-white/5 flex flex-col bg-[#070a12] transition-transform duration-200`}>
+          <div className="flex items-center justify-between p-4">
+            <button onClick={handleNewConv} className="flex-1 py-2.5 rounded-xl bg-white/10 hover:bg-white/15 flex items-center justify-center gap-2 text-sm">
               <Plus size={16} /> New chat
             </button>
+            <button onClick={() => setSidebarOpen(false)} aria-label="Close conversations" className="md:hidden ml-2 px-2 py-1 rounded-lg border border-white/10 text-xs">Close</button>
           </div>
           <div className="flex-1 overflow-y-auto scrollbar-thin px-2">
             {conversations.map((c: any) => (
-              <div key={c.id} className={`group flex items-center gap-2 px-3 py-2 rounded-lg cursor-pointer ${activeId === c.id ? "bg-white/10" : "hover:bg-white/5"}`}>
+              <div key={c.id} role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); handleSelectConv(c.id); } }} className={`group flex items-center gap-2 px-3 py-2 rounded-lg cursor-pointer ${activeId === c.id ? "bg-white/10" : "hover:bg-white/5"}`}>
                 <div onClick={() => handleSelectConv(c.id)} className="flex-1 truncate text-sm">{c.title || "Untitled"}</div>
                 {editingId === c.id ? (
                   <input value={editTitle} onChange={e => setEditTitle(e.target.value)} onBlur={() => handleRename(c.id)} onKeyDown={e => { if (e.key === "Enter") handleRename(c.id); }} className="w-20 text-xs bg-white/10 rounded px-1" autoFocus />
                 ) : (
                   <>
-                    <button onClick={() => startEdit(c)} className="opacity-0 group-hover:opacity-100 text-slate-400 hover:text-white"><Pencil size={12} /></button>
-                    <button onClick={() => handleDelete(c.id)} className="opacity-0 group-hover:opacity-100 text-slate-400 hover:text-red-400"><Trash2 size={12} /></button>
+                    <button onClick={() => startEdit(c)} aria-label="Rename conversation" className="opacity-0 group-hover:opacity-100 text-slate-400 hover:text-white"><Pencil size={12} aria-hidden="true" /></button>
+                    <button onClick={() => handleDelete(c.id)} aria-label="Delete conversation" className="opacity-0 group-hover:opacity-100 text-slate-400 hover:text-red-400"><Trash2 size={12} aria-hidden="true" /></button>
                   </>
                 )}
               </div>
@@ -179,6 +183,7 @@ function ChatInner() {
         <section className="flex-1 flex flex-col">
           {/* top bar */}
           <div className="h-14 border-b border-white/5 flex items-center justify-between px-6 gap-4">
+            <button onClick={() => setSidebarOpen(true)} className="md:hidden px-2 py-1 rounded-lg border border-white/10 text-xs" aria-label="Open conversations">Chats</button>
             <Dropdown
               value={modelSlug}
               onChange={setModelSlug}
@@ -193,7 +198,7 @@ function ChatInner() {
           </div>
 
           {/* messages */}
-          <div ref={scrollRef} className="flex-1 overflow-y-auto scrollbar-thin px-6 py-6 space-y-6">
+          <div ref={scrollRef} role="log" aria-live="polite" aria-relevant="additions" className="flex-1 overflow-y-auto scrollbar-thin px-6 py-6 space-y-6">
             {messages.length === 0 && (
               <ChatEmptyState onPromptSelect={setInput} />
             )}
@@ -209,8 +214,8 @@ function ChatInner() {
                   )}
                   {m.role === "assistant" && !m._streaming && m.content && (
                     <div className="mt-2 flex gap-2 text-xs text-slate-400">
-                      <button onClick={() => copyText(m.content)} className="hover:text-white flex items-center gap-1"><Copy size={12} /> Copy</button>
-                      <button onClick={() => regenerate(m)} className="hover:text-white flex items-center gap-1"><RefreshCw size={12} /> Regenerate</button>
+                      <button onClick={() => copyText(m.content)} aria-label="Copy message" className="hover:text-white flex items-center gap-1"><Copy size={12} aria-hidden="true" /> Copy</button>
+                      <button onClick={() => regenerate(m)} aria-label="Regenerate response" className="hover:text-white flex items-center gap-1"><RefreshCw size={12} aria-hidden="true" /> Regenerate</button>
                     </div>
                   )}
                 </div>
@@ -226,7 +231,7 @@ function ChatInner() {
                   {attachments.map((a: any) => (
                     <span key={a.id} className="text-xs px-2 py-1 rounded-full bg-white/10 border border-white/10 flex items-center gap-1">
                       {a.fileName}
-                      <button onClick={() => removeAttachment(a.id)} className="hover:text-red-400"><Trash2 size={10} /></button>
+                      <button onClick={() => removeAttachment(a.id)} aria-label={`Remove ${a.fileName}`} className="hover:text-red-400"><Trash2 size={10} aria-hidden="true" /></button>
                     </span>
                   ))}
                 </div>
@@ -237,12 +242,13 @@ function ChatInner() {
                   onChange={e => setInput(e.target.value)}
                   onKeyDown={e => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); send(); } }}
                   placeholder={siteCopy.chat.composerPlaceholder}
+                  aria-label="Message HORIZON"
                   rows={1}
                   className="w-full resize-none px-3 py-2 bg-transparent outline-none text-sm"
                 />
                 <div className="flex items-center justify-between gap-2 mt-2">
                   <div className="flex items-center gap-2">
-                    <input ref={fileInputRef} type="file" multiple hidden onChange={e => { if (e.target.files) Array.from(e.target.files).forEach(uploadFile); e.target.value = ""; }} />
+                    <input ref={fileInputRef} type="file" multiple hidden aria-label="Upload files" onChange={e => { if (e.target.files) Array.from(e.target.files).forEach(uploadFile); e.target.value = ""; }} />
                     <button onClick={() => fileInputRef.current?.click()} className="text-xs px-2 py-1 rounded-lg bg-white/10 hover:bg-white/15" title="Add files or zips">+ Files</button>
                   </div>
                   <div className="flex items-center gap-2 flex-wrap justify-end">
@@ -273,12 +279,12 @@ function ChatInner() {
                       Web search
                     </button>
                     {streaming ? (
-                      <button onClick={stop} className="px-3 py-1.5 rounded-lg bg-red-500/20 text-red-300 hover:bg-red-500/30" title="Stop">
-                        <Square size={14} />
+                      <button onClick={stop} aria-label="Stop generating" className="px-3 py-1.5 rounded-lg bg-red-500/20 text-red-300 hover:bg-red-500/30" title="Stop">
+                        <Square size={14} aria-hidden="true" />
                       </button>
                     ) : (
-                      <button onClick={() => send()} disabled={!input.trim()} className="px-4 py-1.5 rounded-lg bg-white text-black disabled:opacity-40">
-                        <Send size={16} />
+                      <button onClick={() => send()} disabled={!input.trim()} aria-label="Send message" className="px-4 py-1.5 rounded-lg bg-white text-black disabled:opacity-40">
+                        <Send size={16} aria-hidden="true" />
                       </button>
                     )}
                   </div>

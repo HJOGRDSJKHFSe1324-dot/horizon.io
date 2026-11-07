@@ -185,25 +185,36 @@ html.light {
   *, *::before, *::after { box-sizing: border-box; }
   html {
     -webkit-text-size-adjust: 100%;
+    -webkit-overflow-scrolling: touch;
     tab-size: 4;
     scroll-behavior: smooth;
     background: var(--bg);
     color: var(--fg);
   }
+  /* Safari/iOS dynamic viewport fallback (SA-22) */
   body {
     min-height: 100vh;
+    min-height: 100dvh;
     background: var(--bg);
     color: var(--fg);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
   }
+  .min-h-screen { min-height: 100vh; min-height: 100dvh; }
+  .h-screen { height: 100vh; height: 100dvh; }
   img, picture, video, canvas, svg { display: block; max-width: 100%; height: auto; }
   button, input, select, textarea { font: inherit; }
   button { cursor: pointer; }
   a { color: inherit; text-decoration: none; }
   ::selection { background: var(--accent); color: var(--accent-fg); }
-  :focus-visible { outline: none; box-shadow: var(--shadow-focus); border-radius: var(--radius-sm); }
+  :focus-visible {
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+    box-shadow: var(--shadow-focus);
+    border-radius: var(--radius-sm);
+  }
+  :focus:not(:focus-visible) { box-shadow: none; }
 
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
@@ -213,6 +224,8 @@ html.light {
       transition-duration: 0.01ms !important;
       scroll-behavior: auto !important;
     }
+    .reveal { opacity: 1; transform: none; }
+    [class*="animate-"], [class*="motion-"] { animation: none !important; }
   }
 }
 
@@ -315,3 +328,48 @@ html.light {
 /* Legacy dark-first softening (keep) */
 html.light .text-slate-100, html.light .text-white { color: var(--fg) !important; }
 html.light .text-slate-200, html.light .text-slate-300, html.light .text-slate-400, html.light .text-slate-500 { color: var(--muted) !important; }
+
+/* ==========================================================================
+   SA-22 Responsive / Cross-browser helpers
+   ========================================================================== */
+
+/* Safari-friendly smooth scrolling + momentum */
+html { scroll-behavior: smooth; -webkit-overflow-scrolling: touch; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
+
+/* Container padding responsive reduction (SA-22) */
+@media (max-width: 640px) {
+  .container-page,
+  .container-xl,
+  .container-lg,
+  .container-md,
+  .container-sm,
+  .container-xs {
+    padding-inline: var(--space-4);
+  }
+}
+
+/* Fluid helpers already in Tailwind utilities; ensure no horizontal overflow */
+html, body { overflow-x: hidden; }
+img, video, canvas, svg, iframe { max-width: 100%; height: auto; }
+
+/* Backdrop blur Safari fallback (SA-22) */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  [class*="backdrop-blur"] {
+    background-color: var(--bg-raised) !important;
+  }
+}
+/* Vendor-prefixed backdrop-blur for Safari */
+[class*="backdrop-blur"] {
+  -webkit-backdrop-filter: var(--tw-backdrop-blur, blur(8px));
+  backdrop-filter: var(--tw-backdrop-blur, blur(8px));
+}
+
+/* Coarse-pointer touch targets (SA-22) */
+@media (pointer: coarse) {
+  button, a, [role="button"] { min-height: 40px; }
+}
+
+/* Dynamic viewport fallback for Safari iOS bars is also handled via utility class overrides above. */
