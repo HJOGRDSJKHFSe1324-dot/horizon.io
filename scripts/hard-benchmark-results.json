@@ -1,0 +1,177 @@
+{
+  "sampleSize": 12,
+  "models": {
+    "Zenith-1.1:latest": {
+      "total": 12,
+      "correct": 5,
+      "accuracy": 41.7,
+      "averageLatencyMs": 83,
+      "averageTokensPerSecond": 12.1,
+      "rows": [
+        {
+          "correct": false,
+          "latencyMs": 393
+        },
+        {
+          "correct": true,
+          "latencyMs": 48
+        },
+        {
+          "correct": false,
+          "latencyMs": 49
+        },
+        {
+          "correct": false,
+          "latencyMs": 44
+        },
+        {
+          "correct": false,
+          "latencyMs": 63
+        },
+        {
+          "correct": true,
+          "latencyMs": 57
+        },
+        {
+          "correct": false,
+          "latencyMs": 63
+        },
+        {
+          "correct": true,
+          "latencyMs": 68
+        },
+        {
+          "correct": true,
+          "latencyMs": 61
+        },
+        {
+          "correct": true,
+          "latencyMs": 44
+        },
+        {
+          "correct": false,
+          "latencyMs": 44
+        },
+        {
+          "correct": false,
+          "latencyMs": 61
+        }
+      ]
+    },
+    "Nova5.2:latest": {
+      "total": 12,
+      "correct": 9,
+      "accuracy": 75,
+      "averageLatencyMs": 1083,
+      "averageTokensPerSecond": 0.9,
+      "rows": [
+        {
+          "correct": false,
+          "latencyMs": 10040
+        },
+        {
+          "correct": true,
+          "latencyMs": 248
+        },
+        {
+          "correct": false,
+          "latencyMs": 290
+        },
+        {
+          "correct": true,
+          "latencyMs": 290
+        },
+        {
+          "correct": true,
+          "latencyMs": 260
+        },
+        {
+          "correct": true,
+          "latencyMs": 261
+        },
+        {
+          "correct": false,
+          "latencyMs": 264
+        },
+        {
+          "correct": true,
+          "latencyMs": 262
+        },
+        {
+          "correct": true,
+          "latencyMs": 262
+        },
+        {
+          "correct": true,
+          "latencyMs": 261
+        },
+        {
+          "correct": true,
+          "latencyMs": 263
+        },
+        {
+          "correct": true,
+          "latencyMs": 293
+        }
+      ]
+    },
+    "Nova5.4-Ultra:latest": {
+      "total": 12,
+      "correct": 10,
+      "accuracy": 83.3,
+      "averageLatencyMs": 3321,
+      "averageTokensPerSecond": 0.3,
+      "rows": [
+        {
+          "correct": false,
+          "latencyMs": 30425
+        },
+        {
+          "correct": true,
+          "latencyMs": 881
+        },
+        {
+          "correct": false,
+          "latencyMs": 888
+        },
+        {
+          "correct": true,
+          "latencyMs": 860
+        },
+        {
+          "correct": true,
+          "latencyMs": 821
+        },
+        {
+          "correct": true,
+          "latencyMs": 851
+        },
+        {
+          "correct": true,
+          "latencyMs": 885
+        },
+        {
+          "correct": true,
+          "latencyMs": 843
+        },
+        {
+          "correct": true,
+          "latencyMs": 866
+        },
+        {
+          "correct": true,
+          "latencyMs": 849
+        },
+        {
+          "correct": true,
+          "latencyMs": 849
+        },
+        {
+          "correct": true,
+          "latencyMs": 828
+        }
+      ]
+    }
+  },
+  "ranAt": "2026-11-08T13:05:05.510Z"
+}
