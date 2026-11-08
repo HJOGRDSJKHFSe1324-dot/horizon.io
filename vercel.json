@@ -1,0 +1,40 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "services": {
+    "app": {
+      "root": ".",
+      "framework": "nextjs",
+      "bindings": [
+        {
+          "type": "service",
+          "service": "local-ai-server",
+          "format": "url",
+          "env": "AI_SERVER_BASE_URL"
+        }
+      ]
+    },
+    "local-ai-server": {
+      "root": "local-ai-server",
+      "framework": "fastapi",
+      "env": [
+        "AI_SERVER_API_KEY",
+        "OLLAMA_BASE_URL",
+        "MODELS",
+        "DEFAULT_MODEL",
+        "PORT"
+      ]
+    },
+    "rust-gateway": {
+      "root": "rust-gateway",
+      "runtime": "rust"
+    }
+  },
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": {
+        "service": "app"
+      }
+    }
+  ]
+}

@@ -10,7 +10,9 @@ export interface StreamResult {
 }
 
 function resolveEndpoint(model: { apiBaseUrl: string | null; apiModelId: string | null; apiType: string }) {
-  const base = (model.apiBaseUrl || "").replace(/\/+$/, "");
+  // Vercel service bindings expose the AI backend through AI_SERVER_BASE_URL.
+  // In local development the saved model base URL may be used when no override exists.
+  const base = (process.env.AI_SERVER_BASE_URL || model.apiBaseUrl || "").replace(/\/+$/, "");
   if (!base) throw new Error("Model API base URL is not configured.");
   const modelId = model.apiModelId || "default";
   let url = base;
@@ -26,7 +28,7 @@ export async function checkAIServerHealth(): Promise<{
   error?: string;
 }> {
   const model = await prisma.model.findFirst({ where: { enabled: true } });
-  const base = model?.apiBaseUrl || process.env.AI_SERVER_BASE_URL || "";
+  const base = process.env.AI_SERVER_BASE_URL || model?.apiBaseUrl || "";
   if (!base) return { ok: false, latencyMs: 0, error: "No AI server base URL configured." };
   const t0 = Date.now();
   try {
