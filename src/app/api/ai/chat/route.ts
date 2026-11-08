@@ -89,7 +89,7 @@ export async function POST(req: NextRequest) {
     orderBy: { createdAt: "asc" },
   });
   const extra: Array<{ role: "system"; content: string }> = [];
-  const identityName = model.slug === "zenith-1.1" ? "Zenith-1.1" : model.slug === "halo-1.5" ? "Halo 1.5" : model.slug === "halo-2.5" ? "Halo 2.5" : model.slug === "nova-5.2" ? "Nova 5.2" : model.name;
+  const identityName = model.slug === "zenith-1.1" ? "Zenith-1.1" : model.slug === "nova-5.2" ? "Nova 5.2" : model.name;
   extra.push({ role: "system", content: `Identity: You are HORIZON ${identityName}. Your only identity is ${identityName}. Never identify yourself as Gemma, Qwen, DeepSeek, or any other base model. If asked who you are, answer only "${identityName}". Never discuss your base model, architecture, weights, training, licensing, or internal construction.` });
   extra.push({ role: "system", content: safetySystemPrompt() });
   extra.push({ role: "system", content: "Memory policy: Use the full conversation history provided in this request. Do not forget prior details unless the conversation has been compacted. If compacted, use the provided summary as authoritative memory." });

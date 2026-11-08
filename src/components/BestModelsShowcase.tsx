@@ -19,8 +19,6 @@ export type BestModelsShowcaseProps = {
 
 const STRENGTHS: Record<string, string[]> = {
   "zenith-1.1": ["Fast responses", "Everyday chat", "Summaries"],
-  "halo-1.5": ["Reasoning", "Coding", "Long context"],
-  "halo-2.5": ["Long-form analysis", "Generation", "Premium depth"],
   "nova-5.2": ["Knowledge tasks", "Knowledge-first depth", "Long context"],
   "nova-5.4-ultra": ["Flagship reasoning", "Deepest analysis", "Long context"],
 };

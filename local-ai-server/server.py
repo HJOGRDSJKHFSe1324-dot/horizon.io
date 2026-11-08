@@ -25,7 +25,7 @@ if os.path.exists(_env_path):
 API_KEY = os.getenv("AI_SERVER_API_KEY", "")
 PORT = int(os.getenv("PORT", "8080"))
 OLLAMA_BASE_URL = os.getenv("OLLAMA_BASE_URL", "http://127.0.0.1:11434").rstrip("/")
-MODELS = [m.strip().strip('"').strip("'") for m in os.getenv("MODELS", "Zenith-1.1:latest,Halo-1:latest,Halo2.5:latest,Nova5.2:latest,Nova5.4-Ultra:latest").split(",") if m.strip()]
+MODELS = [m.strip().strip('"').strip("'") for m in os.getenv("MODELS", "Zenith-1.1:latest,Nova5.2:latest,Nova5.4-Ultra:latest").split(",") if m.strip()]
 DEFAULT_MODEL = os.getenv("DEFAULT_MODEL", MODELS[0] if MODELS else "")
 
 app = FastAPI(title="Horizon Local AI")

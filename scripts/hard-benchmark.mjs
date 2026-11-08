@@ -1,7 +1,7 @@
 import fs from "node:fs";
 
 const BASE = "http://127.0.0.1:8080";
-const MODELS = ["Zenith-1.1:latest","Halo-1:latest","Halo2.5:latest","Nova5.2:latest","Nova5.4-Ultra:latest"];
+const MODELS = ["Zenith-1.1:latest","Nova5.2:latest","Nova5.4-Ultra:latest"];
 
 const questions = [
   { id: 1, category: "Math", prompt: "Question: (17 * 19) mod 7 equals what?\nA) 0\nB) 1\nC) 2\nD) 3\nE) 4", correct: "B" },

@@ -48,20 +48,6 @@ export const siteCopy = {
         chip: "Free",
       },
       {
-        name: "Halo 1.5",
-        slug: "halo-1.5",
-        tag: "FREE MODEL",
-        desc: "Stronger reasoning, coding, and long-context work.",
-        chip: "Free",
-      },
-      {
-        name: "Halo 2.5",
-        slug: "halo-2.5",
-        tag: "FREE MODEL",
-        desc: "Deep model for long-form analysis and generation, now free forever.",
-        chip: "Free",
-      },
-      {
         name: "Nova 5.4 Ultra",
         slug: "nova-5.4-ultra",
         tag: "FLAGSHIP",
@@ -72,7 +58,7 @@ export const siteCopy = {
   },
   modelsPage: {
     title: "Models",
-    freeNote: "Zenith-1.1, Halo 1.5, and Halo 2.5 are free forever. Nova models are paid and require Pro at minimum.",
+    freeNote: "Zenith-1.1 is free forever. Nova models are paid and require Pro at minimum.",
     plansLabel: "Plan",
     plansLabelPlural: "Plans",
     available: "Available",
@@ -133,7 +119,7 @@ export const siteCopy = {
       "Summarise this conversation so far.",
       "Write a short Python script to clean a CSV file.",
       "Explain how token billing works here in plain terms.",
-      "Compare Zenith-1.1, Halo 1.5, and Halo 2.5 for my use case.",
+      "Compare Zenith-1.1, Nova 5.2, and Nova 5.4 Ultra for my use case.",
     ],
     emptyStatePromptHint: "Click a prompt to load it into the composer.",
     loading: "Loading...",

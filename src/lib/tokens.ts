@@ -25,8 +25,8 @@ export async function isPromoActive(): Promise<boolean> {
 
 export async function effectiveMinPlan(model: { slug: string; minPlan: unknown }): Promise<string> {
   // Fixed availability requested for HORIZON:
-  // Zenith-1.1 and Halo 1.5 are free; Halo 2.5/Nova require paid plans.
-  if (model.slug === "zenith-1.1" || model.slug === "halo-1.5") return "FREE";
+  // Zenith-1.1 is free; Nova models require Pro.
+  if (model.slug === "zenith-1.1") return "FREE";
   return String(model.minPlan);
 }
 

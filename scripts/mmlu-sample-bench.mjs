@@ -1,7 +1,7 @@
 import fs from "node:fs";
 
 const BASE = "http://127.0.0.1:8080";
-const MODELS = ["Zenith-1.1:latest","Halo-1:latest","Halo2.5:latest","Nova5.2:latest","Nova5.4-Ultra:latest"];
+const MODELS = ["Zenith-1.1:latest","Nova5.2:latest","Nova5.4-Ultra:latest"];
 
 const questions = [
   { id: 1, category: "Math", prompt: "Question: If x = 2 and y = 3, what is x^2 + y^2?\nA) 4\nB) 13\nC) 25\nD) 36\nE) 6", correct: "B" },

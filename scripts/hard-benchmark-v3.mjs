@@ -1,6 +1,6 @@
 import fs from "node:fs";
 const BASE = "http://127.0.0.1:8080";
-const MODELS = ["Zenith-1.1:latest","Halo-1:latest","Halo2.5:latest","Nova5.2:latest","Nova5.4-Ultra:latest"];
+const MODELS = ["Zenith-1.1:latest","Nova5.2:latest","Nova5.4-Ultra:latest"];
 const questions = [
   { id: 1, category: "Math", prompt: "Question: What is ((7 + 3) * (4 - 1) - 5) / 3?\nA) 7\nB) 8\nC) 9\nD) 10\nE) 11", correct: "C" },
   { id: 2, category: "Programming", prompt: "Question: In Python, what is the value of bool([]) == False?\nA) True\nB) False\nC) None\nD) Error", correct: "A" },
