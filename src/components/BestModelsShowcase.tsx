@@ -25,8 +25,6 @@ const STRENGTHS: Record<string, string[]> = {
 
 const ROLES: Record<string, string> = {
   "zenith-1.1": "Baseline workhorse",
-  "halo-1.5": "Reasoning specialist",
-  "halo-2.5": "Premium deep model",
   "nova-5.2": "Knowledge-first paid model",
   "nova-5.4-ultra": "Flagship model",
 };

@@ -5,7 +5,7 @@
 //   - prisma/seed.ts (model names, slugs, tiers, descriptions, badges, plans)
 //   - src/content/site-copy.ts (product positioning copy)
 //   - Modelfile OTHER_MODELS notes (parameter counts + self-reported benchmark
-//     comparisons such as Zenith 52.94% / Halo 1.5 47.06% / Halo 2.5 82.35%)
+//     comparisons such as Zenith 52.94% (legacy) and Nova 47.06% (legacy).
 //   - The HORIZON database benchmark_results table (measured, published runs)
 //
 // Benchmarks that are not backed by real data are stored as null with
